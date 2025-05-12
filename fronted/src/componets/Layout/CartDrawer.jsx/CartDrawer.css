@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+  transition: right 0.3s ease-in-out;
+  font-family: 'Georgia', serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-title {
+  font-size: 24px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button {
+  font-size: 28px;
+  color: #1a1a1a;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover .close-button {
+  color: #d4af37;
+  transform: rotate(90deg);
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0 25px;
+}
+
+.drawer-content {
+  flex: 1;
+  padding: 20px 25px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.checkOut-button {
+  position: sticky;
+  bottom: 0;
+  background-color: #f9f9f9;
+  padding: 20px 25px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  z-index: 1;
+}
+
+.chekout-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+.chekout-button:hover {
+  background-color: #d4af37;
+  transform: scale(1.02);
+}
+
+.checkOut-button p {
+  font-size: 12px;
+  color: #4a4a4a;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .cart-drawer {
+    width: 320px;
+    right: -320px;
+  }
+
+  .cart-drawer.open {
+    right: 0;
+  }
+
+  .drawer-header {
+    padding: 15px 20px;
+  }
+
+  .cart-title {
+    font-size: 20px;
+  }
+
+  .close-button {
+    font-size: 24px;
+  }
+
+  .divider {
+    margin: 0 20px;
+  }
+
+  .drawer-content {
+    padding: 15px 20px;
+  }
+
+  .checkOut-button {
+    padding: 15px 20px;
+  }
+
+  .chekout-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .checkOut-button p {
+    font-size: 10px;
+    margin-top: 8px;
+  }
+}
