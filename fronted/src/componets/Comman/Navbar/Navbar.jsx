@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { FaBagShopping } from "react-icons/fa6";
-import { HiBars3BottomRight } from "react-icons/hi2";
 import { useState } from "react";
 import "./Navbar.css";
 import SearchBar from "../Searchbar/SearchBar";
-import CartDrawer from "../../Layout/CartDrawer.jsx/CartDrawer";
+import CartDrawer from "../../Layout/CartDrawer/CartDrawer";
 
 function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -27,7 +26,7 @@ function Navbar() {
 
         {/* Center - Navigation Links */}
         <div className="nav-links">
-          <Link to="/men" className="men">
+          <Link to="/collections/all" className="men">
             Men
           </Link>
           <Link to="/women" className="women">
@@ -53,11 +52,11 @@ function Navbar() {
           </button> */}
 
           <Link to="/profile" className="profile-icon">
-            <HiOutlineUserCircle className="icon" />
+            <HiOutlineUserCircle className="nav-icons" />
           </Link>
 
           <button onClick={toggleCartDrawer} className="cart-button">
-            <FaBagShopping className="icon" />
+            <FaBagShopping className="nav-icons" />
             <span className="cart-count">*</span>
           </button>
         </div>

@@ -5,7 +5,8 @@
     gap: 50px;
     /* flex-wrap: wrap; */
     /* justify-content: space-between; */
-    margin: 6% 1.5%;
+    padding: 6% 1.5%;
+    background-color: #f9f9f9;
 }
 
 .men-section,

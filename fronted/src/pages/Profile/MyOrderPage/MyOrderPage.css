@@ -1,0 +1,140 @@
+/* MyOrderPage.css */
+
+.my-order-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  .loading-spinner {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .no-products {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 3rem;
+  }
+  
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .orders-table thead {
+    background-color: #f8f9fa;
+  }
+  
+  .orders-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .orders-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    vertical-align: middle;
+  }
+  
+  .orders-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .orders-table tr:hover {
+    background-color: #f8f9fa;
+  }
+
+  
+  .product-image {
+    height:  100px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+    padding: 5px;
+  }
+  
+  /* Status badges */
+  .orders-table td:nth-child(6) {
+    font-weight: 500;
+  }
+  
+  .orders-table td:nth-child(6):before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .orders-table tr td:nth-child(6):contains("Paid"):before {
+    background-color: #28a745;
+  }
+  
+  .orders-table tr td:nth-child(6):contains("Pending"):before {
+    background-color: #ffc107;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .my-order-page {
+      padding: 1rem;
+    }
+    
+    .orders-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  /* Animation for loading state */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-spinner::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+  }

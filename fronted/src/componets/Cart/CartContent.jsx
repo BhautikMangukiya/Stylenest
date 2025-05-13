@@ -1,133 +1,147 @@
-import React, { useState } from "react";
-import "./CartContent.css";
+import React, { useState, useContext } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import "./CartContent.css";
 
-function CartContent() {
-  const [cartProducts, setCartProducts] = useState([
-    {
-      productId: 1,
-      name: "T-shirt",
-      size: "M",
-      color: "Red",
-      quantity: 1,
-      price: 15,
-      image: "https://picsum.photos/200?random=1",
-    },
-    {
-      productId: 2,
-      name: "Jeans",
-      size: "L",
-      color: "Blue",
-      quantity: 2,
-      price: 40,
-      image: "https://picsum.photos/200?random=2",
-    },
-    {
-      productId: 3,
-      name: "Sneakers",
-      size: "9",
-      color: "White",
-      quantity: 1,
-      price: 60,
-      image: "https://picsum.photos/200?random=3",
-    },
-    {
-      productId: 4,
-      name: "Hoodie",
-      size: "XL",
-      color: "Black",
-      quantity: 1,
-      price: 35,
-      image: "https://picsum.photos/200?random=4",
-    },
-    {
-      productId: 5,
-      name: "Cap",
-      size: "One Size",
-      color: "Green",
-      quantity: 3,
-      price: 10,
-      image: "https://picsum.photos/200?random=5",
-    },
-    {
-      productId: 6,
-      name: "Jacket",
-      size: "M",
-      color: "Gray",
-      quantity: 1,
-      price: 80,
-      image: "https://picsum.photos/200?random=6",
-    },
-  ]);
+// Create CartContext
+const CartContext = React.createContext();
+
+// Cart Provider component
+export const CartProvider = ({ children }) => {
+  const [cartProducts, setCartProducts] = useState([]);
+
+  // Add to cart function
+  const addToCart = (product) => {
+    setCartProducts((prev) => {
+      // Check if product already exists in cart
+      const existingProduct = prev.find(
+        (item) => 
+          item.productId === product.productId &&
+          item.size === product.size &&
+          item.color === product.color
+      );
+      
+      if (existingProduct) {
+        // Update quantity if product exists
+        return prev.map((item) =>
+          item.productId === product.productId &&
+          item.size === product.size &&
+          item.color === product.color
+            ? { ...item, quantity: item.quantity + product.quantity }
+            : item
+        );
+      }
+      // Add new product if it doesn't exist
+      return [...prev, product];
+    });
+  };
 
   // Update quantity
   const updateQuantity = (productId, delta) => {
-    setCartProducts(cartProducts.map(product =>
-      product.productId === productId
-        ? { ...product, quantity: Math.max(1, product.quantity + delta) }
-        : product
-    ));
+    setCartProducts((prev) =>
+      prev.map((product) =>
+        product.productId === productId
+          ? { ...product, quantity: Math.max(1, product.quantity + delta) }
+          : product
+      )
+    );
   };
 
   // Remove item
-  const handleRemoveProduct = (productId) => {
-    setCartProducts(cartProducts.filter(product => product.productId !== productId));
+  const removeProduct = (productId) => {
+    setCartProducts((prev) => prev.filter((product) => product.productId !== productId));
   };
 
   // Calculate total price
-  const totalPrice = cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+  const totalPrice = cartProducts.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+
+  return (
+    <CartContext.Provider 
+      value={{ 
+        cartProducts, 
+        addToCart, 
+        updateQuantity, 
+        removeProduct, 
+        totalPrice 
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+// Custom hook to use the cart context
+export const useCart = () => useContext(CartContext);
+
+// Cart Content Component
+function CartContent() {
+  const { 
+    cartProducts, 
+    updateQuantity, 
+    removeProduct, 
+    totalPrice 
+  } = useCart();
+
+  if (cartProducts.length === 0) {
+    return (
+      <div className="cart-container">
+        <p className="empty-cart">Your cart is empty.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="cart-container">
-      {cartProducts.length === 0 ? (
-        <p className="empty-cart">Your cart is empty.</p>
-      ) : (
-        <>
-          {cartProducts.map((product) => (
-            <div key={product.productId} className="cart-product">
-              {/* Product Image */}
-              <div className="cart-image">
-                <img src={product.image} alt={product.name} />
-              </div>
-        
-              {/* Product Info */}
-              <div className="cart-details">
-                <div className="product-title">
-                  <h3>{product.name}</h3>
-                  <span>Size: {product.size}</span>
-                  <span>Color: {product.color}</span>
-                </div>
-        
-                <div className="quantity-control">
-                  <button className="dec" onClick={() => updateQuantity(product.productId, -1)}>-</button>
-                  <span>{product.quantity}</span>
-                  <button className="inc" onClick={() => updateQuantity(product.productId, 1)}>+</button>
-                </div>
-              </div>
-        
-              {/* Price and Delete */}
-              <div className="cart-actions">
-                <p className="price">${(product.price * product.quantity).toFixed(2)}</p>
-                <button 
-                  className="delete-btn" 
-                  onClick={() => handleRemoveProduct(product.productId)}
-                >
-                  <MdDeleteForever />
-                </button>
-              </div>
-            </div>
-          ))}
-          <div className="cart-total">
-            <span>Total:</span>
-            <span>${totalPrice.toFixed(2)}</span>
+      {cartProducts.map((product) => (
+        <div key={`${product.productId}-${product.size}-${product.color}`} className="cart-product">
+          <div className="cart-image">
+            <img src={product.image} alt={product.name} />
           </div>
-        </>
-      )}
+
+          <div className="cart-details">
+            <div className="product-title">
+              <h3>{product.name}</h3>
+              <span>Size: {product.size}</span>
+              <span>Color: {product.color}</span>
+            </div>
+
+            <div className="quantity-control">
+              <button 
+                onClick={() => updateQuantity(product.productId, -1)}
+                aria-label="Decrease quantity"
+              >
+                -
+              </button>
+              <span>{product.quantity}</span>
+              <button 
+                onClick={() => updateQuantity(product.productId, 1)}
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div className="cart-actions">
+            <p className="price">${(product.price * product.quantity).toFixed(2)}</p>
+            <button
+              onClick={() => removeProduct(product.productId)}
+              aria-label="Remove product"
+            >
+              <MdDeleteForever />
+            </button>
+          </div>
+        </div>
+      ))}
+      
+      <div className="cart-total">
+        <span>Total:</span>
+        <span>${totalPrice.toFixed(2)}</span>
+      </div>
     </div>
   );
 }
 
 export default CartContent;
-
-//.....
-// ///// 

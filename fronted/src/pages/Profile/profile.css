@@ -1,0 +1,105 @@
+/* profile.css */
+
+.profile-page {
+  display: flex;
+  max-width: 85%;
+  margin: 2rem auto;
+  gap: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.left-section {
+  
+  min-width: 500px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.right-section {
+  flex: 2;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.profile-info p {
+  margin: 0;
+  font-size: 1rem;
+  color: #495057;
+  line-height: 1.6;
+}
+
+.profile-info strong {
+  color: #333;
+  font-weight: 600;
+  min-width: 80px;
+  display: inline-block;
+}
+
+.Logout-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+
+.Logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-page {
+    flex-direction: column;
+    margin: 1rem;
+    gap: 1rem;
+  }
+
+  .left-section,
+  .right-section {
+    width: 100%;
+    min-width: auto;
+    padding: 1.5rem;
+  }
+
+  .Logout-button {
+    width: 100%;
+  }
+}
+
+/* Animation for button hover */
+@keyframes button-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.Logout-button:hover {
+  animation: button-pulse 0.3s ease;
+}

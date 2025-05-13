@@ -1,0 +1,108 @@
+/* FeturedSection.css */
+
+.featured-section {
+    /* padding: 90px 5%; */
+    max-width: 100%;
+    margin: 0 auto;
+   padding-left: 25px ;
+   padding-right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* justify-content: center; */
+    flex-wrap: wrap;
+    gap: 20px;
+    height: 18vw;
+  }
+  
+  .feature-1, .feature-2, .feature-3, .feature-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+    min-width: 250px;
+    margin: 15px;
+    max-height: 190px;
+  }
+  
+  .feature-1:hover, .feature-2:hover, .feature-3:hover, .feature-4:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(104, 103, 103, 0.15);
+  }
+  
+  /* Icon Styling */
+  .icon {
+    font-size: 2.5rem;
+    color: #ff6b6b; /* Accent color matching FeaturedCollection */
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+  }
+  
+  .feature-1:hover .icon, .feature-2:hover .icon, .feature-3:hover .icon, .feature-4:hover .icon {
+    color: #333; /* Darker color on hover for contrast */
+  }
+  
+  /* Typography */
+  h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .featured-section {
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 5%;
+    }
+  
+    .feature-1, .feature-2, .feature-3 {
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+  
+    h4 {
+      font-size: 1.1rem;
+    }
+  
+    p {
+      font-size: 0.9rem;
+    }
+  
+    .icon {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h4 {
+      font-size: 1rem;
+    }
+  
+    p {
+      font-size: 0.85rem;
+    }
+  
+    .feature-1, .feature-2, .feature-3 {
+      padding: 20px 15px;
+    }
+  }

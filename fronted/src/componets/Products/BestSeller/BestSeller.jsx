@@ -3,6 +3,7 @@ import "./BestSeller.css";
 import elegantShirt from "../../../assets/BestSeller/PMSX17088-K6_20_283_29.jpg";
 import classicPolo from "../../../assets/BestSeller/PRISTO-WHITESFP_1.jpg";
 import { toast } from 'sonner';
+import { useCart } from "../../../componets/Cart/CartContent"; // Make sure this path is correct
 
 const mockProducts = [
   {
@@ -31,11 +32,63 @@ const mockProducts = [
   },
 ];
 
+const similarProduct = [
+  {
+    id: 1,
+    name: "Elegant Shirt",
+    price: 999,
+    description: "A premium quality cotton shirt perfect for any occasion.",
+    image: elegantShirt,
+    colorOptions: ["White", "Black", "Blue"],
+    sizes: ["S", "M", "L", "XL"],
+    brand: "FashionHub",
+    material: "100% Cotton",
+    rating: 4.5,
+  },
+  {
+    id: 2,
+    name: "Classic Polo",
+    price: 650,
+    description: "Stylish polo made from soft breathable fabric.",
+    image: classicPolo,
+    colorOptions: ["Navy", "Grey"],
+    sizes: ["S", "M", "L", "XL"],
+    brand: "UrbanStyle",
+    material: "Cotton Blend",
+    rating: 4.2,
+  },
+  {
+    id: 1,
+    name: "Elegant Shirt",
+    price: 999,
+    description: "A premium quality cotton shirt perfect for any occasion.",
+    image: elegantShirt,
+    colorOptions: ["White", "Black", "Blue"],
+    sizes: ["S", "M", "L", "XL"],
+    brand: "FashionHub",
+    material: "100% Cotton",
+    rating: 4.5,
+  },
+  {
+    id: 2,
+    name: "Classic Polo",
+    price: 650,
+    description: "Stylish polo made from soft breathable fabric.",
+    image: classicPolo,
+    colorOptions: ["Navy", "Grey"],
+    sizes: ["S", "M", "L", "XL"],
+    brand: "UrbanStyle",
+    material: "Cotton Blend",
+    rating: 4.2,
+  },
+]
+
 function BestSeller() {
   const [selectedProduct, setSelectedProduct] = useState(mockProducts[0]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   const handleQuantityChange = (delta) => {
     setQuantity((prev) => Math.max(1, prev + delta));
@@ -43,13 +96,28 @@ function BestSeller() {
 
   const handleAdd = () => {
     if (!selectedColor || !selectedSize) {
-      toast.error("Please select both color and size before adding to cart", {
-        position: "top-right",
-        duration: 3000,
-        className: "mt-9",
-      });
+      toast.error("Please select both color and size before adding to cart");
       return;
     }
+
+    const productToAdd = {
+      productId: selectedProduct.id,
+      name: selectedProduct.name,
+      size: selectedSize,
+      color: selectedColor,
+      quantity: quantity,
+      price: selectedProduct.price,
+      image: selectedProduct.image,
+    };
+
+    addToCart(productToAdd);
+    
+    toast.success(`${selectedProduct.name} added to cart!`);
+    
+    // Reset selections after adding to cart
+    setSelectedColor("");
+    setSelectedSize("");
+    setQuantity(1);
   };
 
   return (
@@ -61,7 +129,6 @@ function BestSeller() {
         </p>
       </div>
 
-      {/* left */}
       <div className="best-seller-content">
         <div className="thumbnail-gallery">
           {mockProducts.map((product) => (
@@ -128,6 +195,7 @@ function BestSeller() {
                 {selectedProduct.sizes.map((size) => (
                   <button
                     key={size}
+                    type="button"
                     className={`size-option ${
                       selectedSize === size ? "selected" : ""
                     }`}
@@ -143,6 +211,7 @@ function BestSeller() {
               <label className="option-label">Quantity:</label>
               <div className="quantity-selector">
                 <button
+                  type="button"
                   onClick={() => handleQuantityChange(-1)}
                   className="quantity-btn"
                 >
@@ -150,6 +219,7 @@ function BestSeller() {
                 </button>
                 <span className="quantity-value">{quantity}</span>
                 <button
+                  type="button"
                   onClick={() => handleQuantityChange(1)}
                   className="quantity-btn"
                 >
@@ -159,7 +229,11 @@ function BestSeller() {
             </div>
           </div>
 
-          <button className="add-to-cart-btn" onClick={handleAdd}>
+          <button 
+            type="button"
+            className="add-to-cart-btn" 
+            onClick={handleAdd}
+          >
             Add to Cart
           </button>
 
@@ -174,6 +248,8 @@ function BestSeller() {
         </div>
       </div>
     </section>
+
+    
   );
 }
 

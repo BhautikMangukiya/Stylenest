@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import "./CartDrawer.css";
 import CartContent from "../../Cart/CartContent";
 
-function CartDrawer({ drawerOpen, toggleCartDrawer }) {
+function CartDrawer({ drawerOpen, toggleCartDrawer, cartProducts, updateQuantity, handleRemoveProduct }) {
   return (
     <div className={`cart-drawer ${drawerOpen ? "open" : ""}`}>
       {/* Header with Title and Close Button */}
@@ -18,10 +18,14 @@ function CartDrawer({ drawerOpen, toggleCartDrawer }) {
 
       {/* Drawer Content */}
       <div className="drawer-content">
-        <CartContent />
+        <CartContent
+          cartProducts={cartProducts}
+          updateQuantity={updateQuantity}
+          handleRemoveProduct={handleRemoveProduct}
+        />
       </div>
 
-      {/* ChekOut Butoon */}
+      {/* Checkout Button */}
       <div className="checkOut-button">
         <button className="chekout-button">CheckOut</button>
         <p>Shipping, taxes, and discounts codes calculated at CheckOut</p>
