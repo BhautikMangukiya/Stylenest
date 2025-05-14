@@ -1,0 +1,78 @@
+/* Short Options Container */
+.short-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* margin: 0 20px 30px 30px;  */
+    font-family: 'Montserrat', sans-serif;
+    max-width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  /* Sort Label */
+  .sort-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #282c3f;
+    text-transform: uppercase;
+  }
+  
+  /* Sort Select Dropdown */
+  .sort-select {
+    appearance: none;
+    padding: 10px 40px 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #282c3f;
+    background-color: #f4f4f5;
+    border: 1px solid #eaeaec;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23282c3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+  }
+  
+  .sort-select:hover {
+    background-color: #eaeaec;
+    border-color: #ff3f6c;
+  }
+  
+  .sort-select:focus {
+    border-color: #ff3f6c;
+    box-shadow: 0 0 0 2px rgba(255, 63, 108, 0.2);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .short-options {
+      margin: 0 15px 20px 15px; /* Remove sidebar offset */
+      padding: 10px 15px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  
+    .sort-label {
+      font-size: 12px;
+    }
+  
+    .sort-select {
+      width: 100%;
+      padding: 8px 40px 8px 12px;
+      font-size: 12px;
+      background-position: right 12px center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .short-options {
+      margin: 0 10px 15px 10px;
+    }
+  }

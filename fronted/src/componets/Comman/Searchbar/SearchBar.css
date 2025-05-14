@@ -15,7 +15,7 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
     color: #2b2b2b; /* Matches Navbar text color */
-    font-family: 'Georgia', serif;
+    
   }
   
   .search-input:focus {

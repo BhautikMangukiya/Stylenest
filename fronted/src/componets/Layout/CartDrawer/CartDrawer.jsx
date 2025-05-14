@@ -2,8 +2,16 @@ import React from "react";
 import { IoMdClose } from "react-icons/io";
 import "./CartDrawer.css";
 import CartContent from "../../Cart/CartContent";
+import {useNavigate} from "react-router-dom"
 
 function CartDrawer({ drawerOpen, toggleCartDrawer, cartProducts, updateQuantity, handleRemoveProduct }) {
+  
+  const navigate = useNavigate()
+
+  const handleChekOut = () => {
+    navigate("/chekout")
+  }
+  
   return (
     <div className={`cart-drawer ${drawerOpen ? "open" : ""}`}>
       {/* Header with Title and Close Button */}
@@ -27,7 +35,7 @@ function CartDrawer({ drawerOpen, toggleCartDrawer, cartProducts, updateQuantity
 
       {/* Checkout Button */}
       <div className="checkOut-button">
-        <button className="chekout-button">CheckOut</button>
+        <button className="chekout-button" onClick={handleChekOut}>CheckOut</button>
         <p>Shipping, taxes, and discounts codes calculated at CheckOut</p>
       </div>
     </div>

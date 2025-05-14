@@ -1,0 +1,232 @@
+/* OrderConfirmationPage.css */
+
+/* Global styles for the order confirmation page */
+.order-confirmation {
+  max-width: 1350px;
+  margin: 50px auto;
+  padding: 4rem 4rem 6rem;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Header Section */
+.order-confirmation__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.order-confirmation__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.order-confirmation__subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Content Container */
+.order-confirmation__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 70px;
+}
+
+/* Order Summary Section */
+.order-summary {
+  flex: 1;
+  min-width: 65% ;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.order-summary__meta {
+  margin-bottom: 1.5rem;
+}
+
+.order-summary__id {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.order-summary__date,
+.order-summary__delivery {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+/* Ordered Items */
+.order-summary__items {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.order-summary__items-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item__image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.order-item__details {
+  flex: 1;
+}
+
+.order-item__name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.order-item__attributes {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.25rem 0;
+}
+
+.order-item__price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.order-item__quantity {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Order Info Section */
+.order-info {
+  flex: 1;
+  min-width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.order-info__shipping,
+.order-info__payment,
+.order-info__totals {
+  margin-bottom: 1.5rem;
+}
+
+.order-info__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.order-info__address,
+.order-info__method {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.order-info__method {
+  margin-top: 0.5rem;
+}
+
+/* Order Totals */
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.order-total__label {
+  font-weight: 500;
+}
+
+.order-total__value {
+  font-weight: 600;
+}
+
+.order-total--grand {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-confirmation__content {
+    flex-direction: column;
+  }
+
+  .order-confirmation__title {
+    font-size: 2rem;
+  }
+
+  .order-confirmation__subtitle {
+    font-size: 1rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-item__image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-confirmation {
+    padding: 1rem;
+  }
+
+  .order-confirmation__title {
+    font-size: 1.5rem;
+  }
+
+  .order-summary,
+  .order-info {
+    padding: 1rem;
+  }
+
+  .order-item__name {
+    font-size: 1rem;
+  }
+
+  .order-item__price,
+  .order-item__quantity {
+    font-size: 0.85rem;
+  }
+}

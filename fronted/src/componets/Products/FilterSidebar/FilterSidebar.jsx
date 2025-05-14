@@ -115,7 +115,7 @@ function FilterSidebar() {
     <div className="filter-sidebar">
       <div className="filter-heading">
         <h2>Filters</h2>
-        <button onClick={handleClearFilters}>Remove filter</button>
+        <button onClick={handleClearFilters} className="filter-remove">Remove filter</button>
       </div>
 
       {/* Category */}

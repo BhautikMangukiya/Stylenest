@@ -9,6 +9,9 @@ import Register from "./pages/Register/register"
 import Profile from "./pages/Profile/profile"
 import { Toaster } from "sonner";
 import CollectionsPage from "./pages/Collections/CollectionsPage";
+import Checkout from "./componets/Cart/Checkout/Checkout";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage/OrderConfirmationPage";
+import OrderDetails from "./pages/OrderDetails/OrderDetails";
 
 function App() {
   return (
@@ -21,7 +24,11 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="collections/:collrction" element={<CollectionsPage/>} />
+            <Route path="collections/:collection" element={<CollectionsPage/>} />
+            {/* <Route path="product/:id" element={<ProductDetails />} ></Route> */}
+            <Route path="chekout" element={<Checkout />} />
+            <Route path="order-confirmation" element={<OrderConfirmationPage />} />
+            <Route path="orderdetails" element={<OrderDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

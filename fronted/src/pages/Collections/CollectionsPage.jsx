@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../../componets/Products/FilterSidebar/FilterSidebar";
 import "./CollectionsPage.css";
+import ShortOptions from "../../componets/Products/ShortOptions/ShortOptions";
 
 function CollectionsPage() {
   const [products, setProducts] = useState([]); // Fixed typo
@@ -175,6 +176,8 @@ function CollectionsPage() {
             Explore Our Exclusive Men's Collection – Style, Comfort & Confidence
             Redefined.
           </h2>
+
+          <ShortOptions className="ShortOptions"/>
           </div>
           <div className="product-grid">
             {products.length === 0 ? (

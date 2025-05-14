@@ -32,7 +32,8 @@
     left: 0;
     width: 80%;
     max-width: 280px;
-    height: 100vh; /* Override 90vh for mobile to use full height */
+    height: 100vh;
+    /* Override 90vh for mobile to use full height */
     transform: translateX(-100%);
     z-index: 1000;
     border-right: none;
@@ -43,20 +44,6 @@
     transform: translateX(0);
   }
 }
-
-/* Filter Sidebar Scrollbar */
-/* .filter-sideBar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.filter-sideBar::-webkit-scrollbar-thumb {
-  background-color: #d4d5d9;
-  border-radius: 3px;
-}
-
-.filter-sideBar::-webkit-scrollbar-track {
-  background: #f4f4f5;
-} */
 
 /* Filter Sidebar Internal Styles (from FilterSidebar component) */
 .filter-sideBar h2 {
@@ -221,20 +208,21 @@
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
-  box-shadow: 0 0 0 rgba(0,0,0,0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   margin-bottom: 0;
   border-radius: 8px;
 }
 
 .product-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   transform: translateY(-4px);
 }
 
 .product-image-container {
   position: relative;
   width: 100%;
-  padding-top: 133.33%; /* 3:4 aspect ratio */
+  padding-top: 133.33%;
+  /* 3:4 aspect ratio */
   overflow: hidden;
   background: #f5f5f6;
 }
@@ -361,7 +349,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
@@ -377,13 +365,14 @@
   padding: 20px;
   background-color: #f4f4f5;
   width: 100%;
-  
+
 }
 
-.h2{
+.h2 {
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: space-around;
+  margin-bottom: 3%;
 }
 
 .men-collection-heading h2 {
@@ -392,7 +381,6 @@
   font-weight: 500;
   color: #282c3f;
   text-align: center;
-  margin-bottom: 30px;
   line-height: 1.4;
   text-transform: capitalize;
   color: #d4af37;
@@ -400,10 +388,11 @@
   border-bottom: 2px solid #d4d4d4;
 }
 
-.product-info h3{
-   font-size: 18px;
-   font-family: 'Georgia', serif;
+.product-info h3 {
+  font-size: 18px;
+  font-family: 'Georgia', serif;
 }
+
 
 @media (max-width: 768px) {
   .men-collection-heading {
@@ -422,20 +411,20 @@
     width: 48%;
     margin-bottom: 16px;
   }
-  
+
   .product-info {
     padding: 8px 6px 12px;
   }
-  
+
   .product-brand {
     font-size: 12px;
   }
-  
+
   .product-title {
     font-size: 12px;
     height: 32px;
   }
-  
+
   .product-price {
     font-size: 12px;
   }
@@ -460,7 +449,7 @@
   }
 
   .product-card .product-info h3 {
-    font-size:  16px;
+    font-size: 16px;
   }
 
   .product-card .product-info p {

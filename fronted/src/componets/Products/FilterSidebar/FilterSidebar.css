@@ -13,98 +13,106 @@
     transition: transform 0.3s ease;
     font-family: 'Roboto', sans-serif;
     border-radius: 8px;
-  }
-  
-  /* Scrollbar Styling */
-  .filter-sideBar::-webkit-scrollbar {
+}
+
+/* Scrollbar Styling */
+.filter-sideBar::-webkit-scrollbar {
     width: 6px;
-  }
-  
-  .filter-sideBar::-webkit-scrollbar-thumb {
+}
+
+.filter-sideBar::-webkit-scrollbar-thumb {
     background-color: #d4d5d9;
     border-radius: 3px;
-  }
-  
-  .filter-sideBar::-webkit-scrollbar-track {
+}
+
+.filter-sideBar::-webkit-scrollbar-track {
     background: #f4f4f5;
-  }
-  
-  /* Sidebar Heading Section */
-  .filter-sideBar .sidebar-heading {
+}
+
+/* Sidebar Heading Section */
+.filter-sideBar .sidebar-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
-  }
-  
-  .filter-sideBar .sidebar-heading h2 {
+
+}
+
+.filter-sideBar .sidebar-heading h2 {
     font-size: 18px;
     font-weight: 700;
     color: #282c3f;
     text-transform: uppercase;
     margin: 0;
-  }
-  
-  .filter-sideBar .sidebar-heading .remove-filters {
+}
+
+.filter-sideBar .sidebar-heading .remove-filters {
     font-size: 14px;
     color: #ff3f6c;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.2s ease;
-  }
-  
-  .filter-sideBar .sidebar-heading .remove-filters:hover {
+}
+
+.filter-sideBar .sidebar-heading .remove-filters:hover {
     color: #e6355a;
-  }
-  
-  /* Filter Section */
-  .filter-section {
+}
+
+/* Filter Section */
+.filter-section {
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #eaeaec; /* New filter border */
-  }
-  
-  /* Remove border for the last filter section to avoid extra line at the bottom */
-  .filter-section:last-child {
+    border-bottom: 1px solid #eaeaec;
+    /* New filter border */
+}
+
+/* Remove border for the last filter section to avoid extra line at the bottom */
+.filter-section:last-child {
     border-bottom: none;
-  }
-  .filter-heading {
+}
+
+.filter-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
     margin-top: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #eaeaec; 
-  }
-  
-  .filter-heading h2 {
+    border-bottom: 1px solid #eaeaec;
+}
+
+.filter-heading h2 {
     font-size: 18px;
     font-weight: 700;
     color: #282c3f;
     text-transform: uppercase;
     margin: 0;
-  }
-  
-  .filter-heading button {
-    font-size: 14px;
-    color: #ff3f6c;
-    background: none;
+}
+
+.filter-heading button {
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 0;
+    border-radius: 6px;
+    background-color: #e2e8f0;
+    /* Light gray, matching input borders */
+    color: #2d3748;
+    /* Dark text, consistent with form text */
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
     cursor: pointer;
-    transition: color 0.2s ease;
-  }
-  
-  .filter-section h4 {
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.filter-section h4 {
     font-size: 14px;
     font-weight: 500;
     color: #282c3f;
     margin-bottom: 12px;
     text-transform: uppercase;
-  }
-  
-  .filter-section label {
+}
+
+.filter-section label {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -112,14 +120,14 @@
     margin-bottom: 10px;
     cursor: pointer;
     transition: color 0.2s ease;
-  }
-  
-  .filter-section label:hover {
+}
+
+.filter-section label:hover {
     color: #ff3f6c;
-  }
-  
-  .filter-section input[type="radio"],
-  .filter-section input[type="checkbox"] {
+}
+
+.filter-section input[type="radio"],
+.filter-section input[type="checkbox"] {
     appearance: none;
     width: 16px;
     height: 16px;
@@ -128,18 +136,18 @@
     margin-right: 10px;
     position: relative;
     cursor: pointer;
-  }
-  
-  .filter-section input[type="radio"] {
+}
+
+.filter-section input[type="radio"] {
     border-radius: 50%;
-  }
-  
-  .filter-section input[type="radio"]:checked {
+}
+
+.filter-section input[type="radio"]:checked {
     border-color: #ff3f6c;
     background: #ff3f6c;
-  }
-  
-  .filter-section input[type="radio"]:checked::after {
+}
+
+.filter-section input[type="radio"]:checked::after {
     content: '';
     width: 8px;
     height: 8px;
@@ -149,51 +157,77 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  
-  .filter-section input[type="checkbox"]:checked {
+}
+
+.filter-section input[type="checkbox"]:checked {
     border-color: #ff3f6c;
     background: #ff3f6c url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>') no-repeat center;
     background-size: 12px;
-  }
-  
-  .filter-section p {
+}
+
+.filter-section p {
     font-size: 14px;
     color: #282c3f;
     font-weight: 500;
-  }
+}
 
-  
-  /* Sidebar Mobile Slide-In */
-  @media (max-width: 768px) {
+/* Add to Checkout.css */
+
+/* Filter Remove Button */
+.filter-remove {}
+
+.filter-remove:hover {
+    background-color: #cbd5e0;
+    /* Slightly darker gray on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow on hover */
+}
+
+.filter-remove:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .filter-remove {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+}
+
+
+/* Sidebar Mobile Slide-In */
+@media (max-width: 768px) {
     .filter-sideBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 80%;
-      max-width: 280px;
-      height: 100vh;
-      transform: translateX(-100%);
-      z-index: 1000;
-      border-right: none;
-      border-bottom: 1px solid #eaeaec;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-      padding: 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        max-width: 280px;
+        height: 100vh;
+        transform: translateX(-100%);
+        z-index: 1000;
+        border-right: none;
+        border-bottom: 1px solid #eaeaec;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
     }
-  
+
     .filter-sideBar.open {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  
+
     .filter-sideBar .sidebar-heading h2 {
-      font-size: 16px;
+        font-size: 16px;
     }
-  
+
     .filter-section h4 {
-      font-size: 13px;
+        font-size: 13px;
     }
-  
+
     .filter-section label {
-      font-size: 13px;
+        font-size: 13px;
     }
-  }
+}
