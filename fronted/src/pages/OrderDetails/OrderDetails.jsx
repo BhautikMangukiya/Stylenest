@@ -4,6 +4,8 @@ import "./OrderDetails.css";
 
 function OrderDetails() {
   const { id } = useParams();
+  console.log("Order ID from URL:", id);
+
   const [orderDetails, setOrderDetails] = useState(null);
 
   useEffect(() => {
@@ -50,45 +52,48 @@ function OrderDetails() {
   }, [id]);
 
   return (
-    <div className="order-details">
-      <h2 className="order-title">Order Details</h2>
+    <div className="order-details__container">
+      <h2 className="order-details__title">Order Details</h2>
 
       {!orderDetails ? (
-        <p className="order-empty">No Order details found</p>
+        <p className="order-details__empty-message">No Order details found</p>
       ) : (
-        <div className="order-content">
+        <div className="order-details__content">
           {/* Order Header */}
-          <div className="order-header">
-            <div className="order-info">
-              <h3>Order ID: #{orderDetails._id}</h3>
-              <p>
-                Date:{" "}
-                {new Date(orderDetails.createdAt).toLocaleDateString()}
-              </p>
-            </div>
+          <div className="order-details__header">
+            <div className="order-details__info">
 
-            <div className="order-status">
-              <span
-                className={`status-badge ${
-                  orderDetails.isPaid ? "paid" : "unpaid"
-                }`}
-              >
-                {orderDetails.isPaid ? "Approved" : "Pending"}
-              </span>
-              <span
-                className={`status-badge ${
-                  orderDetails.isDelivered ? "delivered" : "undelivered"
-                }`}
-              >
-                {orderDetails.isDelivered
-                  ? "Delivered"
-                  : "Pending Delivery"}
-              </span>
+              <div className="order-details__id-date">
+                <h3>Order ID: #{orderDetails._id || "N/A"}</h3>
+
+                <p>
+                  Date:{" "}
+                  {new Date(orderDetails.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+
+              <div className="order-details__status">
+                <span
+                  className={`order-details__status-badge ${
+                    orderDetails.isPaid ? "paid" : "unpaid"
+                  }`}
+                >
+                  {orderDetails.isPaid ? "Approved" : "Pending"}
+                </span>
+                <span
+                  className={`order-details__status-badge ${
+                    orderDetails.isDelivered ? "delivered" : "undelivered"
+                  }`}
+                >
+                  {orderDetails.isDelivered ? "Delivered" : "Pending Delivery"}
+                </span>
+              </div>
+
             </div>
           </div>
 
           {/* Shipping & Payment Info */}
-          <div className="order-meta">
+          <div className="order-details__meta">
             <p>
               <strong>Payment Method:</strong> {orderDetails.paymentMethod}
             </p>
@@ -96,40 +101,42 @@ function OrderDetails() {
               <strong>Shipping Method:</strong> {orderDetails.shippingMethod}
             </p>
             <p>
-              <strong>Shipping To:</strong> {orderDetails.shippingAddress.city},{" "}
+              <strong>Shipping To:</strong>{" "}
+              {orderDetails.shippingAddress.city},{" "}
               {orderDetails.shippingAddress.country}
             </p>
           </div>
 
           {/* Order Items */}
-          <div className="order-items">
+          <div className="order-details__items">
             <h3>Items</h3>
-            <div className="order-items-table">
+            <div className="order-details__items-table">
               {/* Table Header */}
-              <div className="order-items-header">
-                <span className="order-items-header__cell">Image</span>
-                <span className="order-items-header__cell">Name</span>
-                <span className="order-items-header__cell">Price</span>
-                <span className="order-items-header__cell">Quantity</span>
+              <div className="order-details__items-header">
+                <span className="order-details__items-header-cell">Image</span>
+                <span className="order-details__items-header-cell">Name</span>
+                <span className="order-details__items-header-cell">Price</span>
+                <span className="order-details__items-header-cell">Quantity</span>
               </div>
+
               {/* Table Rows */}
               {orderDetails.orderItems.map((item) => (
-                <div className="order-item" key={item.productId}>
+                <div className="order-details__item" key={item.productId}>
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="item-image"
+                    className="order-details__item-image"
                   />
                   <Link
                     to={`/product/${item.productId}`}
-                    className="item-name"
+                    className="order-details__item-name"
                   >
                     {item.name}
                   </Link>
-                  <span className="item-price">
+                  <span className="order-details__item-price">
                     ₹{item.price.toLocaleString()}
                   </span>
-                  <span className="item-quantity">
+                  <span className="order-details__item-quantity">
                     {item.quantity}
                   </span>
                 </div>

@@ -83,7 +83,7 @@ function MyOrderPage() {
                   <img
                     src={order.orderItems[0].image}
                     alt={order.orderItems[0].name}
-                    className="product-image"
+                    className="product-image-MyOrder"
                   />
                 </td>
                 <td>#{order._id}</td>

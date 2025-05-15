@@ -10,6 +10,10 @@ function ShortOptions({ onSortChange }) {
 
   const [sortOption, setSortOption] = useState(currentSort);
 
+  useEffect(() => {
+    setSortOption(currentSort);
+  }, [currentSort]);
+
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
     setSortOption(selectedSort);
@@ -24,20 +28,16 @@ function ShortOptions({ onSortChange }) {
     }
   };
 
-  useEffect(() => {
-    setSortOption(currentSort);
-  }, [currentSort]);
-
   return (
-    <div className="short-options">
-      <label htmlFor="sort-select" className="sort-label">
+    <div className="sort-options-container">
+      <label htmlFor="sort-options-select" className="sort-options-label">
         Sort by:
       </label>
       <select
-        id="sort-select"
+        id="sort-options-select"
         value={sortOption}
         onChange={handleSortChange}
-        className="sort-select"
+        className="sort-options-dropdown"
       >
         <option value="recommended">Recommended</option>
         <option value="price-low">Price: Low to High</option>

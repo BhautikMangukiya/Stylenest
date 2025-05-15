@@ -4,6 +4,7 @@ import "./FilterSidebar.css";
 
 function FilterSidebar() {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [filters, setFilters] = useState({
     category: "",
     gender: "",
@@ -18,33 +19,17 @@ function FilterSidebar() {
   const [priceRange, setPriceRange] = useState([0, 1000]);
 
   const categories = ["Top Wear", "Bottom Wear"];
+  const genders = ["Men", "Women", "Kids"];
   const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const materials = [
-    "Cotton",
-    "Denim",
-    "Leather",
-    "Wool",
-    "Polyester",
-    "Linen",
-    "Silk",
-    "Nylon",
-    "Fleece",
-    "Viscose",
+    "Cotton", "Denim", "Leather", "Wool", "Polyester",
+    "Linen", "Silk", "Nylon", "Fleece", "Viscose"
   ];
   const brands = [
-    "Nike",
-    "Adidas",
-    "Zara",
-    "H&M",
-    "Levi's",
-    "Gucci",
-    "Puma",
-    "Under Armour",
-    "Uniqlo",
-    "The North Face",
+    "Nike", "Adidas", "Zara", "H&M", "Levi's",
+    "Gucci", "Puma", "Under Armour", "Uniqlo", "The North Face"
   ];
-  const genders = ["Men", "Women", "Kids"];
 
   useEffect(() => {
     const params = Object.fromEntries([...searchParams]);
@@ -56,42 +41,35 @@ function FilterSidebar() {
       size: params.size ? params.size.split(",") : [],
       material: params.material ? params.material.split(",") : [],
       brand: params.brand ? params.brand.split(",") : [],
-      minPrice: params.minPrice || 0,
-      maxPrice: params.maxPrice || 1000,
+      minPrice: parseInt(params.minPrice) || 0,
+      maxPrice: parseInt(params.maxPrice) || 1000,
     });
 
-    setPriceRange([0, params.maxPrice || 1000]);
+    setPriceRange([0, parseInt(params.maxPrice) || 1000]);
   }, [searchParams]);
 
-  // ✅ Handle radio buttons (single value filters)
   const handleRadioChange = (key, value) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
+    const updatedFilters = { ...filters, [key]: value };
+    setFilters(updatedFilters);
 
-    const newParams = {
-      ...Object.fromEntries(searchParams),
-      [key]: value,
-    };
-
-    setSearchParams(newParams);
+    const updatedParams = { ...Object.fromEntries(searchParams), [key]: value };
+    setSearchParams(updatedParams);
   };
 
-  // ✅ Handle checkboxes (multi-value filters)
   const handleCheckboxChange = (key, value) => {
-    const current = filters[key];
-    const updated = current.includes(value)
-      ? current.filter((item) => item !== value)
-      : [...current, value];
+    const currentValues = filters[key];
+    const updatedValues = currentValues.includes(value)
+      ? currentValues.filter((item) => item !== value)
+      : [...currentValues, value];
 
-    const newFilters = { ...filters, [key]: updated };
-    setFilters(newFilters);
+    const updatedFilters = { ...filters, [key]: updatedValues };
+    setFilters(updatedFilters);
 
-    const newParams = {
+    const updatedParams = {
       ...Object.fromEntries(searchParams),
-      [key]: updated.join(","),
+      [key]: updatedValues.join(","),
     };
-
-    setSearchParams(newParams);
+    setSearchParams(updatedParams);
   };
 
   const handleClearFilters = () => {
@@ -112,17 +90,19 @@ function FilterSidebar() {
   };
 
   return (
-    <div className="filter-sidebar">
-      <div className="filter-heading">
-        <h2>Filters</h2>
-        <button onClick={handleClearFilters} className="filter-remove">Remove filter</button>
+    <aside className="filter-panel">
+      <div className="filter-panel-header">
+        <h2 className="filter-title">Filters</h2>
+        <button className="clear-filters-btn" onClick={handleClearFilters}>
+          Clear All
+        </button>
       </div>
 
-      {/* Category */}
-      <div className="filter-section">
-        <h4>Category</h4>
+      {/* Category Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Category</h4>
         {categories.map((cat) => (
-          <label key={cat}>
+          <label key={cat} className="filter-option">
             <input
               type="radio"
               name="category"
@@ -134,27 +114,27 @@ function FilterSidebar() {
         ))}
       </div>
 
-      {/* Gender */}
-      <div className="filter-section">
-        <h4>Gender</h4>
-        {genders.map((g) => (
-          <label key={g}>
+      {/* Gender Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Gender</h4>
+        {genders.map((gender) => (
+          <label key={gender} className="filter-option">
             <input
               type="radio"
               name="gender"
-              checked={filters.gender === g}
-              onChange={() => handleRadioChange("gender", g)}
+              checked={filters.gender === gender}
+              onChange={() => handleRadioChange("gender", gender)}
             />
-            {g}
+            {gender}
           </label>
         ))}
       </div>
 
-      {/* Color */}
-      <div className="filter-section">
-        <h4>Color</h4>
+      {/* Color Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Color</h4>
         {colors.map((color) => (
-          <label key={color}>
+          <label key={color} className="filter-option">
             <input
               type="radio"
               name="color"
@@ -166,11 +146,11 @@ function FilterSidebar() {
         ))}
       </div>
 
-      {/* Size */}
-      <div className="filter-section">
-        <h4>Sizes</h4>
+      {/* Size Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Sizes</h4>
         {sizes.map((size) => (
-          <label key={size}>
+          <label key={size} className="filter-option">
             <input
               type="checkbox"
               checked={filters.size.includes(size)}
@@ -181,11 +161,11 @@ function FilterSidebar() {
         ))}
       </div>
 
-      {/* Material */}
-      <div className="filter-section">
-        <h4>Materials</h4>
+      {/* Material Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Materials</h4>
         {materials.map((mat) => (
-          <label key={mat}>
+          <label key={mat} className="filter-option">
             <input
               type="checkbox"
               checked={filters.material.includes(mat)}
@@ -196,28 +176,25 @@ function FilterSidebar() {
         ))}
       </div>
 
-      {/* Brand */}
-      <div className="filter-section">
-        <h4>Brands</h4>
-        {brands.map((b) => (
-          <label key={b}>
+      {/* Brand Filter */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Brands</h4>
+        {brands.map((brand) => (
+          <label key={brand} className="filter-option">
             <input
               type="checkbox"
-              checked={filters.brand.includes(b)}
-              onChange={() => handleCheckboxChange("brand", b)}
+              checked={filters.brand.includes(brand)}
+              onChange={() => handleCheckboxChange("brand", brand)}
             />
-            {b}
+            {brand}
           </label>
         ))}
       </div>
 
-      {/* Price Range Display */}
-      <div className="filter-section">
-        <h4>Price</h4>
-        <div className="price-range-labels">
-           <p>₹0 - ₹1000</p>
-        </div>
-
+      {/* Price Range */}
+      <div className="filter-group">
+        <h4 className="filter-group-title">Price</h4>
+        <div className="price-range-display">₹0 - ₹1000</div>
         <input
           type="range"
           min="0"
@@ -228,22 +205,20 @@ function FilterSidebar() {
             const newMax = parseInt(e.target.value);
             setPriceRange([0, newMax]);
 
-            const newFilters = { ...filters, maxPrice: newMax };
-            setFilters(newFilters);
+            const updatedFilters = { ...filters, maxPrice: newMax };
+            setFilters(updatedFilters);
 
-            const newParams = {
+            const updatedParams = {
               ...Object.fromEntries(searchParams),
               minPrice: 0,
               maxPrice: newMax,
             };
-
-            setSearchParams(newParams);
+            setSearchParams(updatedParams);
           }}
         />
-
-        <p>Selected Price: ₹{priceRange[1]}</p>
+        <p className="selected-price">Selected Price: ₹{priceRange[1]}</p>
       </div>
-    </div>
+    </aside>
   );
 }
 

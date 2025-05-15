@@ -1,96 +1,102 @@
-/* OrderConfirmationPage.css */
-
-/* Global styles for the order confirmation page */
+/* Base Styles */
 .order-confirmation {
-  max-width: 1350px;
-  margin: 50px auto;
-  padding: 4rem 4rem 6rem;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Georgia', serif;
   color: #333;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background-color: #f8f9fa;
+  padding: 5rem 0;
 }
 
-/* Header Section */
+.order-confirmation__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2.5rem;
+}
+
+/* Header Styles */
 .order-confirmation__header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .order-confirmation__title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #2c3e50;
   margin-bottom: 0.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.order-confirmation__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
 }
 
 .order-confirmation__subtitle {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 1.1rem;
+  color: #7f8c8d;
   margin: 0;
-}
-
-/* Content Container */
-.order-confirmation__content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 70px;
 }
 
 /* Order Summary Section */
 .order-summary {
-  flex: 1;
-  min-width: 65% ;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 2;
   padding: 1.5rem;
+  border-right: 1px solid #eaeaea;
 }
 
 .order-summary__meta {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .order-summary__id {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
 .order-summary__date,
 .order-summary__delivery {
-  font-size: 1rem;
-  color: #666;
-  margin: 0.5rem 0;
-}
-
-/* Ordered Items */
-.order-summary__items {
-  border-top: 1px solid #eee;
-  padding-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  margin: 0.3rem 0;
 }
 
 .order-summary__items-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #34495e;
   margin-bottom: 1rem;
 }
 
 .order-item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
+  align-items: center;
 }
 
 .order-item__image {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 15vh;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .order-item__details {
@@ -98,135 +104,114 @@
 }
 
 .order-item__name {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 500;
-  color: #1a1a1a;
-  margin: 0;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
 .order-item__attributes {
   font-size: 0.9rem;
-  color: #666;
-  margin: 0.25rem 0;
+  color: #7f8c8d;
+  margin: 0.2rem 0;
 }
 
 .order-item__price {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #2c3e50;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .order-item__quantity {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.95rem;
+  color: #34495e;
+  font-weight: 500;
 }
 
 /* Order Info Section */
 .order-info {
   flex: 1;
-  min-width: 300px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  background-color: #fafafa;
+}
+
+.order-info__title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 1rem;
 }
 
 .order-info__shipping,
 .order-info__payment,
 .order-info__totals {
-  margin-bottom: 1.5rem;
-}
-
-.order-info__title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .order-info__address,
 .order-info__method {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
-}
-
-.order-info__method {
-  margin-top: 0.5rem;
-}
-
-/* Order Totals */
-.order-total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-  color: #333;
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  line-height: 1.6;
   margin: 0.5rem 0;
 }
 
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .order-total__label {
+  font-size: 1rem;
   font-weight: 500;
+  color: #4a5568;
 }
 
 .order-total__value {
+  font-size: 1rem;
   font-weight: 600;
+  color: #2d3748;
 }
 
 .order-total--grand {
-  border-top: 1px solid #eee;
-  padding-top: 1rem;
   margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.order-total--grand .order-total__label {
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.order-total--grand .order-total__value {
+  font-size: 1.2rem;
+  color: #2b6cb0;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .order-confirmation__content {
     flex-direction: column;
+    padding: 1.5rem;
   }
 
-  .order-confirmation__title {
-    font-size: 2rem;
+  .order-summary {
+    border-right: none;
+    border-bottom: 1px solid #eaeaea;
   }
 
-  .order-confirmation__subtitle {
-    font-size: 1rem;
-  }
-
-  .order-item {
-    flex-direction: column;
-    align-items: flex-start;
+  .order-info {
+    flex: 1;
   }
 
   .order-item__image {
-    width: 100%;
-    height: auto;
-    max-height: 150px;
-  }
-}
-
-@media (max-width: 480px) {
-  .order-confirmation {
-    padding: 1rem;
-  }
-
-  .order-confirmation__title {
-    font-size: 1.5rem;
-  }
-
-  .order-summary,
-  .order-info {
-    padding: 1rem;
-  }
-
-  .order-item__name {
-    font-size: 1rem;
-  }
-
-  .order-item__price,
-  .order-item__quantity {
-    font-size: 0.85rem;
+    width: 80px;
+    height: 12vh;
   }
 }

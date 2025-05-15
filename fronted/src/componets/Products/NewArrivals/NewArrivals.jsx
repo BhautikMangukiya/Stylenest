@@ -9,58 +9,57 @@ function NewArrivals() {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [cardWidth, setCardWidth] = useState(0);
 
-  const NewArrivals = [
+  const newArrivals = [
     {
-        _id: "1",
-        name: "Stylish Jacket",
-        price: 1500,
-        images: [{ url: "https://picsum.photos/seed/jacket1/500/500" }],
-      },
-      {
-        _id: "2",
-        name: "Casual Hoodie",
-        price: 1200,
-        images: [{ url: "https://picsum.photos/seed/hoodie2/500/500" }],
-      },
-      {
-        _id: "3",
-        name: "Denim Jeans",
-        price: 1800,
-        images: [{ url: "https://picsum.photos/seed/jeans3/500/500" }],
-      },
-      {
-        _id: "4",
-        name: "Summer Dress",
-        price: 1700,
-        images: [{ url: "https://picsum.photos/seed/dress4/500/500" }],
-      },
-      {
-        _id: "5",
-        name: "Sneakers",
-        price: 2200,
-        images: [{ url: "https://picsum.photos/seed/sneakers5/500/500" }],
-      },
-      {
-        _id: "6",
-        name: "Leather Boots",
-        price: 2500,
-        images: [{ url: "https://picsum.photos/seed/boots6/500/500" }],
-      },
-      {
-        _id: "7",
-        name: "Graphic T-Shirt",
-        price: 800,
-        images: [{ url: "https://picsum.photos/seed/tshirt7/500/500" }],
-      },
-      {
-        _id: "8",
-        name: "Formal Shirt",
-        price: 1300,
-        images: [{ url: "https://picsum.photos/seed/shirt8/500/500" }],
-      },
+      _id: "1",
+      name: "Stylish Jacket",
+      price: 1500,
+      images: [{ url: "https://picsum.photos/seed/jacket1/500/500" }],
+    },
+    {
+      _id: "2",
+      name: "Casual Hoodie",
+      price: 1200,
+      images: [{ url: "https://picsum.photos/seed/hoodie2/500/500" }],
+    },
+    {
+      _id: "3",
+      name: "Denim Jeans",
+      price: 1800,
+      images: [{ url: "https://picsum.photos/seed/jeans3/500/500" }],
+    },
+    {
+      _id: "4",
+      name: "Summer Dress",
+      price: 1700,
+      images: [{ url: "https://picsum.photos/seed/dress4/500/500" }],
+    },
+    {
+      _id: "5",
+      name: "Sneakers",
+      price: 2200,
+      images: [{ url: "https://picsum.photos/seed/sneakers5/500/500" }],
+    },
+    {
+      _id: "6",
+      name: "Leather Boots",
+      price: 2500,
+      images: [{ url: "https://picsum.photos/seed/boots6/500/500" }],
+    },
+    {
+      _id: "7",
+      name: "Graphic T-Shirt",
+      price: 800,
+      images: [{ url: "https://picsum.photos/seed/tshirt7/500/500" }],
+    },
+    {
+      _id: "8",
+      name: "Formal Shirt",
+      price: 1300,
+      images: [{ url: "https://picsum.photos/seed/shirt8/500/500" }],
+    },
   ];
 
-  // Calculate card width on mount and resize
   useEffect(() => {
     const updateCardWidth = () => {
       if (scrollRef.current && scrollRef.current.firstChild) {
@@ -72,39 +71,27 @@ function NewArrivals() {
     };
 
     updateCardWidth();
-    window.addEventListener('resize', updateCardWidth);
-    
-    return () => {
-      window.removeEventListener('resize', updateCardWidth);
-    };
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
   }, []);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
-    
-    const container = scrollRef.current;
     const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
-    
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth"
-    });
+    scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 
   const updateScrollButtons = () => {
-    if (!scrollRef.current) return;
-    
     const container = scrollRef.current;
-    const epsilon = 1; // Small tolerance for floating point errors
-    const newCanScrollLeft = container.scrollLeft > epsilon;
-    const newCanScrollRight = 
-      container.scrollLeft + container.clientWidth + epsilon < container.scrollWidth;
-    
-    setCanScrollLeft(newCanScrollLeft);
-    setCanScrollRight(newCanScrollRight);
+    if (!container) return;
+    const epsilon = 1;
+    setCanScrollLeft(container.scrollLeft > epsilon);
+    setCanScrollRight(
+      container.scrollLeft + container.clientWidth + epsilon <
+        container.scrollWidth
+    );
   };
 
-  // Throttle the scroll event for better performance
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -116,15 +103,13 @@ function NewArrivals() {
     };
 
     container.addEventListener("scroll", handleScroll);
-    updateScrollButtons(); // initial check
+    updateScrollButtons();
 
-    // Add intersection observer for more precise detection
     const observer = new IntersectionObserver(updateScrollButtons, {
       root: container,
-      threshold: 0.1
+      threshold: 0.1,
     });
 
-    // Observe first and last child
     if (container.firstChild) observer.observe(container.firstChild);
     if (container.lastChild) observer.observe(container.lastChild);
 
@@ -136,46 +121,51 @@ function NewArrivals() {
   }, []);
 
   return (
-    <div className="NewArrivals">
-    <section className="slider-section">
-      <div className="NewArrivals-Slider">
-        <h2 className="New-Arrivals-heading">Explore New Arrivals</h2>
-        <p>Discover the latest styles and trends today!</p>
-      </div>
-
-      <div className="scroll-wrapper">
-        <button
-          className="scroll-btn left"
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-        >
-          <FaChevronLeft />
-        </button>
-
-        <div className="Scrollable-content" ref={scrollRef}>
-          {NewArrivals.map((product) => (
-            <div className="each-product" key={product._id}>
-              <img src={product.images[0]?.url} alt={product.name} />
-              <div className="product-info">
-                <Link to={`/product/${product._id}`}>
-                  <h4>{product.name}</h4>
-                  <p>₹ {product.price}</p>
-                </Link>
-              </div>
-            </div>
-          ))}
+    <div className="new-arrivals">
+      <section className="new-arrivals__section">
+        <div className="new-arrivals__header">
+          <h2 className="new-arrivals__title">Explore New Arrivals</h2>
+          <p className="new-arrivals__subtitle">
+            Discover the latest styles and trends today!
+          </p>
         </div>
 
-        <button
-          className="scroll-btn right"
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-        >
-          <FaChevronRight />
-        </button>
-      </div>
-      
-    </section>
+        <div className="new-arrivals__scroll-wrapper">
+          <button
+            className="new-arrivals__scroll-btn new-arrivals__scroll-btn--left"
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+          >
+            <FaChevronLeft />
+          </button>
+
+          <div className="new-arrivals__content" ref={scrollRef}>
+            {newArrivals.map((product) => (
+              <div className="new-arrivals__card" key={product._id}>
+                <img
+                  src={product.images[0]?.url}
+                  alt={product.name}
+                  className="new-arrivals__image"
+                />
+                <div className="new-arrivals__info">
+                  <Link to={`/product/${product._id}`} className="new-arrivals__link">
+                    <h4 className="new-arrivals__product-name">{product.name}</h4>
+                    <p className="new-arrivals__product-price">₹ {product.price}</p>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className="new-arrivals__scroll-btn new-arrivals__scroll-btn--right"
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </section>
     </div>
   );
 }

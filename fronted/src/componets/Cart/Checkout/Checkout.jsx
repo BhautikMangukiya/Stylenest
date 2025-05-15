@@ -1,7 +1,9 @@
+// src/pages/Checkout.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./Checkout.css";
-import PaypalButton from "../PaypalButton/PaypalButton";
+import PaytmButton from "../PaytmButton/PaytmButton";
 
 const cart = {
   products: [
@@ -10,7 +12,8 @@ const cart = {
       size: "M",
       color: "Red",
       price: 699,
-      image: "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop",
     },
     {
       name: "Jeans",
@@ -18,7 +21,7 @@ const cart = {
       color: "Blue",
       price: 499,
       image:
-        "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop",
     },
   ],
   totalPrice: 1198,
@@ -37,44 +40,50 @@ function Checkout() {
     country: "",
     phone: "",
   });
+
   const [formError, setFormError] = useState("");
-  const [paymentError, setPaymentError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShippingAddress({ ...shippingAddress, [name]: value });
-    setFormError(""); // Clear error on input change
+    setFormError("");
   };
 
   const handleContinueToPayment = (e) => {
     e.preventDefault();
-    if (
-      shippingAddress.firstName &&
-      shippingAddress.lastName &&
-      shippingAddress.address &&
-      shippingAddress.city &&
-      shippingAddress.postalCode &&
-      shippingAddress.country &&
-      shippingAddress.phone
-    ) {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "address",
+      "city",
+      "postalCode",
+      "country",
+      "phone",
+    ];
+    const isValid = requiredFields.every((field) => shippingAddress[field]);
+
+    if (isValid) {
       setShowPaymentOptions(true);
-      setFormError("");
     } else {
       setFormError("Please fill in all required shipping details.");
     }
   };
 
-  const handlePayWithPaypal = () => {
-    console.log("Pay with PayPal");
-    navigate("/order-confirmation", {
-      state: { cart, shippingAddress, method: "paypal" },
-    });
-  };
+  const handlePaymentSuccess = () => {
+    const transactionDetails = {
+      transactionId: "Paytm123456789",
+      status: "success",
+      paidTo: "8780341577@pytes",
+      method: "Paytm",
+    };
 
-  const handlePayWithCard = () => {
-    console.log("Pay with Card");
-    navigate("/order-summary", {
-      state: { cart, shippingAddress, method: "card" },
+    navigate("/order-confirmation", {
+      state: {
+        cart,
+        shippingAddress,
+        method: "paytm",
+        transactionDetails,
+      },
     });
   };
 
@@ -163,30 +172,17 @@ function Checkout() {
               className="input-full"
             />
             {formError && <p className="error-message">{formError}</p>}
-            <div className="button-container">
-              {!showPaymentOptions ? (
-                <button type="submit" className="submit-button">
-                  Continue to Payment
-                </button>
-              ) : (
-                <div className="payment-options">
-                  <h3>Pay with PayPal</h3>
-                  <PaypalButton
-                    amount={cart.totalPrice}
-                    onSuccess={handlePayWithPaypal}
-                    onError={(err) => setPaymentError("Payment failed. Please try again.")}
-                  />
-                  <button
-                    type="button"
-                    onClick={handlePayWithCard}
-                    className="payment-button card-button"
-                  >
-                    Pay with Card
-                  </button>
-                  {paymentError && <p className="error-message">{paymentError}</p>}
-                </div>
-              )}
-            </div>
+
+            {!showPaymentOptions ? (
+              <button type="submit" className="submit-button">
+                Continue to Payment
+              </button>
+            ) : (
+              <PaytmButton
+                amount={cart.totalPrice}
+                onPaymentSuccess={handlePaymentSuccess}
+              />
+            )}
           </form>
         </div>
 
@@ -206,26 +202,27 @@ function Checkout() {
                   <p>Size: {product.size}</p>
                   <p>Color: {product.color}</p>
                 </div>
-                <p className="product-price">₹{product.price.toLocaleString()}</p>
+                <p className="product-price">
+                  ₹{product.price.toLocaleString()}
+                </p>
               </div>
             ))}
-
-
-<div className="total-price">
-  <div className="price-row">
-    <h3>Subtotal</h3>
-    <span>₹{cart.totalPrice.toLocaleString()}</span>
-  </div>
-  <div className="price-row">
-    <h3>Shipping</h3>
-    <span className="free-shipping">Free</span>
-  </div>
-  <div className="price-row total-row">
-    <h3>Total</h3>
-    <span className="total-amount">₹{cart.totalPrice.toLocaleString()}</span>
-  </div>
-</div>
-
+            <div className="total-price">
+              <div className="price-row">
+                <h3>Subtotal</h3>
+                <span>₹{cart.totalPrice.toLocaleString()}</span>
+              </div>
+              <div className="price-row">
+                <h3>Shipping</h3>
+                <span className="free-shipping">Free</span>
+              </div>
+              <div className="price-row total-row">
+                <h3>Total</h3>
+                <span className="total-amount">
+                  ₹{cart.totalPrice.toLocaleString()}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

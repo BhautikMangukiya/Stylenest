@@ -1,7 +1,7 @@
 /* MyOrderPage.css */
 
 .my-order-page {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -72,7 +72,7 @@
   }
 
   
-  .product-image {
+  .product-image-MyOrder {
     height:  100px;
     object-fit: cover;
     border-radius: 4px;

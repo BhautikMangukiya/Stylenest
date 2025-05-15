@@ -1,233 +1,214 @@
-/* Filter Sidebar */
-.filter-sideBar {
-    width: 280px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-right: 1px solid #eaeaec;
-    position: sticky;
-    top: 20px;
-    height: calc(100vh - 40px);
-    overflow-y: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 8px;
+/* Base Styles */
+.filter-panel {
+  font-family: 'Georgia', serif;
+  color: #333;
+  overflow-y: auto;
+  padding-left: 10px;
+}
+
+/* Header */
+.filter-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.filter-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
+}
+
+.clear-filters-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #d4af37;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-filters-btn:hover {
+  background-color: #b8972f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+/* Filter Group */
+.filter-group {
+  margin-bottom: 2rem;
+}
+
+.filter-group-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+/* Filter Option */
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.filter-option input {
+  accent-color: #d4af37; /* Consistent accent color */
+  cursor: pointer;
+}
+
+.filter-option input[type="radio"],
+.filter-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+/* Price Range */
+.price-range-display {
+  font-size: 0.95rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+input[type="range"] {
+  width: 85%;
+  accent-color: #d4af37; /* Consistent accent color */
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: #d4af37;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: #d4af37;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.selected-price {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  font-weight: 500;
+  margin-top: 0.5rem;
 }
 
 /* Scrollbar Styling */
-.filter-sideBar::-webkit-scrollbar {
-    width: 6px;
+.filter-panel::-webkit-scrollbar {
+  width: 8px;
 }
 
-.filter-sideBar::-webkit-scrollbar-thumb {
-    background-color: #d4d5d9;
-    border-radius: 3px;
+.filter-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
-.filter-sideBar::-webkit-scrollbar-track {
-    background: #f4f4f5;
+.filter-panel::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 4px;
 }
 
-/* Sidebar Heading Section */
-.filter-sideBar .sidebar-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+.filter-panel::-webkit-scrollbar-thumb:hover {
+  background: #b8972f;
 }
 
-.filter-sideBar .sidebar-heading h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #282c3f;
-    text-transform: uppercase;
-    margin: 0;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filter-panel {
+    width: 250px;
+    padding: 2rem;
+  }
+
+  .filter-title {
+    font-size: 1.6rem;
+  }
+
+  .filter-group-title {
+    font-size: 1.2rem;
+  }
+
+  .filter-option {
+    font-size: 0.9rem;
+  }
 }
 
-.filter-sideBar .sidebar-heading .remove-filters {
-    font-size: 14px;
-    color: #ff3f6c;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.filter-sideBar .sidebar-heading .remove-filters:hover {
-    color: #e6355a;
-}
-
-/* Filter Section */
-.filter-section {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eaeaec;
-    /* New filter border */
-}
-
-/* Remove border for the last filter section to avoid extra line at the bottom */
-.filter-section:last-child {
-    border-bottom: none;
-}
-
-.filter-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eaeaec;
-}
-
-.filter-heading h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #282c3f;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.filter-heading button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    background-color: #e2e8f0;
-    /* Light gray, matching input borders */
-    color: #2d3748;
-    /* Dark text, consistent with form text */
-    font-size: 0.875rem;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.filter-section h4 {
-    font-size: 14px;
-    font-weight: 500;
-    color: #282c3f;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.filter-section label {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #3f3f4f;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.filter-section label:hover {
-    color: #ff3f6c;
-}
-
-.filter-section input[type="radio"],
-.filter-section input[type="checkbox"] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #d4d5d9;
-    border-radius: 3px;
-    margin-right: 10px;
-    position: relative;
-    cursor: pointer;
-}
-
-.filter-section input[type="radio"] {
-    border-radius: 50%;
-}
-
-.filter-section input[type="radio"]:checked {
-    border-color: #ff3f6c;
-    background: #ff3f6c;
-}
-
-.filter-section input[type="radio"]:checked::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: #ffffff;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.filter-section input[type="checkbox"]:checked {
-    border-color: #ff3f6c;
-    background: #ff3f6c url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>') no-repeat center;
-    background-size: 12px;
-}
-
-.filter-section p {
-    font-size: 14px;
-    color: #282c3f;
-    font-weight: 500;
-}
-
-/* Add to Checkout.css */
-
-/* Filter Remove Button */
-.filter-remove {}
-
-.filter-remove:hover {
-    background-color: #cbd5e0;
-    /* Slightly darker gray on hover */
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow on hover */
-}
-
-.filter-remove:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 640px) {
-    .filter-remove {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.75rem;
-    }
-}
-
-
-/* Sidebar Mobile Slide-In */
 @media (max-width: 768px) {
-    .filter-sideBar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 80%;
-        max-width: 280px;
-        height: 100vh;
-        transform: translateX(-100%);
-        z-index: 1000;
-        border-right: none;
-        border-bottom: 1px solid #eaeaec;
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-    }
+  .filter-panel {
+    width: 100%;
+    max-height: none;
+    padding: 1.5rem;
+  }
 
-    .filter-sideBar.open {
-        transform: translateX(0);
-    }
+  .filter-panel-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
 
-    .filter-sideBar .sidebar-heading h2 {
-        font-size: 16px;
-    }
+  .clear-filters-btn {
+    align-self: flex-end;
+  }
 
-    .filter-section h4 {
-        font-size: 13px;
-    }
+  .filter-title {
+    font-size: 1.5rem;
+  }
 
-    .filter-section label {
-        font-size: 13px;
-    }
+  .filter-group-title {
+    font-size: 1.1rem;
+  }
+
+  .filter-option {
+    font-size: 0.85rem;
+  }
+
+  .selected-price {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-panel {
+    padding: 1rem;
+  }
+
+  .filter-title {
+    font-size: 1.4rem;
+  }
+
+  .filter-group-title {
+    font-size: 1rem;
+  }
+
+  .filter-option {
+    font-size: 0.8rem;
+  }
+
+  .clear-filters-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
 }

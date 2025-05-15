@@ -45,6 +45,11 @@ function Navbar() {
 
         {/* Right - Icons */}
         <div className="icons">
+
+          <Link to="/admin">
+            <button>Admin</button>
+          </Link>
+
           {/* Search */}
           <SearchBar />
           {/* <button className="profile-icon">

@@ -1,0 +1,97 @@
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 300px;
+  margin: 20px auto; /* Center the section */
+}
+
+/* Heading for payment instructions */
+.qr-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333; /* Dark text for readability */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* QR code styling */
+.qr-section svg {
+  background-color: #fff; /* White background for QR code */
+  padding: 10px; /* Padding to make QR code stand out */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* Instruction text */
+.qr-section p {
+  font-size: 1rem;
+  color: #555; /* Slightly lighter text for contrast */
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Payment button */
+.payment-button.gpay-button {
+  background-color: #00baf2; /* Paytm brand color */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px; /* Consistent button width */
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect */
+.payment-button.gpay-button:hover {
+  background-color: #009bd1; /* Darker Paytm blue on hover */
+}
+
+/* Focus state for accessibility */
+.payment-button.gpay-button:focus {
+  outline: 2px solid #00baf2;
+  outline-offset: 2px;
+}
+
+/* Disabled state (optional, if you add disabled logic later) */
+.payment-button.gpay-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .qr-section {
+    padding: 15px;
+    max-width: 100%; /* Full width on smaller screens */
+  }
+
+  .qr-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .qr-section p {
+    font-size: 0.9rem;
+  }
+
+  .qr-section svg {
+    width: 160px; /* Smaller QR code on mobile */
+    height: auto;
+  }
+
+  .payment-button.gpay-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}

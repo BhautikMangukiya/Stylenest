@@ -1,276 +1,233 @@
-/* OrderDetails_MyntraTheme.css */
-
-/* Root variables for Myntra-inspired theming */
-:root {
-  --primary-color: #ff3f6c; /* Myntra's signature pink */
-  --secondary-color: #3f51b5; /* Indigo for accents */
-  --text-color: #282c3f; /* Dark gray for primary text */
-  --secondary-text-color: #696b79; /* Lighter gray for secondary text */
-  --background-color: #f5f5fa; /* Light background */
-  --card-background: #ffffff; /* White card background */
-  --border-color: #eaeaec; /* Light border */
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  --border-radius: 6px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
+/* Base Styles */
+.order-details__container {
+  font-family: 'Georgia', serif;
+  color: #333;
+  background-color: #f8f9fa;
+  padding: 5rem 0;
 }
 
-/* Base container styles */
-.order-details {
-  max-width: 1100px;
+.order-details__content {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
-  background-color: var(--background-color);
-  font-family: 'Assistant', 'Roboto', Arial, sans-serif; /* Myntra uses Assistant font */
-  color: var(--text-color);
-  line-height: 1.4;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
 }
 
-/* Order title */
-.order-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-align: left;
-  margin-bottom: var(--spacing-lg);
-  color: var(--text-color);
-  text-transform: uppercase;
-}
-
-/* Empty state */
-.order-empty {
+/* Order Title */
+.order-details__title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #2c3e50;
   text-align: center;
-  font-size: 1rem;
-  color: var(--secondary-text-color);
-  padding: var(--spacing-lg);
-  font-weight: 500;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
-/* Order content wrapper */
-.order-content {
-  background: var(--card-background);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  padding: var(--spacing-lg);
-  border: 1px solid var(--border-color);
+.order-details__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
 }
 
-/* Order header */
-.order-header {
+/* Order Empty State */
+.order-details__empty-message {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Order Header */
+.order-details__header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 2rem;
+}
+
+.order-details__info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--border-color);
 }
 
-.order-info{
-    gap: 0;
-}
-
-.order-info h3 {
-       
+.order-details__id-date h3 {
   font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
-}
-
-.order-info p {
-  font-size: 0.9rem;
-  color: var(--secondary-text-color);
-  font-weight: 400;
-}
-
-/* Status badges */
-.order-status {
-  display: flex;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.status-badge {
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.85rem;
   font-weight: 600;
-  text-transform: uppercase;
-  background: #f0f0f0;
-  color: var(--text-color);
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
-.status-badge.paid,
-.status-badge.delivered {
-  background: #20bd99; /* Myntra green for success */
-  color: #fff;
-}
-
-.status-badge.unpaid,
-.status-badge.undelivered {
-  background: #ff527b; /* Myntra pink for pending */
-  color: #fff;
-}
-
-/* Order meta */
-.order-meta {
-  margin-bottom: var(--spacing-lg);
-}
-
-.order-meta p {
+.order-details__id-date p {
   font-size: 0.95rem;
-  margin: var(--spacing-sm) 0;
-  color: var(--secondary-text-color);
+  color: #7f8c8d;
 }
 
-.order-meta strong {
-  font-weight: 700;
-  color: var(--text-color);
+.order-details__status {
+  display: flex;
+  gap: 1rem;
 }
 
-/* Order items */
-.order-items h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-   border-top: 2px solid var(--border-color);
-   padding-top: 20px;
+.order-details__status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-/* Table styles */
-.order-items-table {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+.order-details__status-badge.paid {
+  background-color: #38a169;
+  color: white;
+}
+
+.order-details__status-badge.unpaid {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.order-details__status-badge.delivered {
+  background-color: #3498db;
+  color: white;
+}
+
+.order-details__status-badge.undelivered {
+  background-color: #f1c40f;
+  color: #2c3e50;
+}
+
+/* Order Meta */
+.order-details__meta {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 2rem;
+}
+
+.order-details__meta p {
+  font-size: 0.95rem;
+  color: #34495e;
+  margin: 0.5rem 0;
+}
+
+.order-details__meta strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Order Items */
+.order-details__items {
+  padding: 1.5rem;
+}
+
+.order-details__items h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.order-details__items-table {
+  display: grid;
+  grid-template-columns: 100px 2fr 1fr 1fr;
+  gap: 1rem;
+  background-color: #fafafa;
+  border-radius: 6px;
   overflow: hidden;
 }
 
-/* Table header */
-.order-items-header {
-  display: grid;
-  grid-template-columns: 90px 2fr 1fr 1fr;
-  background: #fafafa;
-  font-weight: 700;
-  padding: var(--spacing-md);
-  font-size: 0.9rem;
-  color: var(--text-color);
-  border-bottom: 1px solid var(--border-color);
+.order-details__items-header {
+  display: contents;
 }
 
-.order-items-header__cell {
+.order-details__items-header-cell {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background-color: #f1f1f1;
   text-align: left;
 }
 
-/* Table rows */
-.order-item {
-  display: grid;
-  grid-template-columns: 90px 2fr 1fr 1fr;
-  align-items: center;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--border-color);
-  transition: background 0.2s ease;
+.order-details__item {
+  display: contents;
 }
 
-.order-item:last-child {
-  border-bottom: none;
-}
-
-.order-item:hover {
-  background: #f9f9fb;
-}
-
-/* Item image */
-.item-image {
+.order-details__item-image {
   width: 80px;
-  height: 80px;
+  height: 12vh;
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
 }
 
-/* Item name (Link) */
-.item-name {
-  font-size: 0.95rem;
-  color: var(--primary-color);
+.order-details__item-name {
+  font-size: 1rem;
+  color: #3498db;
   text-decoration: none;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+.order-details__item-name:hover {
+  text-decoration: underline;
+}
+
+.order-details__item-price,
+.order-details__item-quantity {
+  font-size: 1rem;
+  color: #2c3e50;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.order-details__item-price {
   font-weight: 600;
-  transition: color 0.2s ease;
 }
 
-.item-name:hover {
-  color: var(--secondary-color);
-}
-
-/* Item price and quantity */
-.item-price,
-.item-quantity {
-  font-size: 0.95rem;
-  color: var(--text-color);
-  font-weight: 600;
-}
-
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .order-details {
-    padding: var(--spacing-md);
+  .order-details__content {
+    padding: 1.5rem;
   }
 
-  .order-title {
-    font-size: 1.5rem;
-  }
-
-  .order-header {
+  .order-details__info {
     flex-direction: column;
+    gap: 1rem;
     align-items: flex-start;
   }
 
-  .order-items-header,
-  .order-item {
-    grid-template-columns: 80px 1fr;
-    gap: var(--spacing-sm);
+  .order-details__items-table {
+    grid-template-columns: 1fr;
   }
 
-  .order-items-header__cell:nth-child(3),
-  .order-items-header__cell:nth-child(4),
-  .item-price,
-  .item-quantity {
+  .order-details__items-header {
     display: none;
   }
 
-  .item-image {
-    width: 60px;
-    height: 60px;
+  .order-details__item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-bottom: 1px solid #eaeaea;
   }
 
-  .item-name {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .order-content {
-    padding: var(--spacing-md);
+  .order-details__item-image {
+    width: 100%;
+    height: auto;
+    max-height: 20vh;
   }
 
-  .order-title {
-    font-size: 1.3rem;
-  }
-
-  .order-info h3 {
-    font-size: 0.7rem;
-  }
-
-  .status-badge {
-    font-size: 0.75rem;
-    padding: 4px 8px;
-  }
-
-  .order-meta p {
-    font-size: 0.85rem;
-  }
-
-  .order-items h3 {
-    font-size: 1.2rem;
+  .order-details__item-name,
+  .order-details__item-price,
+  .order-details__item-quantity {
+    padding: 0.5rem 0;
   }
 }
