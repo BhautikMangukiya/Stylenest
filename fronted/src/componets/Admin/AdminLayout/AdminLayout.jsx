@@ -1,32 +1,29 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+
+import AdminSidebar from "../AdminSidebar/AdminSidebar";
 import "./AdminLayout.css";
-import AdminSidebar from "../AdminSideBar/AdminSideBar";
+// import AdminNavbar from "../AdminNavbar/AdminNavbar";
 
 function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="admin-layout">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-
-      {/* Main */}
-      <div className="admin-main">
-        <header className="admin-header">
-          <button
-            className="menu-toggle"
-            onClick={() => setIsSidebarOpen(true)}
-          >
-            ☰
-          </button>
-          <h1>Admin Dashboard</h1>
-        </header>
-
-        <main className="admin-main-content">
+      {/* <AdminNavbar /> */}
+      <div className="admin-content">
+        <main className="admin-main">
           <Outlet />
         </main>
+        <AdminSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       </div>
+      <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
+        {isSidebarOpen ? "Close" : "Menu"}
+      </button>
     </div>
   );
 }

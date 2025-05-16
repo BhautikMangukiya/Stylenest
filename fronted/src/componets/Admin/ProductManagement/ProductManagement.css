@@ -1,27 +1,54 @@
-/* ProductManagement.css */
+/* ===== Core Styles with Mobile-First Approach ===== */
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --text-dark: #111827;
+  --text-medium: #374151;
+  --text-light: #9ca3af;
+  --background-light: #f9fafb;
+  --border-color: #e5e7eb;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --border-radius: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --sidebar-width: 16rem;
+  --delete-color: #dc2626;
+  --delete-hover: #b91c1c;
+  --edit-bg: #e0e7ff;
+  --edit-bg-hover: #c7d2fe;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
 
-/* ===== Core Styles ===== */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+}
+
+/* ===== Container Styles ===== */
 .product-management-container {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0 auto;
-
-  color: #1f2937;
+  max-width: 100%;
+  margin: var(--spacing-md);
+  padding: var(--spacing-md);
+  box-sizing: border-box;
 }
 
 /* ===== Header Styles ===== */
 .product-management-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .product-page-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-dark);
   margin: 0;
 }
 
@@ -35,45 +62,43 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  font-size: 0.9375rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s ease;
   text-decoration: none;
+  border: none;
 }
 
 .add-product-btn {
-  background-color: #4f46e5;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
 }
 
 .add-product-btn:hover {
-  background-color: #4338ca;
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .edit-btn {
-  background-color: #e0e7ff;
-  color: #4f46e5;
-  border: none;
-  margin-right: 0.75rem;
+  background-color: var(--edit-bg);
+  color: var(--primary-color);
+  margin-right: var(--spacing-sm);
 }
 
 .edit-btn:hover {
-  background-color: #c7d2fe;
+  background-color: var(--edit-bg-hover);
   transform: translateY(-1px);
 }
 
 .delete-btn {
   background-color: #fee2e2;
-  color: #dc2626;
-  border: none;
+  color: var(--delete-color);
 }
 
 .delete-btn:hover {
@@ -83,33 +108,36 @@
 
 /* ===== Table Styles ===== */
 .product-table-section {
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
-  overflow: hidden;
+  background: #ffffff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .product-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
 }
 
 .product-table th {
   text-align: left;
-  padding: 1rem 1.5rem;
-  background-color: #f9fafb;
-  color: #374151;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--background-light);
+  color: var(--text-medium);
   font-weight: 600;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
 .product-table td {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .product-table tr:last-child td {
@@ -117,71 +145,84 @@
 }
 
 .product-table tr:hover td {
-  background-color: #f9fafb;
+  background-color: var(--background-light);
 }
 
 /* ===== Empty State ===== */
 .no-products-msg {
-  padding: 2rem;
+  padding: var(--spacing-lg);
   text-align: center;
-  color: #9ca3af;
+  color: var(--text-light);
+  font-size: 0.875rem;
   font-style: italic;
 }
 
 /* ===== Responsive Design ===== */
-@media (max-width: 1024px) {
+@media (min-width: 640px) {
   .product-management-container {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .product-management-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .product-table {
-    display: block;
-    overflow-x: auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .product-management-container {
-    padding: 1rem;
+    margin: var(--spacing-lg);
+    padding: var(--spacing-lg);
   }
 
   .product-page-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .product-table {
+    font-size: 0.9375rem;
+  }
+
+  .btn,
+  .add-product-btn {
+    font-size: 0.9375rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .product-management-container {
+    max-width: calc(100% - var(--sidebar-width));
+    margin: var(--spacing-lg) auto;
+  }
+
+  .product-management-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .product-table th,
   .product-table td {
-    padding: 0.75rem 1rem;
-  }
-
-  .btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    padding: var(--spacing-md) var(--spacing-lg);
   }
 }
 
-@media (max-width: 480px) {
-  .product-table-section {
-    border-radius: 0.5rem;
+@media (min-width: 1024px) {
+  .product-management-container {
+    max-width: 1200px;
+    padding: var(--spacing-xl);
   }
 
+  .product-page-title {
+    font-size: 2rem;
+  }
+
+  .product-table-section {
+    border-radius: var(--border-radius);
+  }
+}
+
+@media (max-width: 640px) {
   .product-table td:last-child {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
   }
 
   .edit-btn,
   .delete-btn {
     width: 100%;
     margin-right: 0;
+    text-align: center;
   }
 }

@@ -51,12 +51,10 @@ function UserManagement() {
 
   return (
     <div className="user-management">
-      {/* Heading */}
       <div className="heading">
         <h1>User Management</h1>
       </div>
 
-      {/* Add New User Form */}
       <div className="form-section">
         <h3 className="form-heading">Add New User</h3>
         <form onSubmit={handleSubmit} className="user-form">
@@ -105,7 +103,6 @@ function UserManagement() {
         </form>
       </div>
 
-      {/* User List */}
       <div className="user-list">
         <h3>User List</h3>
         <table className="user-table">

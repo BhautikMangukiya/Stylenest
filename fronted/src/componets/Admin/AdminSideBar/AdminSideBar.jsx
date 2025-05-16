@@ -14,11 +14,8 @@ function AdminSidebar({ isOpen, onClose }) {
   ];
 
   const handleLogout = () => {
-    // Clear any stored user data (like token/session)
-    localStorage.removeItem("adminToken"); // Example
+    localStorage.removeItem("adminToken");
     sessionStorage.clear();
-
-    // Navigate to login page
     navigate("/admin/login");
   };
 
@@ -26,8 +23,7 @@ function AdminSidebar({ isOpen, onClose }) {
     <>
       <aside className={`admin-sidebar ${isOpen ? "open" : ""}`}>
         <div className="admin-sidebar-header">
-         
-          <Link to="/admin"> <h2>Style Nest</h2></Link>
+          <Link to="/admin"><h2>Style Nest</h2></Link>
           <button className="close-btn" onClick={onClose}>
             <FaTimes />
           </button>
@@ -48,7 +44,6 @@ function AdminSidebar({ isOpen, onClose }) {
             </NavLink>
           ))}
 
-          {/* Logout Button */}
           <button className="admin-link logout-btn" onClick={handleLogout}>
             <FaSignOutAlt />
             <span>Logout</span>

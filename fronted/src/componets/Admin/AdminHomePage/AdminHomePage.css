@@ -1,71 +1,90 @@
-/* ===== Core Styles ===== */
+/* ===== Core Styles with Mobile-First Approach ===== */
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --text-dark: #111827;
+  --text-medium: #374151;
+  --text-light: #9ca3af;
+  --background-light: #f9fafb;
+  --border-color: #e5e7eb;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --border-radius: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 .admin-homepage {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  max-width: 1200px;
+  font-family: var(--font-family);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  color: #1f2937;
+  padding: var(--spacing-md);
+  color: var(--text-dark);
+  box-sizing: border-box;
 }
 
 /* ===== Admin Heading ===== */
 .admin-heading {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .admin-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--text-dark);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
 }
 
 /* ===== Stats Section ===== */
 .admin-stats-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .admin-stat-card {
   background: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .admin-stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .admin-stat-content {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--spacing-sm);
 }
 
 .stat-title {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-dark);
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #6366f1;
+  color: var(--primary-color);
 }
 
 .admin-home-link {
   display: inline-flex;
-  padding: 0.5rem 1rem;
-  background-color: #6366f1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--primary-color);
   color: white;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius);
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
@@ -74,7 +93,7 @@
 }
 
 .admin-home-link:hover {
-  background-color: #4f46e5;
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -86,32 +105,33 @@
 /* ===== Orders Section ===== */
 .admin-orders-section {
   background: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
 }
 
 .orders-heading {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
-  margin-bottom: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-md);
 }
 
 .orders-table-container {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .orders-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
 }
 
 .orders-table-head {
-  background-color: #f9fafb;
+  background-color: var(--background-light);
 }
 
 .orders-table-row {
@@ -120,19 +140,21 @@
 
 .orders-table-header {
   text-align: left;
-  padding: 1rem 1.25rem;
-  color: #374151;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-medium);
   font-weight: 600;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
-  background-color: #f9fafb;
+  background-color: var(--background-light);
+  white-space: nowrap;
 }
 
 .orders-table-cell {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid #e5e7eb;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .orders-table-row:last-child .orders-table-cell {
@@ -140,56 +162,73 @@
 }
 
 .orders-table-row:hover .orders-table-cell {
-  background-color: #f9fafb;
+  background-color: var(--background-light);
 }
 
 .orders-empty-message {
-  padding: 3rem 1rem;
+  padding: var(--spacing-lg) var(--spacing-md);
   text-align: center;
-  color: #9ca3af;
-  font-size: 0.9375rem;
+  color: var(--text-light);
+  font-size: 0.875rem;
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 1024px) {
+/* ===== Responsive Design (Tablet and Desktop) ===== */
+@media (min-width: 640px) {
   .admin-homepage {
-    padding: 1.5rem;
+    padding: var(--spacing-lg);
   }
 
   .admin-stat-card,
   .admin-orders-section {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .admin-stats-container {
-    grid-template-columns: 1fr;
-  }
-
-  .orders-table {
-    display: block;
-    overflow-x: auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .admin-homepage {
-    padding: 1rem;
-  }
-
-  .admin-stat-card,
-  .admin-orders-section {
-    padding: 1.25rem;
-    border-radius: 0.5rem;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
   }
 
   .admin-title {
+    font-size: 1.75rem;
+  }
+
+  .stat-title {
+    font-size: 1.25rem;
+  }
+
+  .stat-value {
     font-size: 1.5rem;
+  }
+
+  .orders-heading {
+    font-size: 1.25rem;
+  }
+
+  .orders-table {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .admin-stats-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
   .orders-table-header,
   .orders-table-cell {
-    padding: 0.75rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-homepage {
+    max-width: 1200px;
+    padding: var(--spacing-xl);
+  }
+
+  .admin-stats-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .admin-stat-card,
+  .admin-orders-section {
+    padding: var(--spacing-xl);
   }
 }
