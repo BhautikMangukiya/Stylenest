@@ -1,0 +1,144 @@
+/* =======================
+   Sidebar Container
+========================== */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 16rem;
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: #e2e8f0;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease-in-out;
+  z-index: 50;
+  font-family: 'Inter', sans-serif;
+}
+
+.admin-sidebar.open {
+  left: 0;
+}
+
+/* =======================
+   Sidebar Header
+========================== */
+.admin-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-sidebar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f8fafc;
+  letter-spacing: 0.05em;
+}
+
+.close-btn {
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #f8fafc;
+}
+
+@media (min-width: 768px) {
+  .close-btn {
+    display: none;
+  }
+}
+
+/* =======================
+   Navigation Links
+========================== */
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.admin-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  transform: translateX(4px);
+}
+
+.admin-link.active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* =======================
+   Logout Button
+========================== */
+.logout-btn {
+  background: none;
+  border: none;
+  color: #f87171;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #f87171;
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* =======================
+   Mobile Overlay
+========================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+}
+
+/* =======================
+   Desktop View (768px+)
+========================== */
+@media (min-width: 768px) {
+  .admin-sidebar {
+    position: static;
+    left: 0;
+    box-shadow: none;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  }
+
+  .overlay {
+    display: none;
+  }
+}

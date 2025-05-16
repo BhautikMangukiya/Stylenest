@@ -4,15 +4,16 @@
   color: #333;
   background-color: #f8f9fa;
   padding: 5rem 0; /* Consistent section padding */
+  min-width: none;
 }
 
 .category-section-v2 {
-  max-width: 1600px; /* Consistent max-width */
+  max-width: 100%; /* Consistent max-width */
   margin: 0 auto; /* Centered */
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three equal columns */
   gap: 2rem;
-  padding: 2.5rem; /* Consistent container padding */
+  padding: 2.5rem  12rem; /* Consistent container padding */
 }
 
 /* Category Card */

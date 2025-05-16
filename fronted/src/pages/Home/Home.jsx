@@ -54,8 +54,8 @@ function Home() {
   };
 
   return (
-    <div>
-      <Hero />
+   <div >
+      <Hero  />
       <MenWomen handleAddToCart={handleAddToCart} />
       <NewArrivals handleAddToCart={handleAddToCart} />
       <BestSeller handleAddToCart={handleAddToCart} />
