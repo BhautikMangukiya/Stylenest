@@ -1,207 +1,259 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../../componets/Products/FilterSidebar/FilterSidebar";
+import SortOptions from "../../componets/Products/ShortOptions/ShortOptions";
 import "./CollectionsPage.css";
-import ShortOptions from "../../componets/Products/ShortOptions/ShortOptions";
 
 function CollectionsPage() {
-  const [products, setProducts] = useState([]); // Fixed typo
-  const sidebarRef = useRef(null);
+  const [products, setProducts] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const sidebarRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = useCallback(() => {
+    setIsSidebarOpen((prev) => !prev);
+  }, []);
 
-  const handleClickOutside = (e) => {
-    // Fixed typo
-    if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+  const handleClickOutside = useCallback((event) => {
+    if (
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target) &&
+      !event.target.closest(".mobile-filter-button")
+    ) {
       setIsSidebarOpen(false);
     }
-  };
+  }, []);
+
+  const handleProductClick = useCallback((product) => {
+    // In a real app, you would use react-router's navigate
+    window.location.href = `/product/${product.id}`;
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
 
   useEffect(() => {
-    setTimeout(() => {
-      const fetchProducts = [
-        {
-          id: "1",
-          name: "Classic Denim Jacket",
-          price: 799.99,
-          image: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg",
-        },
-        {
-          id: "2",
-          name: "Cotton T-Shirt",
-          price: 599.00,
-          image: "https://images.pexels.com/photos/5325881/pexels-photo-5325881.jpeg",
-        },
-        {
-          id: "3",
-          name: "Slim Fit Jeans",
-          price: 849.99,
-          image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
-        },
-        {
-          id: "4",
-          name: "Hooded Sweatshirt",
-          price: 699.00,
-          image: "https://images.pexels.com/photos/6311394/pexels-photo-6311394.jpeg",
-        },
-        {
-          id: "5",
-          name: "Leather Jacket",
-          price: 999.99,
-          image: "https://images.pexels.com/photos/842811/pexels-photo-842811.jpeg",
-        },
-        {
-          id: "6",
-          name: "Formal Shirt",
-          price: 649.00,
-          image: "https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg",
-        },
-        {
-          id: "7",
-          name: "Chinos Pants",
-          price: 729.99,
-          image: "https://images.pexels.com/photos/6311611/pexels-photo-6311611.jpeg",
-        },
-        {
-          id: "8",
-          name: "Sports Shorts",
-          price: 619.00,
-          image: "https://images.pexels.com/photos/6311622/pexels-photo-6311622.jpeg",
-        },
-        {
-          id: "9",
-          name: "Long Coat",
-          price: 899.99,
-          image: "https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg",
-        },
-        {
-          id: "10",
-          name: "Athletic Jacket",
-          price: 759.00,
-          image: "https://images.pexels.com/photos/6311613/pexels-photo-6311613.jpeg",
-        },
-        {
-          id: "11",
-          name: "Trendy Hoodie",
-          price: 679.99,
-          image: "https://images.pexels.com/photos/5749152/pexels-photo-5749152.jpeg",
-        },
-        {
-          id: "12",
-          name: "Vintage Shirt",
-          price: 639.00,
-          image: "https://images.pexels.com/photos/6311634/pexels-photo-6311634.jpeg",
-        },
-        {
-          id: "13",
-          name: "Business Suit",
-          price: 949.99,
-          image: "https://images.pexels.com/photos/6311610/pexels-photo-6311610.jpeg",
-        },
-        {
-          id: "14",
-          name: "Graphic Tee",
-          price: 609.00,
-          image: "https://images.pexels.com/photos/5911886/pexels-photo-5911886.jpeg",
-        },
-        {
-          id: "15",
-          name: "Raincoat",
-          price: 789.99,
-          image: "https://images.pexels.com/photos/6311637/pexels-photo-6311637.jpeg",
-        },
-        {
-          id: "16",
-          name: "Plaid Flannel Shirt",
-          price: 669.00,
-          image: "https://images.pexels.com/photos/6311612/pexels-photo-6311612.jpeg",
-        },
-        {
-          id: "17",
-          name: "Casual Blazer",
-          price: 879.99,
-          image: "https://images.pexels.com/photos/1030895/pexels-photo-1030895.jpeg",
-        },
-        {
-          id: "18",
-          name: "Women's Leather Pants",
-          price: 739.00,
-          image: "https://images.pexels.com/photos/5325697/pexels-photo-5325697.jpeg",
-        },
-        {
-          id: "19",
-          name: "Overcoat",
-          price: 919.99,
-          image: "https://images.pexels.com/photos/8941561/pexels-photo-8941561.jpeg",
-        },
-      ];
-      
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        // Simulated API call with more realistic data
+const mockData = [
+  {
+    id: "1",
+    name: "Casual T-Shirt",
+    price: 499.0,
+    image: "https://images.pexels.com/photos/1006227/pexels-photo-1006227.jpeg",
+    category: "Top Wear",
+    gender: "Men",
+    color: "blue",
+    size: ["S", "M", "L"],
+    material: "Cotton",
+    brand: "H&M"
+  },
+  {
+    id: "2",
+    name: "Denim Jeans",
+    price: 999.0,
+    image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
+    category: "Bottom Wear",
+    gender: "Women",
+    color: "dark blue",
+    size: ["28", "30", "32"],
+    material: "Denim",
+    brand: "Levi's"
+  },
+  {
+    id: "3",
+    name: "Summer Dress",
+    price: 1299.0,
+    image: "https://images.pexels.com/photos/6311395/pexels-photo-6311395.jpeg",
+    category: "One Piece",
+    gender: "Women",
+    color: "red",
+    size: ["S", "M"],
+    material: "Chiffon",
+    brand: "Zara"
+  },
+  {
+    id: "4",
+    name: "Formal Shirt",
+    price: 799.0,
+    image: "https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg",
+    category: "Top Wear",
+    gender: "Men",
+    color: "white",
+    size: ["M", "L", "XL"],
+    material: "Cotton",
+    brand: "Arrow"
+  },
+  {
+    id: "5",
+    name: "Kurti",
+    price: 699.0,
+    image: "https://images.pexels.com/photos/1493111/pexels-photo-1493111.jpeg",
+    category: "Ethnic Wear",
+    gender: "Women",
+    color: "green",
+    size: ["S", "M", "L", "XL"],
+    material: "Rayon",
+    brand: "Biba"
+  },
+  {
+    id: "6",
+    name: "Track Pants",
+    price: 599.0,
+    image: "https://images.pexels.com/photos/1484808/pexels-photo-1484808.jpeg",
+    category: "Bottom Wear",
+    gender: "Men",
+    color: "gray",
+    size: ["M", "L"],
+    material: "Polyester",
+    brand: "Nike"
+  },
+  {
+    id: "7",
+    name: "Printed Saree",
+    price: 1499.0,
+    image: "https://images.pexels.com/photos/6311396/pexels-photo-6311396.jpeg",
+    category: "Ethnic Wear",
+    gender: "Women",
+    color: "pink",
+    size: ["Free"],
+    material: "Georgette",
+    brand: "Fabindia"
+  },
+  {
+    id: "8",
+    name: "Hoodie",
+    price: 899.0,
+    image: "https://images.pexels.com/photos/853261/pexels-photo-853261.jpeg",
+    category: "Top Wear",
+    gender: "Men",
+    color: "black",
+    size: ["M", "L", "XL"],
+    material: "Fleece",
+    brand: "Puma"
+  },
+  {
+    id: "9",
+    name: "Leggings",
+    price: 499.0,
+    image: "https://images.pexels.com/photos/3735645/pexels-photo-3735645.jpeg",
+    category: "Bottom Wear",
+    gender: "Women",
+    color: "maroon",
+    size: ["S", "M", "L"],
+    material: "Lycra",
+    brand: "Jockey"
+  },
+  {
+    id: "10",
+    name: "Oversized T-Shirt",
+    price: 599.0,
+    image: "https://images.pexels.com/photos/1677030/pexels-photo-1677030.jpeg",
+    category: "Top Wear",
+    gender: "Unisex",
+    color: "white",
+    size: ["M", "L", "XL"],
+    material: "Cotton",
+    brand: "Bewakoof"
+  }
+];
 
-      setProducts(fetchProducts);
-    }, 1000);
+
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        setProducts(mockData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProducts();
   }, []);
 
   return (
-    <>
-      <div className="All-products">
-        {/* Mobile filter button */}
-        <div className="mobbile-filter-button">
-          <button onClick={toggleSidebar} aria-label="Toggle filter sidebar">
-            <FaFilter className="mobile-view-filtter-icon" />
-          </button>
-        </div>
+    <div className="collections-page">
+      <button
+        className="mobile-filter-button"
+        onClick={toggleSidebar}
+        aria-label="Toggle filters"
+        aria-expanded={isSidebarOpen}
+        aria-controls="filter-sidebar"
+      >
+        <FaFilter className="filter-icon" />
+        <span>Filters</span>
+      </button>
 
-        {/* Filter sidebar */}
-        <div
-          className={`filter-sideBar ${isSidebarOpen ? "open" : ""}`}
-          ref={sidebarRef}
-        >
-          <FilterSidebar />
-        </div>
+      <div
+        id="filter-sidebar"
+        className={`filter-sidebar-container ${isSidebarOpen ? "open" : ""}`}
+        ref={sidebarRef}
+        aria-hidden={!isSidebarOpen}
+      >
+        <FilterSidebar onClose={() => setIsSidebarOpen(false)} />
+      </div>
 
-        {/* Product grid */}
-        <div className="men-collection-heading">
-          <div className="h2">
-          <h2>
-            Explore Our Exclusive Men's Collection – Style, Comfort & Confidence
-            Redefined.
-          </h2>
-
-          <ShortOptions className="ShortOptions"/>
+      <main className="main-content">
+        <header className="collection-header">
+          <h1>Discover Fashion – Where Style Meets Confidence</h1>
+          <div className="sort-options-container">
+            <SortOptions />
           </div>
-          <div className="product-grid">
-            {products.length === 0 ? (
+        </header>
+
+        <section className="product-grid" aria-label="Product listings">
+          {isLoading ? (
+            <div className="loading-state" role="status" aria-live="polite">
+              <div className="loading-spinner" aria-hidden="true"></div>
               <p>Loading products...</p>
-            ) : (
-              products.map((item) => (
-                <div key={item.id} className="product-card">
-                  <img src={item.image} alt={item.name} />
-                  <div className="product-info">
-                    <h3>{item.name}</h3>
-                    <p>₹{item.price.toFixed(2)}</p>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="empty-state">
+              <p>No products found. Try adjusting your filters.</p>
+            </div>
+          ) : (
+            products.map((product) => (
+              <article
+                key={product.id}
+                className="product-card"
+                onClick={() => handleProductClick(product)}
+                tabIndex={0}
+                role="button"
+                aria-label={`View details for ${product.name}, priced at ₹${product.price.toFixed(2)}`}
+                onKeyDown={(e) => e.key === "Enter" && handleProductClick(product)}
+              >
+                <div className="product-image-container">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    decoding="async"
+                    width="300"
+                    height="400"
+                  />
+                </div>
+                <div className="product-info">
+                  <h3>{product.name}</h3>
+                  <p className="product-price">₹{product.price.toFixed(2)}</p>
+                  <div className="product-meta">
+                    <span className="product-brand">{product.brand}</span>
+                    <span
+                      className="product-color"
+                      style={{ backgroundColor: product.color }}
+                      aria-label={`Color: ${product.color}`}
+                    ></span>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+              </article>
+            ))
+          )}
+        </section>
+      </main>
+    </div>
   );
 }
 
 export default CollectionsPage;
-
-// 
-// 
-// 

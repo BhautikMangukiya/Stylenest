@@ -6,42 +6,42 @@ import "./FeturedSection.css";
 
 function FeturedSection() {
   return (
-    <section className="highlights-section">
+    <section className="highlights-section" aria-label="Shopping benefits">
       <div className="highlight-card">
-        <div className="highlight-icon">
+        <div className="highlight-icon" aria-hidden="true">
           <FaShippingFast />
         </div>
-        <h4 className="highlight-title">Free International Shipping</h4>
+        <h3 className="highlight-title">Free International Shipping</h3>
         <p className="highlight-description">
           Enjoy fast and reliable delivery worldwide.
         </p>
       </div>
 
       <div className="highlight-card">
-        <div className="highlight-icon">
+        <div className="highlight-icon" aria-hidden="true">
           <GiCycle />
         </div>
-        <h4 className="highlight-title">30-Day Return Policy</h4>
+        <h3 className="highlight-title">30-Day Return Policy</h3>
         <p className="highlight-description">
           Shop with confidence with our hassle-free returns.
         </p>
       </div>
 
       <div className="highlight-card">
-        <div className="highlight-icon">
+        <div className="highlight-icon" aria-hidden="true">
           <MdOutlinePayments />
         </div>
-        <h4 className="highlight-title">Secure Payment Options</h4>
+        <h3 className="highlight-title">Secure Payment Options</h3>
         <p className="highlight-description">
           Your payment information is safe with us.
         </p>
       </div>
 
       <div className="highlight-card">
-        <div className="highlight-icon">
+        <div className="highlight-icon" aria-hidden="true">
           <MdVerifiedUser />
         </div>
-        <h4 className="highlight-title">Trusted Seller Guarantee</h4>
+        <h3 className="highlight-title">Trusted Seller Guarantee</h3>
         <p className="highlight-description">
           We only work with verified, trusted vendors.
         </p>

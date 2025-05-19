@@ -2,18 +2,13 @@ import React from "react";
 import Topbar from "../../Layout/Topbar/Topbar";
 import Navbar from "../Navbar/Navbar";
 
-
-
-
 function Header() {
   return (
-    <div>
-      {/* Topbar */}
+    <header className="site-header">
       <Topbar />
-      {/* navbar */}
-       <Navbar />
-      {/* Cart Drawer */}
-    </div>
+      <Navbar />
+      {/* Cart Drawer will be added here later if needed */}
+    </header>
   );
 }
 

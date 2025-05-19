@@ -14,7 +14,7 @@ import OrderConfirmationPage from "./pages/OrderConfirmationPage/OrderConfirmati
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import AdminLayout from "./componets/Admin/AdminLayout/AdminLayout";
 import UserManagement from "./componets/Admin/UserManagement/UserManagement"
-import Orders from "./componets/Admin/Orders/Orders"
+import OrderManagement from "./componets/Admin/OrderManagement/OrderManagement"
 import AdminHomePage from "./componets/Admin/AdminHomePage/AdminHomePage";
 import ProductManagement from "./componets/Admin/ProductManagement/ProductManagement";
 import EditProductPage from "./componets/Admin/EditProductPage/EditProductPage";
@@ -31,9 +31,9 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
             <Route path="collections/:collection" element={<CollectionsPage />} />
-            <Route path="chekout" element={<Checkout />} />  {/* <Route path="product/:id" element={<ProductDetails />} ></Route> */}
+            <Route path="checkout" element={<Checkout />} />  {/* <Route path="product/:id" element={<ProductDetails />} ></Route> */}
             <Route path="order-confirmation" element={<OrderConfirmationPage />} />
-            <Route path="/OrderDetails/:id" element={<OrderDetails />} />
+            <Route path="/orderdetails/:id" element={<OrderDetails />} />
           </Route>
 
           {/* admin */}
@@ -43,7 +43,7 @@ function App() {
              <Route path="users" element={<UserManagement />} />
              <Route path="products" element={<ProductManagement />} />
              <Route path="products/:id/edit" element={<EditProductPage />} />
-             <Route path="orders" element={<Orders />} />
+             <Route path="orders" element={<OrderManagement />} />
  
           </Route>
         </Routes>

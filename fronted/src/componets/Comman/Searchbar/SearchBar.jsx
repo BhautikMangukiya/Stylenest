@@ -19,7 +19,7 @@ function SearchBar() {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
       />
-      <button type="submit" className="submit-btn">
+      <button type="submit" className="search-submit-btn">
         Search
       </button>
     </form>

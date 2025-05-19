@@ -29,7 +29,7 @@ function ShortOptions({ onSortChange }) {
   };
 
   return (
-    <div className="sort-options-container">
+    <div className="sort-options-container-short">
       <label htmlFor="sort-options-select" className="sort-options-label">
         Sort by:
       </label>

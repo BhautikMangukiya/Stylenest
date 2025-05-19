@@ -1,218 +1,242 @@
+/* ===== Base Styles ===== */
 .footer-container {
-  background-color: #f9f9f9;
-  /* Matches Navbar’s white background */
-  color: #2b2b2b;
+  background-color: #2c3e50;
+  color: #f8f9fa;
   font-family: 'Georgia', serif;
-  /* Matches Navbar’s typography */
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-  /* margin-top: 7%;  */
+  padding: 3rem 1rem 0;
 }
 
 .footer {
-  padding: 50px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Four-column layout */
-  gap: 30px;
-  border-top: 1px solid #d4d4d4;
-  
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ===== Footer Columns ===== */
 .footer-column {
-  
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  padding: 0 1rem;
 }
 
 .footer-column h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  /* Matches Navbar’s letter spacing */
-  margin: 0;
-  color: #2b2b2b;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #d4af37;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-column h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #9b59b6);
 }
 
 .footer-column h3 {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 0;
-  color: #2b2b2b;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+  color: #d4af37;
 }
 
 .footer-column p {
-  font-size: 14px;
+  font-size: 0.95rem;
   line-height: 1.6;
-  color: #4a4a4a;
-  /* Slightly lighter gray for contrast */
-  margin: 0;
+  margin-bottom: 1.5rem;
+  color: #bdc3c7;
 }
 
+/* ===== Newsletter Form ===== */
 .subscribe {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  width: 90%;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .subscribe input {
-  padding: 10px;
-  border: 1px solid #d4d4d4;
-  /* Matches Navbar’s subtle borders */
-  border-radius: 4px;
-  font-size: 14px;
-  font-family: 'Georgia', serif;
   flex: 1;
-  outline: none;
-  background-color: #fafafa;
-  /* Slight off-white for input */
-  color: #2b2b2b;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
 
+.subscribe input:focus {
+  outline: none;
+  background-color: white;
+  box-shadow: 0 0 0 2px #d4af37;
 }
 
 .subscribe button {
-  padding: 10px 20px;
-  background-color: #2b2b2b;
-  /* Matches Navbar’s text color */
-  color: #fff;
+  padding: 0 1.5rem;
+  background: linear-gradient(135deg, #3498db, #9b59b6);
+  color: white;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .subscribe button:hover {
-  background-color: #d4af37;
-  /* Gold accent on hover, matches Navbar */
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
+/* ===== Links List ===== */
 .footer-column ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .footer-column ul li {
-  font-size: 16px;
+  margin-bottom: 0.8rem;
 }
 
 .footer-column ul li a {
-  color: #4a4a4a;
+  color: #bdc3c7;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-column ul li a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #d4af37;
+  transition: width 0.3s ease;
 }
 
 .footer-column ul li a:hover {
-  color: #7b4f1d;
-  /* Gold accent on hover, matches Navbar */
+  color: white;
 }
 
+.footer-column ul li a:hover::before {
+  width: 100%;
+}
+
+/* ===== Social Links ===== */
 .social-links {
   display: flex;
-  flex-direction: row !important;
-  gap: 15px !important;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
 }
 
-/* Copyright Section */
+.social-links a {
+  color: #bdc3c7;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #d4af37;
+  transform: translateY(-3px);
+}
+
+/* ===== Call Section ===== */
+.call p {
+  font-size: 1.1rem;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+/* ===== Copyright ===== */
 .copyright {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
   text-align: center;
-  font-size: 12px;
-  color: #4a4a4a;
-  padding: 20px 40px;
-  border-top: 1px solid #d4d4d4;
-  /* Subtle divider, matches Navbar’s aesthetic */
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .copyright p {
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font-size: 15px;
 }
 
-.copyright svg {
-  font-size: 12px;
-}
-
-.social ul {
-  margin-top: 10px;
-}
-
-.social-links {
-  margin-top: 10px;
-}
-
-.call {
-  margin-top: 20px;
-}
-
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .footer {
     grid-template-columns: repeat(2, 1fr);
-    /* Two-column layout for mobile */
-    padding: 30px 20px;
-    gap: 20px;
   }
-
-  .footer-column h2 {
-    font-size: 18px;
+  
+  .subscribe {
+    flex-direction: column;
   }
-
-  .footer-column h3 {
-    font-size: 16px;
-  }
-
-  .footer-column p {
-    font-size: 12px;
-  }
-
-  .subscribe input {
-    font-size: 12px;
-    padding: 8px;
-  }
-
+  
   .subscribe button {
-    font-size: 12px;
-    padding: 8px 15px;
-  }
-
-  .footer-column ul li {
-    font-size: 12px;
-  }
-
-  .social-links {
-    gap: 10px !important;
-  }
-
-  .copyright {
-    font-size: 10px;
-    padding: 15px 20px;
-  }
-
-  .copyright svg {
-    font-size: 10px;
+    padding: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
   .footer {
     grid-template-columns: 1fr;
-    /* Single-column layout for small screens */
-    padding: 20px 15px;
+    gap: 2.5rem;
   }
-
+  
+  .footer-column {
+    padding: 0;
+  }
+  
+  .footer-column h2 {
+    font-size: 1.3rem;
+  }
+  
+  .footer-column h3 {
+    font-size: 1.1rem;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .call {
+    text-align: center;
+  }
+  
   .copyright {
-    padding: 10px 15px;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 }
+
+/* Animation Effects */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-column {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.footer-column:nth-child(1) { animation-delay: 0.1s; }
+.footer-column:nth-child(2) { animation-delay: 0.2s; }
+.footer-column:nth-child(3) { animation-delay: 0.3s; }
+.footer-column:nth-child(4) { animation-delay: 0.4s; }
