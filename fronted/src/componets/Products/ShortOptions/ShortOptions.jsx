@@ -39,10 +39,11 @@ function ShortOptions({ onSortChange }) {
         onChange={handleSortChange}
         className="sort-options-dropdown"
       >
-        <option value="recommended">Recommended</option>
-        <option value="price-low">Price: Low to High</option>
-        <option value="price-high">Price: High to Low</option>
-        <option value="newest">Newest</option>
+        <option value="recommended">Recommended</option> // Defaults to
+        createdAt
+        <option value="priceAsc">Price: Low to High</option>
+        <option value="PriceDesc">Price: High to Low</option>
+        <option value="popularity">Popularity</option>
       </select>
     </div>
   );

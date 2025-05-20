@@ -47,7 +47,7 @@ const mockData = [
     image: "https://images.pexels.com/photos/1006227/pexels-photo-1006227.jpeg",
     category: "Top Wear",
     gender: "Men",
-    color: "blue",
+    color: "black",
     size: ["S", "M", "L"],
     material: "Cotton",
     brand: "H&M"
@@ -59,7 +59,7 @@ const mockData = [
     image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
     category: "Bottom Wear",
     gender: "Women",
-    color: "dark blue",
+    color: "gray",
     size: ["28", "30", "32"],
     material: "Denim",
     brand: "Levi's"
@@ -71,7 +71,7 @@ const mockData = [
     image: "https://images.pexels.com/photos/6311395/pexels-photo-6311395.jpeg",
     category: "One Piece",
     gender: "Women",
-    color: "red",
+    color: "green",
     size: ["S", "M"],
     material: "Chiffon",
     brand: "Zara"

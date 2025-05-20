@@ -12,11 +12,11 @@ function FilterSidebar() {
     size: [],
     material: [],
     brand: [],
-    minPrice: 0,
-    maxPrice: 1000,
+    minPrice: 499,
+    maxPrice: 3000,
   });
 
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([499, 3000]);
 
   const categories = ["Top Wear", "Bottom Wear"];
   const genders = ["Men", "Women", "Kids"];
@@ -34,6 +34,9 @@ function FilterSidebar() {
   useEffect(() => {
     const params = Object.fromEntries([...searchParams]);
 
+    const minPrice = parseInt(params.minPrice) || 499;
+    const maxPrice = parseInt(params.maxPrice) || 3000;
+
     setFilters({
       category: params.category || "",
       gender: params.gender || "",
@@ -41,11 +44,11 @@ function FilterSidebar() {
       size: params.size ? params.size.split(",") : [],
       material: params.material ? params.material.split(",") : [],
       brand: params.brand ? params.brand.split(",") : [],
-      minPrice: parseInt(params.minPrice) || 0,
-      maxPrice: parseInt(params.maxPrice) || 1000,
+      minPrice,
+      maxPrice,
     });
 
-    setPriceRange([0, parseInt(params.maxPrice) || 1000]);
+    setPriceRange([minPrice, maxPrice]);
   }, [searchParams]);
 
   const handleRadioChange = (key, value) => {
@@ -80,13 +83,45 @@ function FilterSidebar() {
       size: [],
       material: [],
       brand: [],
-      minPrice: 0,
-      maxPrice: 1000,
+      minPrice: 499,
+      maxPrice: 3000,
     };
 
     setFilters(defaultFilters);
     setSearchParams({});
-    setPriceRange([0, 1000]);
+    setPriceRange([499, 3000]);
+  };
+
+  const handleMinPriceChange = (e) => {
+    const newMin = parseInt(e.target.value) || 499;
+    const newPriceRange = [Math.min(newMin, priceRange[1] - 100), priceRange[1]];
+    setPriceRange(newPriceRange);
+
+    const updatedFilters = { ...filters, minPrice: newPriceRange[0], maxPrice: newPriceRange[1] };
+    setFilters(updatedFilters);
+
+    const updatedParams = {
+      ...Object.fromEntries(searchParams),
+      minPrice: newPriceRange[0],
+      maxPrice: newPriceRange[1],
+    };
+    setSearchParams(updatedParams);
+  };
+
+  const handleMaxPriceChange = (e) => {
+    const newMax = parseInt(e.target.value) || 3000;
+    const newPriceRange = [priceRange[0], Math.max(newMax, priceRange[0] + 100)];
+    setPriceRange(newPriceRange);
+
+    const updatedFilters = { ...filters, minPrice: newPriceRange[0], maxPrice: newPriceRange[1] };
+    setFilters(updatedFilters);
+
+    const updatedParams = {
+      ...Object.fromEntries(searchParams),
+      minPrice: newPriceRange[0],
+      maxPrice: newPriceRange[1],
+    };
+    setSearchParams(updatedParams);
   };
 
   return (
@@ -191,35 +226,50 @@ function FilterSidebar() {
         ))}
       </div>
 
-      {/* Price Range */}
+      {/* Price Range Filter */}
       <div className="filter-group">
-        <h4 className="filter-group-title">Price</h4>
-        <div className="price-range-display">₹0 - ₹1000</div>
-        <input
-          type="range"
-          min="0"
-          max="1000"
-          step="10"
-          value={priceRange[1]}
-          onChange={(e) => {
-            const newMax = parseInt(e.target.value);
-            setPriceRange([0, newMax]);
+        <h4 className="filter-group-title">Price Range</h4>
+        <div className="price-range-container">
+          <div className="price-range-header">
+            <span className="price-range-title">PRICE RANGE</span>
+            <span className="price-range-values">₹{priceRange[0]} - ₹{priceRange[1]}</span>
+          </div>
+          
+          <div className="price-slider-container">
+            <div className="price-slider-track"></div>
+            <div 
+              className="price-slider-range" 
+              style={{
+                left: `${((priceRange[0] - 499) / (3000 - 499)) * 100}%`,
+                width: `${((priceRange[1] - priceRange[0]) / (3000 - 499)) * 100}%`
+              }}
+            ></div>
+            
+            <input
+              type="range"
+              min="499"
+              max="3000"
+              value={priceRange[0]}
+              onChange={handleMinPriceChange}
+              className="price-slider"
+            />
+            
+            <input
+              type="range"
+              min="499"
+              max="3000"
+              value={priceRange[1]}
+              onChange={handleMaxPriceChange}
+              className="price-slider"
+            />
+          </div>
 
-            const updatedFilters = { ...filters, maxPrice: newMax };
-            setFilters(updatedFilters);
-
-            const updatedParams = {
-              ...Object.fromEntries(searchParams),
-              minPrice: 0,
-              maxPrice: newMax,
-            };
-            setSearchParams(updatedParams);
-          }}
-        />
-        <p className="selected-price">Selected Price: ₹{priceRange[1]}</p>
+        </div>
       </div>
     </aside>
   );
 }
 
 export default FilterSidebar;
+
+// Compare this snippet from backend/models/Product.js:
