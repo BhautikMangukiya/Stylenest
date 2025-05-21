@@ -1,48 +1,43 @@
-// middleware/protect.js
-
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// Middleware to protect routes
 const protect = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
   let token;
 
-  // Check if authorization header exists and starts with "Bearer"
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (authHeader && authHeader.startsWith("Bearer")) {
+    token = authHeader.split(" ")[1];
+
     try {
-      // Get token from header
-      token = req.headers.authorization.split(" ")[1];
-
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findById(decoded.user.id).select("-password");
 
-      // Attach user data (without password) to req object
-      req.user = await User.findById(decoded.user.id).select("-password");
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
+      }
 
-      next(); // proceed to the route
-    } catch (error) {
-      console.error("Token verification failed:", error.message);
-      return res.status(401).json({ message: "Not authorized, token failed" });
+      req.user = user;
+      return next();
+    } catch (err) {
+      console.error("Token verification failed:", err.message);
+      return res.status(401).json({ message: "Not authorized, invalid token" });
     }
   }
 
-  // If no token was found
-  if (!token) {
-    return res.status(401).json({ message: "Not authorized, no token provided" });
+  if (req.body.guestId || req.query.guestId) {
+    return next();
   }
+
+  return res
+    .status(401)
+    .json({ message: "Not authorized, no token or guestId" });
 };
 
-// middleware to chek if the user is and admin 
-
 const admin = (req, res, next) => {
-  if (req.user && req.user.role == "admin"){
-    next()
-  }else {
-    res.status(403).json({message: "Not authorized as an admin"})
+  if (req.user && req.user.role === "admin") {
+    return next();
   }
-}
+  return res.status(403).json({ message: "Not authorized as an admin" });
+};
 
-module.exports = {protect, admin};
+module.exports = { protect, admin };

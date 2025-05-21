@@ -1,4 +1,3 @@
-const { sign } = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const cartItemSchema = new mongoose.Schema(
@@ -18,9 +17,7 @@ const cartItemSchema = new mongoose.Schema(
       default: 1,
     },
   },
-  {
-    _id: false,
-  }
+  { _id: false }
 );
 
 const cartSchema = new mongoose.Schema(
@@ -42,8 +39,5 @@ const cartSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-module.exports = mongoose.model("Cart", cartSchema);
-
 
 module.exports = mongoose.model("Cart", cartSchema);
