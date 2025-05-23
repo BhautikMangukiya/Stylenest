@@ -6,6 +6,7 @@ const connectDB = require('./config/db')
 const userRoutes = require("./Routes/UserRoutes")
 const productRoutes = require("./Routes/ProductRoutes")
 const cartRoutes = require("./Routes/CartRoutes")
+const checkOutRoutes = require("./Routes/checkoutRoute")
  
 
 const app = express();
@@ -27,7 +28,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/cart", cartRoutes )
+app.use("/api/checkout", checkOutRoutes)
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Stylnes Server is live at http://localhost:${PORT}`);
+  console.log(`\n🚀 StyleNest Server is live at http://localhost:${PORT}`);
 });
