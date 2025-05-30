@@ -1,177 +1,60 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaExclamationCircle } from "react-icons/fa";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import FilterSidebar from "../../componets/Products/FilterSidebar/FilterSidebar";
 import SortOptions from "../../componets/Products/ShortOptions/ShortOptions";
+import { fetchProductsByFilters } from "../../../redux/slices/productsSlice";
 import "./CollectionsPage.css";
 
-function CollectionsPage() {
-  const [products, setProducts] = useState([]);
+const getImageUrl = (image) => {
+  if (!image) return "/placeholder-image.jpg";
+  const baseUrl = import.meta.env.VITE_BACKEND_URL || "";
+  const url = typeof image === "string" ? image : image?.url;
+  return url?.startsWith("http") ? url : `${baseUrl}${url || ""}` || "/placeholder-image.jpg";
+};
+
+const CollectionsPage = () => {
+  const { collection } = useParams();
+  const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products, loading, error } = useSelector((state) => state.products);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [imageLoadErrors, setImageLoadErrors] = useState({});
   const sidebarRef = useRef(null);
 
-  const toggleSidebar = useCallback(() => {
-    setIsSidebarOpen((prev) => !prev);
-  }, []);
+  const queryParams = Object.fromEntries(searchParams);
 
-  const handleClickOutside = useCallback((event) => {
-    if (
-      sidebarRef.current &&
-      !sidebarRef.current.contains(event.target) &&
-      !event.target.closest(".mobile-filter-button")
-    ) {
-      setIsSidebarOpen(false);
-    }
-  }, []);
+  // const handleImageError = useCallback((e, productId) => {
+  //   console.warn(`Image failed to load for product ${productId}: ${e.target.src}`);
+  //   setImageLoadErrors((prev) => ({ ...prev, [productId]: true }));
+  //   e.target.src = "/placeholder-image.jpg";
+  // }, []);
 
-  const handleProductClick = useCallback((product) => {
-    // In a real app, you would use react-router's navigate
-    window.location.href = `/product/${product.id}`;
-  }, []);
+  const handleProductClick = useCallback(
+    (productId) => navigate(`/product/${productId}`),
+    [navigate]
+  );
+
+  const toggleSidebar = useCallback(() => setIsSidebarOpen((prev) => !prev), []);
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handleClickOutside]);
+    dispatch(fetchProductsByFilters({ collection: collection || "", ...queryParams }));
+  }, [collection, searchParams, dispatch]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setIsLoading(true);
-        // Simulated API call with more realistic data
-const mockData = [
-  {
-    id: "1",
-    name: "Casual T-Shirt",
-    price: 499.0,
-    image: "https://images.pexels.com/photos/1006227/pexels-photo-1006227.jpeg",
-    category: "Top Wear",
-    gender: "Men",
-    color: "black",
-    size: ["S", "M", "L"],
-    material: "Cotton",
-    brand: "H&M"
-  },
-  {
-    id: "2",
-    name: "Denim Jeans",
-    price: 999.0,
-    image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",
-    category: "Bottom Wear",
-    gender: "Women",
-    color: "gray",
-    size: ["28", "30", "32"],
-    material: "Denim",
-    brand: "Levi's"
-  },
-  {
-    id: "3",
-    name: "Summer Dress",
-    price: 1299.0,
-    image: "https://images.pexels.com/photos/6311395/pexels-photo-6311395.jpeg",
-    category: "One Piece",
-    gender: "Women",
-    color: "green",
-    size: ["S", "M"],
-    material: "Chiffon",
-    brand: "Zara"
-  },
-  {
-    id: "4",
-    name: "Formal Shirt",
-    price: 799.0,
-    image: "https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg",
-    category: "Top Wear",
-    gender: "Men",
-    color: "white",
-    size: ["M", "L", "XL"],
-    material: "Cotton",
-    brand: "Arrow"
-  },
-  {
-    id: "5",
-    name: "Kurti",
-    price: 699.0,
-    image: "https://images.pexels.com/photos/1493111/pexels-photo-1493111.jpeg",
-    category: "Ethnic Wear",
-    gender: "Women",
-    color: "green",
-    size: ["S", "M", "L", "XL"],
-    material: "Rayon",
-    brand: "Biba"
-  },
-  {
-    id: "6",
-    name: "Track Pants",
-    price: 599.0,
-    image: "https://images.pexels.com/photos/1484808/pexels-photo-1484808.jpeg",
-    category: "Bottom Wear",
-    gender: "Men",
-    color: "gray",
-    size: ["M", "L"],
-    material: "Polyester",
-    brand: "Nike"
-  },
-  {
-    id: "7",
-    name: "Printed Saree",
-    price: 1499.0,
-    image: "https://images.pexels.com/photos/6311396/pexels-photo-6311396.jpeg",
-    category: "Ethnic Wear",
-    gender: "Women",
-    color: "pink",
-    size: ["Free"],
-    material: "Georgette",
-    brand: "Fabindia"
-  },
-  {
-    id: "8",
-    name: "Hoodie",
-    price: 899.0,
-    image: "https://images.pexels.com/photos/853261/pexels-photo-853261.jpeg",
-    category: "Top Wear",
-    gender: "Men",
-    color: "black",
-    size: ["M", "L", "XL"],
-    material: "Fleece",
-    brand: "Puma"
-  },
-  {
-    id: "9",
-    name: "Leggings",
-    price: 499.0,
-    image: "https://images.pexels.com/photos/3735645/pexels-photo-3735645.jpeg",
-    category: "Bottom Wear",
-    gender: "Women",
-    color: "maroon",
-    size: ["S", "M", "L"],
-    material: "Lycra",
-    brand: "Jockey"
-  },
-  {
-    id: "10",
-    name: "Oversized T-Shirt",
-    price: 599.0,
-    image: "https://images.pexels.com/photos/1677030/pexels-photo-1677030.jpeg",
-    category: "Top Wear",
-    gender: "Unisex",
-    color: "white",
-    size: ["M", "L", "XL"],
-    material: "Cotton",
-    brand: "Bewakoof"
-  }
-];
-
-
-        await new Promise((resolve) => setTimeout(resolve, 800));
-        setProducts(mockData);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setIsLoading(false);
+    const handleClickOutside = (event) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        !event.target.closest(".mobile-filter-button")
+      ) {
+        setIsSidebarOpen(false);
       }
     };
-    fetchProducts();
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -205,55 +88,68 @@ const mockData = [
         </header>
 
         <section className="product-grid" aria-label="Product listings">
-          {isLoading ? (
+          {loading ? (
             <div className="loading-state" role="status" aria-live="polite">
               <div className="loading-spinner" aria-hidden="true"></div>
               <p>Loading products...</p>
             </div>
-          ) : products.length === 0 ? (
+          ) : error ? (
+            <div className="error-state">
+              <FaExclamationCircle className="error-icon" />
+              <p>Error loading products: {error}</p>
+              <button onClick={() => window.location.reload()} className="retry-button">
+                Retry
+              </button>
+            </div>
+          ) : !products || products.length === 0 ? (
             <div className="empty-state">
               <p>No products found. Try adjusting your filters.</p>
             </div>
           ) : (
-            products.map((product) => (
-              <article
-                key={product.id}
-                className="product-card"
-                onClick={() => handleProductClick(product)}
-                tabIndex={0}
-                role="button"
-                aria-label={`View details for ${product.name}, priced at ₹${product.price.toFixed(2)}`}
-                onKeyDown={(e) => e.key === "Enter" && handleProductClick(product)}
-              >
-                <div className="product-image-container">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    loading="lazy"
-                    decoding="async"
-                    width="300"
-                    height="400"
-                  />
-                </div>
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <p className="product-price">₹{product.price.toFixed(2)}</p>
-                  <div className="product-meta">
-                    <span className="product-brand">{product.brand}</span>
-                    <span
-                      className="product-color"
-                      style={{ backgroundColor: product.color }}
-                      aria-label={`Color: ${product.color}`}
-                    ></span>
+            products.map((product, index) => {
+              const productId = product.id || `fallback-${index}`; // Fallback key if product.id is missing
+              return (
+                <article
+                  key={productId}
+                  className={`product-card ${imageLoadErrors[productId] ? "image-error" : ""}`}
+                  onClick={() => handleProductClick(productId)}
+                  onKeyDown={(e) => e.key === "Enter" && handleProductClick(productId)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View details for ${product.name || "Product"}, priced at ₹${(product.price || 0).toFixed(2)}`}
+                >
+                  <div className="product-image-container">
+                    <img
+                      src={getImageUrl(product.image || product.images?.[0])}
+                      alt={product.name || "Product image"}
+                      loading="lazy"
+                      decoding="async"
+                      width="300"
+                      height="400"
+                      onError={(e) => handleImageError(e, productId)}
+                    />
+                    {imageLoadErrors[productId] && (
+                      <div className="image-error-badge">
+                        <FaExclamationCircle />
+                      </div>
+                    )}
                   </div>
-                </div>
-              </article>
-            ))
+                  <div className="product-info">
+                    <h3>{product.name || "Unnamed Product"}</h3>
+                    <p className="product-price">₹{(product.price || 0).toFixed(2)}</p>
+                    <div className="product-meta">
+                      <span className="product-brand">{product.brand || "Unknown Brand"}</span>
+
+                    </div>
+                  </div> 
+                </article>
+              );
+            })
           )}
         </section>
       </main>
     </div>
   );
-}
+};
 
 export default CollectionsPage;

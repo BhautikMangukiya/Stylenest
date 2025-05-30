@@ -2,13 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Retrieve user info and token from localStorage if available
-
 const userFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-// Chek for an existing guest ID in the localStorage or generate a new One
-
+// Check for an existing guest ID in the localStorage or generate a new One
 const initialguestId =
   localStorage.getItem("guestId") ||
   Math.random().toString(36).substring(2, 15) +
@@ -44,7 +42,6 @@ export const loginUser = createAsyncThunk(
 );
 
 // async thunk for registering a new user
-
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -66,7 +63,6 @@ export const registerUser = createAsyncThunk(
 );
 
 // slice
-
 const authSlice = createSlice({
   name: "auth",
   initialState,

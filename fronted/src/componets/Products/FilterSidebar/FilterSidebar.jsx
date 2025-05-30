@@ -19,7 +19,7 @@ function FilterSidebar() {
   const [priceRange, setPriceRange] = useState([499, 3000]);
 
   const categories = ["Top Wear", "Bottom Wear"];
-  const genders = ["Men", "Women", "Kids"];
+  const genders = ["Men", "Women"];
   const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const materials = [

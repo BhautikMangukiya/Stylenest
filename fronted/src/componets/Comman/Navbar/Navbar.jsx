@@ -63,9 +63,6 @@ function Navbar() {
           <Link to="/women" className="sidebar-link" onClick={closeAll}>
             Women
           </Link>
-          <Link to="/kids" className="sidebar-link" onClick={closeAll}>
-            Kids
-          </Link>
           <Link to="/topwear" className="sidebar-link" onClick={closeAll}>
             Top Wear
           </Link>
@@ -140,9 +137,6 @@ function Navbar() {
               </Link>
               <Link to="/women" className="nav-link" onClick={closeAll}>
                 Women
-              </Link>
-              <Link to="/kids" className="nav-link" onClick={closeAll}>
-                Kids
               </Link>
               <Link to="/topwear" className="nav-link" onClick={closeAll}>
                 Top Wear

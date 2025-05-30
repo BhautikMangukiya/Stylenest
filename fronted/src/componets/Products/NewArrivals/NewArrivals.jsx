@@ -2,63 +2,35 @@ import React, { useEffect, useRef, useState } from "react";
 import "./NewArrivals.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function NewArrivals() {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [cardWidth, setCardWidth] = useState(0);
+  const [newArrivals, setNewArrivals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const newArrivals = [
-    {
-      _id: "1",
-      name: "Stylish Jacket",
-      price: 1500,
-      images: [{ url: "https://picsum.photos/seed/jacket1/500/500" }],
-    },
-    {
-      _id: "2",
-      name: "Casual Hoodie",
-      price: 1200,
-      images: [{ url: "https://picsum.photos/seed/hoodie2/500/500" }],
-    },
-    {
-      _id: "3",
-      name: "Denim Jeans",
-      price: 1800,
-      images: [{ url: "https://picsum.photos/seed/jeans3/500/500" }],
-    },
-    {
-      _id: "4",
-      name: "Summer Dress",
-      price: 1700,
-      images: [{ url: "https://picsum.photos/seed/dress4/500/500" }],
-    },
-    {
-      _id: "5",
-      name: "Sneakers",
-      price: 2200,
-      images: [{ url: "https://picsum.photos/seed/sneakers5/500/500" }],
-    },
-    {
-      _id: "6",
-      name: "Leather Boots",
-      price: 2500,
-      images: [{ url: "https://picsum.photos/seed/boots6/500/500" }],
-    },
-    {
-      _id: "7",
-      name: "Graphic T-Shirt",
-      price: 800,
-      images: [{ url: "https://picsum.photos/seed/tshirt7/500/500" }],
-    },
-    {
-      _id: "8",
-      name: "Formal Shirt",
-      price: 1300,
-      images: [{ url: "https://picsum.photos/seed/shirt8/500/500" }],
-    },
-  ];
+  useEffect(() => {
+    const fetchNewArrivals = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/new-arrivals`
+        );
+        setNewArrivals(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching new arrivals:", err);
+        setError("Failed to load new arrivals. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewArrivals();
+  }, []);
 
   useEffect(() => {
     const updateCardWidth = () => {
@@ -73,7 +45,7 @@ function NewArrivals() {
     updateCardWidth();
     window.addEventListener("resize", updateCardWidth);
     return () => window.removeEventListener("resize", updateCardWidth);
-  }, []);
+  }, [newArrivals]); // Add newArrivals as dependency to recalculate when data loads
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -110,15 +82,52 @@ function NewArrivals() {
       threshold: 0.1,
     });
 
-    if (container.firstChild) observer.observe(container.firstChild);
-    if (container.lastChild) observer.observe(container.lastChild);
+    Array.from(container.children).forEach(child => {
+      observer.observe(child);
+    });
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
       clearTimeout(timeoutId);
       observer.disconnect();
     };
-  }, []);
+  }, [newArrivals]);
+
+  if (loading) {
+    return (
+      <div className="new-arrivals">
+        <section className="new-arrivals__section">
+          <div className="new-arrivals__header">
+            <h2 className="new-arrivals__title">Explore New Arrivals</h2>
+            <p className="new-arrivals__subtitle">
+              Discover the latest styles and trends today!
+            </p>
+          </div>
+          <div className="new-arrivals__content">
+            <p>Loading...</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="new-arrivals">
+        <section className="new-arrivals__section">
+          <div className="new-arrivals__header">
+            <h2 className="new-arrivals__title">Explore New Arrivals</h2>
+            <p className="new-arrivals__subtitle">
+              Discover the latest styles and trends today!
+            </p>
+          </div>
+          <div className="new-arrivals__content">
+            <p className="new-arrivals__error">{error}</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="new-arrivals">
@@ -135,32 +144,48 @@ function NewArrivals() {
             className="new-arrivals__scroll-btn new-arrivals__scroll-btn--left"
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
+            aria-label="Scroll left"
           >
             <FaChevronLeft />
           </button>
 
           <div className="new-arrivals__content" ref={scrollRef}>
-            {newArrivals.map((product) => (
-              <div className="new-arrivals__card" key={product._id}>
-                <img
-                  src={product.images[0]?.url}
-                  alt={product.name}
-                  className="new-arrivals__image"
-                />
-                <div className="new-arrivals__info">
-                  <Link to={`/product/${product._id}`} className="new-arrivals__link">
-                    <h4 className="new-arrivals__product-name">{product.name}</h4>
-                    <p className="new-arrivals__product-price">₹ {product.price}</p>
-                  </Link>
+            {newArrivals.length > 0 ? (
+              newArrivals.map((product) => (
+                <div className="new-arrivals__card" key={product._id}>
+                  <img
+                    src={product.images[0]?.url || ''}
+                    alt={product.name || 'Product image'}
+                    className="new-arrivals__image"
+                    onError={(e) => {
+                      e.target.src = 'path-to-fallback-image.jpg';
+                    }}
+                  />
+                  <div className="new-arrivals__info">
+                    <Link
+                      to={`/product/${product._id}`}
+                      className="new-arrivals__link"
+                    >
+                      <h4 className="new-arrivals__product-name">
+                        {product.name}
+                      </h4>
+                      <p className="new-arrivals__product-price">
+                        ₹ {product.price}
+                      </p>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No new arrivals available</p>
+            )}
           </div>
 
           <button
             className="new-arrivals__scroll-btn new-arrivals__scroll-btn--right"
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
+            aria-label="Scroll right"
           >
             <FaChevronRight />
           </button>

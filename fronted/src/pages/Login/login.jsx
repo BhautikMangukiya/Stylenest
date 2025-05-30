@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { useState } from "react";
-import loginImage from "../../assets/login.webp"
+import loginImage from "../../assets/login.webp";
 import { Link } from "react-router-dom";
 import "./login.css";
 import { loginUser } from "../../../redux/slices/authSlice";
@@ -48,17 +48,17 @@ function login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit" className="sign-in">Sign In</button>
+            <button type="submit" className="sign-in">
+              Sign In
+            </button>
             <p>Don't have an account ? </p>
-            <Link to="/register" className="register">Register</Link>
+            <Link to="/register" className="register">
+              Register
+            </Link>
           </div>
 
-
           <div className="right-side">
-            <img
-              src={loginImage}
-              alt="login"
-            />
+            <img src={loginImage} alt="login" />
           </div>
         </form>
       </div>

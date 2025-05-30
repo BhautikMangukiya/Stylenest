@@ -35,7 +35,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkOutRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/orders", orderRoutes);
+//  app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoute);
 app.use("/api", subscribeRoute);
 

@@ -43,6 +43,7 @@
   font-size: 1.1rem;
   color: #7f8c8d;
   margin: 0;
+  line-height: 1.5;
 }
 
 /* ===== Scroll Container ===== */
@@ -56,14 +57,15 @@
   gap: 1.5rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding: 1rem 0;
   margin: 0 -0.5rem;
+  will-change: transform;
 }
 
 .new-arrivals__content::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 /* ===== Product Cards ===== */
@@ -74,8 +76,10 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   flex-shrink: 0;
+  backface-visibility: hidden;
 }
 
 .new-arrivals__card:hover {
@@ -88,7 +92,8 @@
   height: 280px;
   object-fit: cover;
   border-bottom: 1px solid #eee;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-color: #f5f5f5;
 }
 
 .new-arrivals__card:hover .new-arrivals__image {
@@ -97,11 +102,13 @@
 
 .new-arrivals__info {
   padding: 1.2rem;
+  padding-bottom: 5px;
 }
 
 .new-arrivals__link {
   text-decoration: none;
   color: inherit;
+  display: block;
 }
 
 .new-arrivals__product-name {
@@ -110,6 +117,9 @@
   color: #2c3e50;
   margin: 0 0 0.5rem 0;
   transition: color 0.3s ease;
+  line-height: 1.4;
+  min-height: 50px;
+  font-family: 'Georgia', serif;
 }
 
 .new-arrivals__card:hover .new-arrivals__product-name {
@@ -139,8 +149,9 @@
   align-items: center;
   justify-content: center;
   z-index: 2;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   color: #2c3e50;
+  outline: none;
 }
 
 .new-arrivals__scroll-btn:hover {
@@ -165,105 +176,26 @@
   color: #2c3e50;
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 1024px) {
-  .new-arrivals__scroll-wrapper {
-    padding: 0 1.5rem;
-  }
-  
-  .new-arrivals__card {
-    min-width: 220px;
-    max-width: 220px;
-  }
-  
-  .new-arrivals__image {
-    height: 250px;
-  }
+/* ===== Loading & Error States ===== */
+.new-arrivals__content p {
+  text-align: center;
+  width: 100%;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  padding: 1rem 0;
 }
 
-@media (max-width: 768px) {
-  .new-arrivals {
-    padding: 2rem 0;
-  }
-  
-  .new-arrivals__title {
-    font-size: 1.8rem;
-  }
-  
-  .new-arrivals__subtitle {
-    font-size: 1rem;
-  }
-  
-  .new-arrivals__card {
-    min-width: 200px;
-    max-width: 200px;
-  }
-  
-  .new-arrivals__image {
-    height: 220px;
-  }
-  
-  .new-arrivals__scroll-btn {
-    width: 36px;
-    height: 36px;
-  }
+.new-arrivals__error {
+  color: #e74c3c !important;
 }
 
-@media (max-width: 480px) {
-  .new-arrivals__section {
-    margin-top: 30px;
-    padding: 0 1rem;
-  }
-  
-  .new-arrivals__scroll-wrapper {
-    padding: 0 1rem;
-  }
-  
-  .new-arrivals__title {
-    font-size: 1.6rem;
-  }
-  
-  .new-arrivals__subtitle {
-    font-size: 0.95rem;
-  }
-  
-  .new-arrivals__content {
-    gap: 1rem;
-  }
-  
-  .new-arrivals__card {
-    min-width: 180px;
-    max-width: 180px;
-  }
-  
-  .new-arrivals__image {
-    height: 200px;
-  }
-  
-  .new-arrivals__info {
-    padding: 1rem;
-  }
-  
-  .new-arrivals__product-name {
-    font-size: 1rem;
-  }
-  
-  .new-arrivals__product-price {
-    font-size: 0.95rem;
-  }
-  
-  .new-arrivals__scroll-btn {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-/* Animation for card entrance */
+/* ===== Animations ===== */
 @keyframes fadeInSlide {
   from {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -275,11 +207,128 @@
   opacity: 0;
 }
 
-.new-arrivals__card:nth-child(1) { animation-delay: 0.1s; }
-.new-arrivals__card:nth-child(2) { animation-delay: 0.2s; }
-.new-arrivals__card:nth-child(3) { animation-delay: 0.3s; }
-.new-arrivals__card:nth-child(4) { animation-delay: 0.4s; }
-.new-arrivals__card:nth-child(5) { animation-delay: 0.5s; }
-.new-arrivals__card:nth-child(6) { animation-delay: 0.6s; }
-.new-arrivals__card:nth-child(7) { animation-delay: 0.7s; }
-.new-arrivals__card:nth-child(8) { animation-delay: 0.8s; }
+.new-arrivals__card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.new-arrivals__card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.new-arrivals__card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.new-arrivals__card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.new-arrivals__card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.new-arrivals__card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.new-arrivals__card:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.new-arrivals__card:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+  .new-arrivals__scroll-wrapper {
+    padding: 0 1.5rem;
+  }
+
+  .new-arrivals__card {
+    min-width: 220px;
+    max-width: 220px;
+  }
+
+  .new-arrivals__image {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-arrivals {
+    padding: 2rem 0;
+  }
+
+  .new-arrivals__title {
+    font-size: 1.8rem;
+  }
+
+  .new-arrivals__subtitle {
+    font-size: 1rem;
+  }
+
+  .new-arrivals__card {
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .new-arrivals__image {
+    height: 220px;
+  }
+
+  .new-arrivals__scroll-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-arrivals__section {
+    margin-top: 30px;
+    padding: 0 1rem;
+  }
+
+  .new-arrivals__scroll-wrapper {
+    padding: 0 1rem;
+  }
+
+  .new-arrivals__title {
+    font-size: 1.6rem;
+  }
+
+  .new-arrivals__subtitle {
+    font-size: 0.95rem;
+  }
+
+  .new-arrivals__content {
+    gap: 1rem;
+  }
+
+  .new-arrivals__card {
+    min-width: 180px;
+    max-width: 180px;
+  }
+
+  .new-arrivals__image {
+    height: 200px;
+  }
+
+  .new-arrivals__info {
+    padding: 1rem;
+
+  }
+
+  .new-arrivals__product-name {
+    font-size: 1rem;
+  }
+
+  .new-arrivals__product-price {
+    font-size: 0.95rem;
+  }
+
+  .new-arrivals__scroll-btn {
+    width: 32px;
+    height: 32px;
+  }
+}

@@ -60,9 +60,17 @@ function Register() {
                 required
               />
             </div>
-            <button type="submit" aria-label="Sign up" className="Sign-up-button">Sign Up</button>
+            <button
+              type="submit"
+              aria-label="Sign up"
+              className="Sign-up-button"
+            >
+              Sign Up
+            </button>
             <p>Already have an account?</p>
-            <Link to="/login" className="login-link">Login</Link>
+            <Link to="/login" className="login-link">
+              Login
+            </Link>
           </div>
           <div className="right-side">
             <img src={registerImage} alt="Register illustration" />
