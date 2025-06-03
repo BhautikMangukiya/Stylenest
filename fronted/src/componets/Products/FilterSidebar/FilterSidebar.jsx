@@ -23,12 +23,28 @@ function FilterSidebar() {
   const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const materials = [
-    "Cotton", "Denim", "Leather", "Wool", "Polyester",
-    "Linen", "Silk", "Nylon", "Fleece", "Viscose"
+    "Cotton",
+    "Denim",
+    "Leather",
+    "Wool",
+    "Polyester",
+    "Linen",
+    "Silk",
+    "Nylon",
+    "Fleece",
+    "Viscose",
   ];
   const brands = [
-    "Nike", "Adidas", "Zara", "H&M", "Levi's",
-    "Gucci", "Puma", "Under Armour", "Uniqlo", "The North Face"
+    "Nike",
+    "Adidas",
+    "Zara",
+    "H&M",
+    "Levi's",
+    "Gucci",
+    "Puma",
+    "Under Armour",
+    "Uniqlo",
+    "The North Face",
   ];
 
   useEffect(() => {
@@ -63,7 +79,10 @@ function FilterSidebar() {
       ? current.filter((item) => item !== value)
       : [...current, value];
     setFilters((prev) => ({ ...prev, [key]: values }));
-    const params = { ...Object.fromEntries(searchParams), [key]: values.join(",") };
+    const params = {
+      ...Object.fromEntries(searchParams),
+      [key]: values.join(","),
+    };
     setSearchParams(params);
   }
 
@@ -88,7 +107,11 @@ function FilterSidebar() {
     const range = [Math.min(min, priceRange[1] - 100), priceRange[1]];
     setPriceRange(range);
     setFilters((prev) => ({ ...prev, minPrice: range[0], maxPrice: range[1] }));
-    const params = { ...Object.fromEntries(searchParams), minPrice: range[0], maxPrice: range[1] };
+    const params = {
+      ...Object.fromEntries(searchParams),
+      minPrice: range[0],
+      maxPrice: range[1],
+    };
     setSearchParams(params);
   }
 
@@ -97,7 +120,11 @@ function FilterSidebar() {
     const range = [priceRange[0], Math.max(max, priceRange[0] + 100)];
     setPriceRange(range);
     setFilters((prev) => ({ ...prev, minPrice: range[0], maxPrice: range[1] }));
-    const params = { ...Object.fromEntries(searchParams), minPrice: range[0], maxPrice: range[1] };
+    const params = {
+      ...Object.fromEntries(searchParams),
+      minPrice: range[0],
+      maxPrice: range[1],
+    };
     setSearchParams(params);
   }
 
@@ -212,7 +239,9 @@ function FilterSidebar() {
               className="price-slider-range"
               style={{
                 left: `${((priceRange[0] - 499) / (3000 - 499)) * 100}%`,
-                width: `${((priceRange[1] - priceRange[0]) / (3000 - 499)) * 100}%`
+                width: `${
+                  ((priceRange[1] - priceRange[0]) / (3000 - 499)) * 100
+                }%`,
               }}
             ></div>
             <input
