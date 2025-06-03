@@ -30,7 +30,7 @@ function MenWomen() {
       </div>
 
       {/* Kids Section */}
-      <div className="category-card-v2">
+      {/* <div className="category-card-v2">
         <div className="category-img-container-v2">
           <img src={KidsImg} alt="Kids" className="category-img-v2" />
         </div>
@@ -46,7 +46,7 @@ function MenWomen() {
             Shop Now
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Women Section */}
       <div className="category-card-v2">

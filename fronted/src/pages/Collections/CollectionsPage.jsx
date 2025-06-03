@@ -7,11 +7,12 @@ import SortOptions from "../../componets/Products/ShortOptions/ShortOptions";
 import { fetchProductsByFilters } from "../../../redux/slices/productsSlice";
 import "./CollectionsPage.css";
 
+// Always get image URL from DB
 const getImageUrl = (image) => {
-  if (!image) return "/placeholder-image.jpg";
+  if (!image) return ""; // No fallback!
   const baseUrl = import.meta.env.VITE_BACKEND_URL || "";
   const url = typeof image === "string" ? image : image?.url;
-  return url?.startsWith("http") ? url : `${baseUrl}${url || ""}` || "/placeholder-image.jpg";
+  return url?.startsWith("http") ? url : `${baseUrl}${url || ""}`;
 };
 
 const CollectionsPage = () => {
@@ -21,16 +22,9 @@ const CollectionsPage = () => {
   const navigate = useNavigate();
   const { products, loading, error } = useSelector((state) => state.products);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [imageLoadErrors, setImageLoadErrors] = useState({});
   const sidebarRef = useRef(null);
 
   const queryParams = Object.fromEntries(searchParams);
-
-  // const handleImageError = useCallback((e, productId) => {
-  //   console.warn(`Image failed to load for product ${productId}: ${e.target.src}`);
-  //   setImageLoadErrors((prev) => ({ ...prev, [productId]: true }));
-  //   e.target.src = "/placeholder-image.jpg";
-  // }, []);
 
   const handleProductClick = useCallback(
     (productId) => navigate(`/product/${productId}`),
@@ -106,45 +100,41 @@ const CollectionsPage = () => {
               <p>No products found. Try adjusting your filters.</p>
             </div>
           ) : (
-            products.map((product, index) => {
-              const productId = product.id || `fallback-${index}`; // Fallback key if product.id is missing
-              return (
-                <article
-                  key={productId}
-                  className={`product-card ${imageLoadErrors[productId] ? "image-error" : ""}`}
-                  onClick={() => handleProductClick(productId)}
-                  onKeyDown={(e) => e.key === "Enter" && handleProductClick(productId)}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`View details for ${product.name || "Product"}, priced at ₹${(product.price || 0).toFixed(2)}`}
-                >
-                  <div className="product-image-container">
-                    <img
-                      src={getImageUrl(product.image || product.images?.[0])}
-                      alt={product.name || "Product image"}
-                      loading="lazy"
-                      decoding="async"
-                      width="300"
-                      height="400"
-                      onError={(e) => handleImageError(e, productId)}
-                    />
-                    {imageLoadErrors[productId] && (
-                      <div className="image-error-badge">
-                        <FaExclamationCircle />
-                      </div>
-                    )}
-                  </div>
-                  <div className="product-info">
-                    <h3>{product.name || "Unnamed Product"}</h3>
-                    <p className="product-price">₹{(product.price || 0).toFixed(2)}</p>
-                    <div className="product-meta">
-                      <span className="product-brand">{product.brand || "Unknown Brand"}</span>
-
+            products
+              // Only render if product._id exists
+              .filter(product => product._id && (product.images?.[0]?.url || product.image))
+              .map((product) => {
+                const productId = product._id;
+                return (
+                  <article
+                    key={productId}
+                    className="product-card"
+                    onClick={() => handleProductClick(productId)}
+                    onKeyDown={(e) => e.key === "Enter" && handleProductClick(productId)}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`View details for ${product.name || "Product"}, priced at ₹${(product.price || 0).toFixed(2)}`}
+                  >
+                    <div className="product-image-container">
+                      <img
+                        src={getImageUrl(product.image || product.images?.[0])}
+                        alt={product.name || "Product image"}
+                        loading="lazy"
+                        decoding="async"
+                        width="300"
+                        height="400"
+                      />
                     </div>
-                  </div> 
-                </article>
-              );
-            })
+                    <div className="product-info">
+                      <h3>{product.name || "Unnamed Product"}</h3>
+                      <p className="product-price">₹{(product.price || 0).toFixed(2)}</p>
+                      <div className="product-meta">
+                        <span className="product-brand">{product.brand || "Unknown Brand"}</span>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })
           )}
         </section>
       </main>

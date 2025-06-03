@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import "./BestSeller.css";
 import elegantShirt from "../../../assets/BestSeller/PMSX17088-K6_20_283_29.jpg";
 import classicPolo from "../../../assets/BestSeller/PRISTO-WHITESFP_1.jpg";
-import { toast } from 'sonner';
-import { useCart } from "../../../componets/Cart/CartContent";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../redux/slices/cartSlice"; // Adjust if your slice is elsewhere
+
+// 🔄 Simulated Auth (Replace with real state if you have auth implemented)
+const getUserId = () => {
+  // Replace with actual auth logic if needed
+  return null; // or some userId
+};
 
 const mockProducts = [
   {
@@ -33,11 +40,12 @@ const mockProducts = [
 ];
 
 function BestSeller() {
+  const dispatch = useDispatch();
+  const userId = getUserId(); // You could use Redux selector if you have user state
   const [selectedProduct, setSelectedProduct] = useState(mockProducts[0]);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
 
   const handleQuantityChange = (delta) => {
     setQuantity((prev) => Math.max(1, prev + delta));
@@ -49,19 +57,22 @@ function BestSeller() {
       return;
     }
 
-    const productToAdd = {
-      productId: selectedProduct.id,
-      name: selectedProduct.name,
-      size: selectedSize,
-      color: selectedColor,
-      quantity: quantity,
-      price: selectedProduct.price,
-      image: selectedProduct.image,
-    };
+    dispatch(
+      addToCart({
+        productId: selectedProduct.id,
+        name: selectedProduct.name,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: quantity,
+        price: selectedProduct.price,
+        image: selectedProduct.image,
+        userId: userId || null, // guestId will be handled inside thunk
+      })
+    );
 
-    addToCart(productToAdd);
     toast.success(`${selectedProduct.name} added to cart!`);
 
+    // Reset
     setSelectedColor("");
     setSelectedSize("");
     setQuantity(1);
@@ -77,6 +88,7 @@ function BestSeller() {
       </div>
 
       <div className="best-seller-content-v2">
+        {/* Gallery */}
         <div className="thumbnail-gallery-v2">
           {mockProducts.map((product) => (
             <div
@@ -98,6 +110,7 @@ function BestSeller() {
           ))}
         </div>
 
+        {/* Main Image */}
         <div className="main-image-container-v2">
           <img
             src={selectedProduct.image}
@@ -106,17 +119,21 @@ function BestSeller() {
           />
         </div>
 
+        {/* Product Details */}
         <div className="product-details-v2">
           <h3 className="product-title-v2">{selectedProduct.name}</h3>
+
           <div className="product-rating-v2">
             <span className="rating-value-v2">{selectedProduct.rating} ★</span>
             <span className="rating-text-v2">
               ({Math.floor(Math.random() * 100) + 50} reviews)
             </span>
           </div>
+
           <p className="product-price-v2">₹{selectedProduct.price}</p>
           <p className="product-description-v2">{selectedProduct.description}</p>
 
+          {/* Options */}
           <div className="product-options-v2">
             <div className="option-group-v2">
               <label className="option-label-v2">Color:</label>
@@ -180,6 +197,7 @@ function BestSeller() {
             Add to Cart
           </button>
 
+          {/* Additional Info */}
           <div className="product-info-v2">
             <p><strong>Brand:</strong> {selectedProduct.brand}</p>
             <p><strong>Material:</strong> {selectedProduct.material}</p>

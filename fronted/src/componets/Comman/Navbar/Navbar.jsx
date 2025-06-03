@@ -6,18 +6,25 @@ import { FaBagShopping } from "react-icons/fa6";
 import SearchBar from "../Searchbar/SearchBar";
 import CartDrawer from "../../Layout/CartDrawer/CartDrawer";
 import "./Navbar.css";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cart } = useSelector((state) => state.cart);
+
+  const cartItemCount = cart?.products?.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
 
   const toggleCartDrawer = () => {
-    setDrawerOpen(!drawerOpen);
+    setDrawerOpen((prev) => !prev);
     if (menuOpen) setMenuOpen(false);
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen((prev) => !prev);
     if (drawerOpen) setDrawerOpen(false);
   };
 
@@ -26,16 +33,21 @@ function Navbar() {
     setDrawerOpen(false);
   };
 
+  // Navigation links array for reusability
+  const navLinks = [
+    { to: "/collections/all", label: "Shop All" },
+    { to: "/collections/all?gender=Men", label: "His Style" },
+    { to: "/collections/all?gender=Women", label: "Her Style" },
+    { to: "/collections/all?category=Top Wear", label: "Tops" },
+    { to: "/collections/all?category=Bottom Wear", label: "Bottoms" },
+  ];
+
   return (
     <nav className="navbar">
       {/* Mobile Sidebar */}
-      <div
-        className={`sidebar ${menuOpen ? "open" : ""}`}
-        aria-hidden={!menuOpen}
-      >
+      <div className={`sidebar ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
         <div className="sidebar-header">
           <span className="sidebar-logo">
-            {" "}
             <Link to="/" className="logo-link" onClick={closeAll}>
               StyleNest
             </Link>
@@ -53,22 +65,16 @@ function Navbar() {
             <HiOutlineUserCircle className="sidebar-profile-icon" />
             My Profile
           </Link>
-          <Link
-            to="/collections/all"
-            className="sidebar-link"
-            onClick={closeAll}
-          >
-            Men
-          </Link>
-          <Link to="/women" className="sidebar-link" onClick={closeAll}>
-            Women
-          </Link>
-          <Link to="/topwear" className="sidebar-link" onClick={closeAll}>
-            Top Wear
-          </Link>
-          <Link to="/bottomwear" className="sidebar-link" onClick={closeAll}>
-            Bottom Wear
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              to={link.to}
+              className="sidebar-link"
+              onClick={closeAll}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
 
@@ -108,7 +114,9 @@ function Navbar() {
               aria-label="Cart"
             >
               <FaBagShopping />
-              <span className="cart-count">0</span>
+              {cartItemCount > 0 && (
+                <span className="cart-count">{cartItemCount}</span>
+              )}
             </button>
           </div>
         </div>
@@ -128,22 +136,16 @@ function Navbar() {
 
           <div className="desktop-nav">
             <div className="nav-links">
-              <Link
-                to="/collections/all"
-                className="nav-link"
-                onClick={closeAll}
-              >
-                Men
-              </Link>
-              <Link to="/women" className="nav-link" onClick={closeAll}>
-                Women
-              </Link>
-              <Link to="/topwear" className="nav-link" onClick={closeAll}>
-                Top Wear
-              </Link>
-              <Link to="/bottomwear" className="nav-link" onClick={closeAll}>
-                Bottom Wear
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="nav-link"
+                  onClick={closeAll}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -162,7 +164,9 @@ function Navbar() {
                 aria-label="Cart"
               >
                 <FaBagShopping />
-                <span className="cart-count">0</span>
+                {cartItemCount > 0 && (
+                  <span className="cart-count">{cartItemCount}</span>
+                )}
               </button>
             </div>
           </div>

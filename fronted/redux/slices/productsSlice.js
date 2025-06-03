@@ -3,14 +3,30 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-// -------------------- ASYNC THUNKS --------------------
+// Helper function to normalize filter values
+const normalizeFilters = (filters) => {
+  const normalized = {};
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      if (Array.isArray(value)) {
+        normalized[key] = value.map(v => v.toLowerCase());
+      } else if (typeof value === 'string') {
+        normalized[key] = value.toLowerCase();
+      } else {
+        normalized[key] = value;
+      }
+    }
+  });
+  return normalized;
+};
 
 export const fetchProductsByFilters = createAsyncThunk(
   "products/fetchByFilters",
   async (filters) => {
+    const normalizedFilters = normalizeFilters(filters);
     const params = new URLSearchParams();
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value) params.append(key, value);
+    Object.entries(normalizedFilters).forEach(([key, value]) => {
+      if (value) params.append(key, Array.isArray(value) ? value.join(',') : value);
     });
 
     const response = await axios.get(`${BASE_URL}/api/products?${params}`);
@@ -90,8 +106,6 @@ export const fetchNewArrivals = createAsyncThunk(
   }
 );
 
-// -------------------- SLICE --------------------
-
 const productSlice = createSlice({
   name: "products",
   initialState: {
@@ -127,7 +141,6 @@ const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch By Filters
       .addCase(fetchProductsByFilters.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -140,8 +153,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-
-      // Fetch Product By ID
       .addCase(fetchProductById.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -154,8 +165,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-
-      // Create Product
       .addCase(createProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -168,8 +177,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
-      // Update Product
       .addCase(updateProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -185,8 +192,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
-      // Delete Product
       .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -199,8 +204,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
-      // Best Sellers
       .addCase(fetchBestSellers.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -213,8 +216,6 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-
-      // New Arrivals
       .addCase(fetchNewArrivals.pending, (state) => {
         state.loading = true;
         state.error = null;
