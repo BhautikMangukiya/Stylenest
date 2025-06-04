@@ -18,11 +18,11 @@ function ShortOptions({ onSortChange }) {
     const selectedSort = e.target.value;
     setSortOption(selectedSort);
 
-    // Update query param in URL
+    // Update URL with new sort
     queryParams.set("sort", selectedSort);
     navigate(`${location.pathname}?${queryParams.toString()}`);
 
-    // Notify parent component
+    // Call parent handler if provided
     if (onSortChange) {
       onSortChange(selectedSort);
     }
@@ -39,10 +39,9 @@ function ShortOptions({ onSortChange }) {
         onChange={handleSortChange}
         className="sort-options-dropdown"
       >
-        <option value="recommended">Recommended</option> // Defaults to
-        createdAt
-        <option value="priceAsc">Price: Low to High</option>
-        <option value="PriceDesc">Price: High to Low</option>
+        <option value="recommended">Recommended</option> {/* maps to createdAt */}
+        <option value="priceasc">Price: Low to High</option>
+        <option value="pricedesc">Price: High to Low</option>
         <option value="popularity">Popularity</option>
       </select>
     </div>

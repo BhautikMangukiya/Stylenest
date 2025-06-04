@@ -1,89 +1,101 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Retrieve user info and token from localStorage if available
-const userFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Check for an existing guest ID in the localStorage or generate a new One
-const initialguestId =
-  localStorage.getItem("guestId") ||
-  Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+// Load saved user from localStorage
+const savedUser = localStorage.getItem("userInfo");
+const userFromStorage = savedUser ? JSON.parse(savedUser) : null;
 
-localStorage.setItem("guestId", initialguestId);
+// Ensure guestId exists
+const generateGuestId = () =>
+  `guest-${Math.random().toString(36).substring(2)}${Math.random()
+    .toString(36)
+    .substring(2)}`;
 
+const savedGuestId = localStorage.getItem("guestId") || generateGuestId();
+localStorage.setItem("guestId", savedGuestId);
+
+// Initial state
 const initialState = {
-  user: userFromStorage || null,
-  guestId: initialguestId,
+  user: userFromStorage,
+  guestId: savedGuestId,
   loading: false,
   error: null,
 };
 
-// async thunk for user login
+//
+// Thunks
+//
 
+// User login
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (userData, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
-        userData
-      );
-      localStorage.setItem("userInfo", JSON.stringify(response.data.user));
-      localStorage.setItem("userToken", response.data.token);
+      const response = await axios.post(`${BASE_URL}/api/users/login`, {
+        email,
+        password,
+      });
 
-      return response.data.user;
+      const { user, token } = response.data;
+
+      // Save to localStorage
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      localStorage.setItem("userToken", token);
+
+      return user;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || "Login failed");
+      return rejectWithValue(
+        error.response?.data?.message || "Login failed"
+      );
     }
   }
 );
 
-// async thunk for registering a new user
+// User registration
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
-        userData
-      );
-      localStorage.setItem("userInfo", JSON.stringify(response.data.user));
-      localStorage.setItem("userToken", response.data.token);
+      const response = await axios.post(`${BASE_URL}/api/users/register`, userData);
 
-      return response.data.user;
+      const { user, token } = response.data;
+
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      localStorage.setItem("userToken", token);
+
+      return user;
     } catch (error) {
       return rejectWithValue(
-        error.response.data.message || "Registration failed"
+        error.response?.data?.message || "Registration failed"
       );
     }
   }
 );
 
-// slice
+//
+// Slice
+//
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.guestId = `guest-${Math.random()
-        .toString(36)
-        .substring(2, 15)}${Math.random().toString(36).substring(2, 15)}`; // Reset guestId on logout
+      const newGuestId = generateGuestId();
+      state.guestId = newGuestId;
+
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userToken");
-      localStorage.setItem("guestId", state.guestId); // Update guestId in localStorage
+      localStorage.setItem("guestId", newGuestId);
     },
 
-    generateGuestId: (state) => {
-      const guestId = `guest-${Math.random()
-        .toString(36)
-        .substring(2, 15)}${Math.random().toString(36).substring(2, 15)}`; // Generate new guestId
-
-      state.guestId = guestId;
-      localStorage.setItem("guestId", guestId);
+    regenerateGuestId: (state) => {
+      const newGuestId = generateGuestId();
+      state.guestId = newGuestId;
+      localStorage.setItem("guestId", newGuestId);
     },
   },
   extraReducers: (builder) => {
@@ -119,5 +131,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, generateGuestId } = authSlice.actions;
+export const { logout, regenerateGuestId } = authSlice.actions;
 export default authSlice.reducer;

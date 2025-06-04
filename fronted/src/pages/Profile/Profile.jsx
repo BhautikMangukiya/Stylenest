@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MyOrderPage from "./MyOrderPage/MyOrderPage";
 import "./profile.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../redux/slices/authSlice";
+import { clearCart } from "../../../redux/slices/cartSlice";
 
 function Profile() {
+
+  const {user} = useSelector((state) => state.auth)
+
+   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user){
+      navigate("/login")
+    }
+  }, [user, navigate])
+
+  const handalLogout = () => {
+    dispatch(logout())
+    dispatch(clearCart)
+    navigate("/login")
+  }
+
   return (
     <div>
       <div className="user-profile-container">
@@ -10,12 +32,12 @@ function Profile() {
           <div className="user-profile-info">
             <h2>User Details</h2>
             <p>
-              <strong>Name:</strong> John Doe
+              <strong>Name:</strong> {user?.name}
             </p>
             <p>
-              <strong>Email:</strong> john.doe@example.com
+              <strong>Email:</strong> {user?.email}
             </p>
-            <button className="btn-logout">Logout</button>
+            <button onClick={handalLogout} className="btn-logout" >Logout</button>
           </div>
         </div>
 

@@ -1,20 +1,24 @@
 import React from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../../Comman/Header/Header";
 import Footer from "../../Comman/Footer/Footer";
-import { Outlet } from "react-router-dom";
-
 
 const UserLayout = () => {
+  const location = useLocation();
+
+  // Hide Header/Footer on login and register pages
+  const hideOnPaths = ["/login", "/register"];
+  const shouldHideLayout = hideOnPaths.includes(location.pathname);
+
   return (
     <>
-      {/* header */}
-      <Header /> 
-      {/* main Content */}
+      {!shouldHideLayout && <Header />}
+
       <main>
         <Outlet />
       </main>
-      {/* Footer */}
-      <Footer />
+
+      {!shouldHideLayout && <Footer />}
     </>
   );
 };

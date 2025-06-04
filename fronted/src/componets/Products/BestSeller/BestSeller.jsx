@@ -1,51 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BestSeller.css";
-import elegantShirt from "../../../assets/BestSeller/PMSX17088-K6_20_283_29.jpg";
-import classicPolo from "../../../assets/BestSeller/PRISTO-WHITESFP_1.jpg";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../redux/slices/cartSlice"; // Adjust if your slice is elsewhere
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../../redux/slices/cartSlice";
+import axios from "axios";
 
-// 🔄 Simulated Auth (Replace with real state if you have auth implemented)
-const getUserId = () => {
-  // Replace with actual auth logic if needed
-  return null; // or some userId
-};
-
-const mockProducts = [
-  {
-    id: 1,
-    name: "Elegant Shirt",
-    price: 999,
-    description: "A premium quality cotton shirt perfect for any occasion.",
-    image: elegantShirt,
-    colorOptions: ["White", "Black", "Blue"],
-    sizes: ["S", "M", "L", "XL"],
-    brand: "FashionHub",
-    material: "100% Cotton",
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: "Classic Polo",
-    price: 650,
-    description: "Stylish polo made from soft breathable fabric.",
-    image: classicPolo,
-    colorOptions: ["Navy", "Grey"],
-    sizes: ["S", "M", "L", "XL"],
-    brand: "UrbanStyle",
-    material: "Cotton Blend",
-    rating: 4.2,
-  },
-];
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 function BestSeller() {
   const dispatch = useDispatch();
-  const userId = getUserId(); // You could use Redux selector if you have user state
-  const [selectedProduct, setSelectedProduct] = useState(mockProducts[0]);
+  const { user } = useSelector((state) => state.auth);
+
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch products on mount
+useEffect(() => {
+  async function fetchProducts() {
+    setLoading(true);
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/api/products?bestSeller=true`
+      );
+      // Only use the first 4 best sellers
+      const bestSellers = data.slice(0, 4);
+      setProducts(bestSellers);
+      if (bestSellers.length > 0) {
+        setSelectedProduct(bestSellers[0]);
+        setSelectedColor("");
+        setSelectedSize("");
+        setQuantity(1);
+      }
+    } catch (err) {
+      toast.error("Failed to load best sellers");
+    } finally {
+      setLoading(false);
+    }
+  }
+  fetchProducts();
+}, []);
+
+  // Reset options if product changes
+  const handleThumbnailClick = (product) => {
+    if (!selectedProduct || selectedProduct._id !== product._id) {
+      setSelectedProduct(product);
+      setSelectedColor("");
+      setSelectedSize("");
+      setQuantity(1);
+    }
+  };
 
   const handleQuantityChange = (delta) => {
     setQuantity((prev) => Math.max(1, prev + delta));
@@ -59,24 +66,45 @@ function BestSeller() {
 
     dispatch(
       addToCart({
-        productId: selectedProduct.id,
+        productId: selectedProduct._id,
         name: selectedProduct.name,
         size: selectedSize,
         color: selectedColor,
         quantity: quantity,
         price: selectedProduct.price,
-        image: selectedProduct.image,
-        userId: userId || null, // guestId will be handled inside thunk
+        image: selectedProduct.images[0]?.url || "",
+        userId: user ? user._id : null, // guestId handled in slice
       })
     );
 
     toast.success(`${selectedProduct.name} added to cart!`);
-
-    // Reset
-    setSelectedColor("");
-    setSelectedSize("");
-    setQuantity(1);
+    // Optionally, reset selections:
+    // setSelectedColor("");
+    // setSelectedSize("");
+    // setQuantity(1);
   };
+
+  if (loading) {
+    return (
+      <div className="best-seller-section-v2">Loading best sellers...</div>
+    );
+  }
+
+  if (!selectedProduct) {
+    return (
+      <div className="best-seller-section-v2">
+        <h2>No best sellers available</h2>
+      </div>
+    );
+  }
+
+  // Get product options or fallbacks
+  const productColors = selectedProduct.colors || [];
+  const productSizes = selectedProduct.sizes || [];
+  const productImage =
+    selectedProduct.images && selectedProduct.images.length > 0
+      ? selectedProduct.images[0].url
+      : "";
 
   return (
     <section className="best-seller-section-v2">
@@ -90,19 +118,22 @@ function BestSeller() {
       <div className="best-seller-content-v2">
         {/* Gallery */}
         <div className="thumbnail-gallery-v2">
-          {mockProducts.map((product) => (
+          {products.map((product) => (
             <div
-              key={product.id}
-              className={`thumbnail-item-v2 ${selectedProduct.id === product.id ? "active-v2" : ""}`}
-              onClick={() => {
-                setSelectedProduct(product);
-                setSelectedColor("");
-                setSelectedSize("");
-                setQuantity(1);
+              key={product._id}
+              className={`thumbnail-item-v2 ${
+                selectedProduct._id === product._id ? "active-v2" : ""
+              }`}
+              onClick={() => handleThumbnailClick(product)}
+              tabIndex={0}
+              role="button"
+              aria-label={`Show ${product.name}`}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") handleThumbnailClick(product);
               }}
             >
               <img
-                src={product.image}
+                src={product.images[0]?.url || ""}
                 alt={product.name}
                 className="thumbnail-image-v2"
               />
@@ -113,7 +144,7 @@ function BestSeller() {
         {/* Main Image */}
         <div className="main-image-container-v2">
           <img
-            src={selectedProduct.image}
+            src={productImage}
             alt={selectedProduct.name}
             className="main-product-image-v2"
           />
@@ -122,51 +153,71 @@ function BestSeller() {
         {/* Product Details */}
         <div className="product-details-v2">
           <h3 className="product-title-v2">{selectedProduct.name}</h3>
-
           <div className="product-rating-v2">
-            <span className="rating-value-v2">{selectedProduct.rating} ★</span>
+            <span className="rating-value-v2">
+              {selectedProduct.rating || 4.2} ★
+            </span>
             <span className="rating-text-v2">
-              ({Math.floor(Math.random() * 100) + 50} reviews)
+              ({selectedProduct.numReviews || Math.floor(Math.random() * 100) + 50} reviews)
             </span>
           </div>
-
           <p className="product-price-v2">₹{selectedProduct.price}</p>
-          <p className="product-description-v2">{selectedProduct.description}</p>
+          <p className="product-description-v2">
+            {selectedProduct.description}
+          </p>
 
           {/* Options */}
           <div className="product-options-v2">
+            {/* Color Select */}
             <div className="option-group-v2">
-              <label className="option-label-v2">Color:</label>
+              <label className="option-label-v2" htmlFor="color-select">
+                Color:
+              </label>
               <select
+                id="color-select"
                 value={selectedColor}
                 onChange={(e) => setSelectedColor(e.target.value)}
                 className="color-select-v2"
               >
                 <option value="">Choose a color</option>
-                {selectedProduct.colorOptions.map((color) => (
-                  <option key={color} value={color}>
-                    {color}
+                {productColors.length > 0 ? (
+                  productColors.map((color) => (
+                    <option key={color} value={color}>
+                      {color}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    No colors available
                   </option>
-                ))}
+                )}
               </select>
             </div>
 
+            {/* Size Buttons */}
             <div className="option-group-v2">
               <label className="option-label-v2">Size:</label>
               <div className="size-selector-v2">
-                {selectedProduct.sizes.map((size) => (
-                  <button
-                    key={size}
-                    type="button"
-                    className={`size-option-v2 ${selectedSize === size ? "selected-v2" : ""}`}
-                    onClick={() => setSelectedSize(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
+                {productSizes.length > 0 ? (
+                  productSizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      className={`size-option-v2 ${
+                        selectedSize === size ? "selected-v2" : ""
+                      }`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))
+                ) : (
+                  <span>No sizes available</span>
+                )}
               </div>
             </div>
 
+            {/* Quantity */}
             <div className="option-group-v2">
               <label className="option-label-v2">Quantity:</label>
               <div className="quantity-selector-v2">
@@ -174,6 +225,7 @@ function BestSeller() {
                   type="button"
                   onClick={() => handleQuantityChange(-1)}
                   className="quantity-btn-v2"
+                  aria-label="Decrease quantity"
                 >
                   -
                 </button>
@@ -182,6 +234,7 @@ function BestSeller() {
                   type="button"
                   onClick={() => handleQuantityChange(1)}
                   className="quantity-btn-v2"
+                  aria-label="Increase quantity"
                 >
                   +
                 </button>
@@ -189,18 +242,24 @@ function BestSeller() {
             </div>
           </div>
 
-          <button 
+          {/* Add to Cart */}
+          <button
             type="button"
-            className="add-to-cart-btn-v2" 
+            className="add-to-cart-btn-v2"
             onClick={handleAdd}
+            disabled={!selectedColor || !selectedSize}
           >
             Add to Cart
           </button>
 
           {/* Additional Info */}
           <div className="product-info-v2">
-            <p><strong>Brand:</strong> {selectedProduct.brand}</p>
-            <p><strong>Material:</strong> {selectedProduct.material}</p>
+            <p>
+              <strong>Brand:</strong> {selectedProduct.brand}
+            </p>
+            <p>
+              <strong>Material:</strong> {selectedProduct.material}
+            </p>
           </div>
         </div>
       </div>

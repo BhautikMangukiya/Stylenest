@@ -1,18 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import registerImage from "../../assets/register.webp"; // Assumed image path
-import "./Register.css";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import registerImage from "../../assets/register.webp";
+import "./Register.css";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { user, loading, error } = useSelector((state) => state.auth);
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+
+  useEffect(() => {
+    if (user) {
+      navigate(redirect);
+    }
+  }, [user, navigate, redirect]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name || !email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
     dispatch(registerUser({ name, email, password }));
   };
 
@@ -22,13 +39,15 @@ function Register() {
         <form onSubmit={handleSubmit} className="register-form">
           <div className="left-side">
             <h2 className="headding">Style Nest</h2>
-            <h2 className="hey">Hey there!</h2>
-            <p>Enter your details to join the Style Nest community.</p>
-            <div className="name-input">
+            <h2 className="hey">Welcome!</h2>
+            <p>Join Style Nest and unlock exclusive benefits.</p>
+
+            {error && <p className="error-message">{error}</p>}
+
+            <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
-                name="name"
                 id="name"
                 placeholder="Enter your name"
                 value={name}
@@ -36,11 +55,11 @@ function Register() {
                 required
               />
             </div>
-            <div className="email-input">
+
+            <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
-                name="email"
                 id="email"
                 placeholder="Enter your email"
                 value={email}
@@ -48,11 +67,11 @@ function Register() {
                 required
               />
             </div>
-            <div className="password-input">
+
+            <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
-                name="password"
                 id="password"
                 placeholder="Enter your password"
                 value={password}
@@ -60,20 +79,26 @@ function Register() {
                 required
               />
             </div>
+
             <button
               type="submit"
-              aria-label="Sign up"
-              className="Sign-up-button"
+              className="sign-up-button"
+              disabled={loading}
             >
-              Sign Up
+              {loading ? "Creating Account..." : "Sign Up"}
             </button>
+
             <p>Already have an account?</p>
-            <Link to="/login" className="login-link">
+            <Link
+              to={`/login?redirect=${encodeURIComponent(redirect)}`}
+              className="login-link"
+            >
               Login
             </Link>
           </div>
+
           <div className="right-side">
-            <img src={registerImage} alt="Register illustration" />
+            <img src={registerImage} alt="Register" />
           </div>
         </form>
       </div>
