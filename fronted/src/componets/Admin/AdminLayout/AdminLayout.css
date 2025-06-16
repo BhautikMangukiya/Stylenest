@@ -1,25 +1,10 @@
-/* ===== Core Styles with Mobile-First Approach ===== */
-:root {
-  --primary-color: #6366f1;
-  --primary-hover: #4f46e5;
-  --text-dark: #111827;
-  --text-medium: #374151;
-  --text-light: #9ca3af;
-  --background-light: #f9fafb;
-  --border-color: #e5e7eb;
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --border-radius: 0.5rem;
-  --spacing-sm: 0.75rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --sidebar-width: 16rem;
-  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
-
+/* ===== Core Reset ===== */
 body {
   margin: 0;
-  font-family: var(--font-family);
+  font-family: 'Lora', serif;
+  background-color: #ffffff;
+  color: #1c1c1c;
+  box-sizing: border-box;
 }
 
 /* ===== Layout Container ===== */
@@ -28,7 +13,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color: #ffffff;
-  box-sizing: border-box;
 }
 
 /* ===== Main Content ===== */
@@ -40,44 +24,48 @@ body {
 
 .admin-main {
   flex: 1;
-  padding: var(--spacing-md);
+  padding: 1rem;
   overflow-y: auto;
   width: 100%;
   box-sizing: border-box;
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+  color: #f4f1e9;
+  font-family: 'Lora', serif;
 }
 
 /* ===== Sidebar Toggle Button (Mobile) ===== */
 .sidebar-toggle-btn {
   display: block;
   position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--primary-color);
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #6366f1;
   color: white;
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   z-index: 1000;
-  transition: background-color 0.15s ease, transform 0.15s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Lora', serif;
 }
 
 .sidebar-toggle-btn:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #4f46e5;
+  transform: translateY(-2px);
 }
 
 .sidebar-toggle-btn:active {
   transform: translateY(0);
 }
 
-/* ===== Responsive Design (Tablet and Desktop) ===== */
+/* ===== Tablet & Desktop Styles ===== */
 @media (min-width: 640px) {
   .admin-main {
-    padding: var(--spacing-lg);
+    padding: 1.5rem;
   }
 }
 
@@ -91,9 +79,9 @@ body {
   }
 
   .admin-main {
-    padding: var(--spacing-xl);
-    max-width: calc(100% - var(--sidebar-width));
-    margin-left: var(--sidebar-width);
+    padding: 2rem;
+    max-width: calc(100% - 16rem);
+    margin-left: 16rem;
   }
 
   .sidebar-toggle-btn {
@@ -103,7 +91,6 @@ body {
 
 @media (min-width: 1024px) {
   .admin-main {
-    max-width: calc(100% - var(--sidebar-width));
-    padding: var(--spacing-xl);
+    padding: 2rem;
   }
 }

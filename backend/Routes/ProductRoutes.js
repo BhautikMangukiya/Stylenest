@@ -4,78 +4,104 @@ const { protect, admin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Helper: case-insensitive regex
 const createRegex = (value) => new RegExp(`^${value}$`, "i");
 
-// @route POST /api/products
-// @desc Create new product
-// @access Private/Admin
 router.post("/", protect, admin, async (req, res) => {
   try {
-    const product = new Product({
-      ...req.body,
-      user: req.user._id,
-    });
+    const productData = req.body;
+    const { sku, images } = productData;
+
+    const existing = await Product.findOne({ sku: sku?.trim() });
+    if (existing) {
+      return res.status(409).json({
+        message: "A product with the same SKU already exists.",
+        productId: existing._id,
+      });
+    }
+
+    if (images && !Array.isArray(images)) {
+      return res.status(400).json({ message: "Images must be an array" });
+    }
+    if (images) {
+      for (const img of images) {
+        if (!img.url || img.url.startsWith("blob:")) {
+          return res.status(400).json({ message: "Invalid image URL" });
+        }
+      }
+    }
+
+    const product = new Product({ ...productData, user: req.user._id });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (error) {
-    console.error(error);
+    console.error("Create product error:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route PUT /api/products/:id
-// @desc Update product
-// @access Private/Admin
 router.put("/:id", protect, admin, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    Object.keys(req.body).forEach((key) => {
-      if (req.body[key] !== undefined) {
-        product[key] = req.body[key];
+    const productData = req.body;
+    const { images } = productData;
+
+    if (images && !Array.isArray(images)) {
+      return res.status(400).json({ message: "Images must be an array" });
+    }
+    if (images) {
+      for (const img of images) {
+        if (!img.url || img.url.startsWith("blob:")) {
+          return res.status(400).json({ message: "Invalid image URL" });
+        }
       }
+    }
+
+    Object.entries(productData).forEach(([key, value]) => {
+      if (value !== undefined) product[key] = value;
     });
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);
   } catch (error) {
-    console.error(error);
+    console.error("Update product error:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route DELETE /api/products/:id
-// @desc Delete product
-// @access Private/Admin
 router.delete("/:id", protect, admin, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    await product.remove();
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product removed" });
   } catch (error) {
-    console.error(error);
+    console.error("Delete product error:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route GET /api/products
-// @desc Get all products with filters and search
-// @access Public
 router.get("/", async (req, res) => {
   try {
     const {
-      collection, sizes, color, gender,
-      minPrice, maxPrice, sort: sortBy, search,
-      category, material, brand, limit
+      collection,
+      sizes,
+      color,
+      gender,
+      minPrice,
+      maxPrice,
+      sort: sortBy,
+      search,
+      category,
+      material,
+      brand,
+      limit,
     } = req.query;
 
     const query = {};
 
-    // Basic filters
     if (collection && collection.toLowerCase() !== "all") {
       query.collections = createRegex(collection);
     }
@@ -104,14 +130,12 @@ router.get("/", async (req, res) => {
       query.gender = createRegex(gender);
     }
 
-    // Price range
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
-    // Smart keyword-based search
     if (search) {
       const tokens = search.toLowerCase().split(" ");
       query.$or = tokens.flatMap((token) => [
@@ -125,8 +149,7 @@ router.get("/", async (req, res) => {
       ]);
     }
 
-    // Sorting
-    let sort = { createdAt: -1 }; // Default: recommended
+    let sort = { createdAt: -1 };
     if (sortBy) {
       switch (sortBy.toLowerCase()) {
         case "priceasc":
@@ -138,8 +161,6 @@ router.get("/", async (req, res) => {
         case "popularity":
           sort = { rating: -1 };
           break;
-        default:
-          sort = { createdAt: -1 }; // recommended
       }
     }
 
@@ -149,48 +170,39 @@ router.get("/", async (req, res) => {
     const products = await productsQuery.exec();
     res.json(products);
   } catch (error) {
-    console.error(error);
+    console.error("Get products error:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route GET /api/products/best-seller
-// @desc Get best-selling products
-// @access Public
 router.get("/best-seller", async (req, res) => {
   try {
     const bestSellers = await Product.find().sort({ rating: -1 }).limit(5);
     res.json(bestSellers);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Get best-sellers error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route GET /api/products/new-arrivals
-// @desc Get new arrivals
-// @access Public
 router.get("/new-arrivals", async (req, res) => {
   try {
     const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(10);
     res.json(newArrivals);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Get new-arrivals error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 
-// @route GET /api/products/:id
-// @desc Get product by ID
-// @access Public
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json(product);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error("Get product error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
 

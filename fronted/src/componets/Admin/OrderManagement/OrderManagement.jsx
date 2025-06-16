@@ -1,96 +1,123 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaCheckCircle } from "react-icons/fa";
+import {
+  fetchAllOrders,
+  updateOrderStatus,
+} from "../../../../redux/slices/adminOrderSlice";
 import "./OrderManagement.css";
 
 function OrderManagement() {
-  const [orders, setOrders] = useState([
-    { id: "ORD001", customer: "John Doe", totalPrice: 129.99, status: "Processing" },
-    { id: "ORD002", customer: "Jane Smith", totalPrice: 249.50, status: "Shipped" },
-    { id: "ORD003", customer: "Alice Johnson", totalPrice: 89.00, status: "Delivered" },
-    { id: "ORD004", customer: "Bob Wilson", totalPrice: 499.99, status: "Cancelled" },
-  ]);
+  const dispatch = useDispatch();
+  const { orders, loading, error } = useSelector((state) => state.adminOrders);
+
+  useEffect(() => {
+    dispatch(fetchAllOrders());
+  }, [dispatch]);
 
   const handleStatusChange = (orderId, newStatus) => {
     if (window.confirm(`Change order ${orderId} status to ${newStatus}?`)) {
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: newStatus } : order
-        )
-      );
+      dispatch(updateOrderStatus({ id: orderId, status: newStatus }));
     }
   };
 
   const handleMarkAsDelivered = (orderId) => {
     if (window.confirm(`Mark order ${orderId} as Delivered?`)) {
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: "Delivered" } : order
-        )
-      );
+      dispatch(updateOrderStatus({ id: orderId, status: "Delivered" }));
     }
   };
 
   return (
     <div className="order-management">
       <h2>Order Management</h2>
-      <div className="table-container">
-        <table className="order-table">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Total Price</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.customer}</td>
-                  <td>${order.totalPrice.toFixed(2)}</td>
-                  <td>
-                    <select
-                      className={`status-select ${order.status.toLowerCase()}`}
-                      value={order.status}
-                      onChange={(e) =>
-                        handleStatusChange(order.id, e.target.value)
-                      }
-                      aria-label={`Status for order ${order.id}`}
-                    >
-                      <option value="Processing">Processing</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
-                  </td>
-                  <td>
-                    {order.status === "Processing" || order.status === "Shipped" ? (
-                      <button
-                        className="action-btn"
-                        onClick={() => handleMarkAsDelivered(order.id)}
-                        aria-label={`Mark order ${order.id} as Delivered`}
+
+      {loading ? (
+        <p>Loading orders...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <div className="table-container">
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Payment</th>
+                <th>Paid At</th>
+                <th>Status</th>
+                <th>Delivery</th>
+                <th>Ordered On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>#{order._id}</td>
+                    <td>{order.orderItems.length}</td>
+                    <td>{order.totalPrice.toFixed(2)}</td>
+                    <td>
+                      {order.paymentMethod} <br />
+                      <span
+                        className={`payment-status ${order.paymentStatus}`}
                       >
-                        <FaCheckCircle /> Mark as Delivered
-                      </button>
-                    ) : (
-                      <span className="no-action">{order.status}</span>
-                    )}
+                        {order.paymentStatus}
+                      </span>
+                    </td>
+                    <td>
+                      {order.isPaid
+                        ? new Date(order.paidAt).toLocaleDateString()
+                        : "Not Paid"}
+                    </td>
+                    <td>
+                      <select
+                        className={`status-select ${order.status.toLowerCase()}`}
+                        value={order.status}
+                        onChange={(e) =>
+                          handleStatusChange(order._id, e.target.value)
+                        }
+                      >
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                    </td>
+                    <td>
+                      {order.isDelivered
+                        ? new Date(order.deliveredAt).toLocaleDateString()
+                        : "Pending"}
+                    </td>
+                    <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      {(order.status === "processing" ||
+                        order.status === "shipped") &&
+                      !order.isDelivered ? (
+                        <button
+                          className="action-btn"
+                          onClick={() => handleMarkAsDelivered(order._id)}
+                        >
+                          <FaCheckCircle /> Mark as Delivered
+                        </button>
+                      ) : (
+                        <span className="no-action">-</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="10" className="empty-state">
+                    No orders found
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className="empty-state">
-                  No orders found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

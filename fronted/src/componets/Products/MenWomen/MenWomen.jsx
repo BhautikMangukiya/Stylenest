@@ -9,7 +9,9 @@ function MenWomen() {
   const navigate = useNavigate();
 
   return (
+    
     <div className="category-section-v2">
+      <div className="category-section-mwk">
       {/* Men Section */}
       <div className="category-card-v2">
         <div className="category-img-container-v2">
@@ -18,35 +20,35 @@ function MenWomen() {
         <div className="category-content-v2">
           <h1 className="category-title-v2">Men</h1>
           <p className="category-desc-v2">
-            Discover the latest trends in men's fashion.
+            Sophisticated tailoring meets contemporary style in our exclusive men's collection.
           </p>
           <button
             className="category-btn-v2"
-            onClick={() => navigate("/men")}
+            onClick={() => navigate("/collections/all?gender=Men")}
           >
-            Shop Now
+            Discover Collection
           </button>
         </div>
       </div>
 
       {/* Kids Section */}
-      {/* <div className="category-card-v2">
+      <div className="category-card-v2">
         <div className="category-img-container-v2">
           <img src={KidsImg} alt="Kids" className="category-img-v2" />
         </div>
         <div className="category-content-v2">
           <h1 className="category-title-v2">Kids</h1>
           <p className="category-desc-v2">
-            Explore fun and stylish clothing for kids.
+            Premium quality and playful elegance for the youngest connoisseurs.
           </p>
           <button
             className="category-btn-v2"
-            onClick={() => navigate("/kids")}
+            onClick={() => navigate("/collections/all?gender=kids")}
           >
-            Shop Now
+            Explore Selection
           </button>
         </div>
-      </div> */}
+      </div>
 
       {/* Women Section */}
       <div className="category-card-v2">
@@ -56,15 +58,16 @@ function MenWomen() {
         <div className="category-content-v2">
           <h1 className="category-title-v2">Women</h1>
           <p className="category-desc-v2">
-            Discover the latest trends in women's fashion.
+            Timeless elegance redefined in our curated women's assortment.
           </p>
           <button
             className="category-btn-v2"
-            onClick={() => navigate("/women")}
+            onClick={() => navigate("/collections/all?gender=Women")}
           >
-            Shop Now
+            View Collection
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

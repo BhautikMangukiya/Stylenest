@@ -1,68 +1,57 @@
+/* ===== Search Bar Styles ===== */
 .search-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Georgia', serif; /* Matches the classic typography */
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  width: 100%;
+  transition: border 0.3s ease;
+}
+
+.search-form:focus-within {
+  border-color: #d4af37;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: #2a2a2a;
+  background-color: transparent;
+}
+
+.search-submit-btn {
+  background-color: #2a2a2a;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-submit-btn:hover {
+  background-color: #1a1a1a;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .search-form {
+    max-width: 100%;
+    padding: 0.4rem 0.8rem;
   }
-  
-  .search-input {
-    padding: 8px 12px;
-    font-size: 14px;
-    width: 200px; /* Adjustable width */
-    border: 1px solid #d4d4d4; /* Matches Topbar border */
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fff;
-    color: #2b2b2b; /* Matches Navbar text color */
-    
-  }
-  
-  .search-input:focus {
-    border-color: #d4af37; /* Gold accent on focus */
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); /* Subtle glow */
-  }
-  
-  .search-input::placeholder {
-    color: #4a4a4a;
-    opacity: 0.7;
-  }
-  
+
   .search-submit-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #d4af37; /* Gold accent for button */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Georgia', serif;
-    font-weight: 500;
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
   }
-  
-  .search-submit-btn:hover {
-    background-color: #b8972f; /* Slightly darker gold on hover */
-    transform: scale(1.05); /* Subtle scale effect */
-  }
-  
-  .search-submit-btn:active {
-    transform: scale(0.98); /* Slight press effect */
-  }
-  
-  @media (max-width: 768px) {
-    .search-form {
-      justify-content: center;
-    }
-  
-    .search-input {
-      width: 150px; /* Smaller width on mobile */
-      font-size: 12px;
-      padding: 6px 10px;
-    }
-  
-    .search-submit-btn {
-      padding: 6px 12px;
-      font-size: 12px;
-    }
-  }
+}

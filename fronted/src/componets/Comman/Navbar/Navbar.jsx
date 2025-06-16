@@ -1,89 +1,77 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { HiBars3, HiXMark } from "react-icons/hi2";
 import { FaBagShopping } from "react-icons/fa6";
 import SearchBar from "../Searchbar/SearchBar";
-import CartDrawer from "../../Layout/CartDrawer/CartDrawer";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
 
 function Navbar() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const cartItemCount = cart?.products?.reduce(
     (total, product) => total + product.quantity,
     0
   );
 
-  const toggleCartDrawer = () => {
-    setDrawerOpen((prev) => !prev);
-    if (menuOpen) setMenuOpen(false);
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-    if (drawerOpen) setDrawerOpen(false);
-  };
-
-  const closeAll = () => {
-    setMenuOpen(false);
-    setDrawerOpen(false);
-  };
-
-  // Navigation links array for reusability
   const navLinks = [
     { to: "/collections/all", label: "Shop All" },
     { to: "/collections/all?gender=Men", label: "His Style" },
     { to: "/collections/all?gender=Women", label: "Her Style" },
     { to: "/collections/all?category=Top Wear", label: "Tops" },
     { to: "/collections/all?category=Bottom Wear", label: "Bottoms" },
+    { to: "/profile", label: "Profile" },
   ];
 
   return (
     <nav className="navbar">
-      {/* Mobile Sidebar */}
-      <div className={`sidebar ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
-        <div className="sidebar-header">
-          <span className="sidebar-logo">
-            <Link to="/" className="logo-link" onClick={closeAll}>
-              StyleNest
-            </Link>
-          </span>
+      {/* Mobile Hamburger Menu */}
+      {menuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMenu}></div>
+      )}
+
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <div className="mobile-menu-header">
+          <Link to="/" className="logo-link-mobile-menu" onClick={closeMenu}>
+            StyleNest
+          </Link>
           <button
-            className="sidebar-close"
-            onClick={closeAll}
+            className="menu-close"
+            onClick={closeMenu}
             aria-label="Close menu"
           >
             <HiXMark />
           </button>
         </div>
-        <div className="sidebar-links">
-          <Link to="/profile" className="sidebar-link" onClick={closeAll}>
-            <HiOutlineUserCircle className="sidebar-profile-icon" />
-            My Profile
-          </Link>
+        <div className="mobile-menu-content">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               to={link.to}
-              className="sidebar-link"
-              onClick={closeAll}
+              className="mobile-menu-link"
+              onClick={closeMenu}
             >
               {link.label}
             </Link>
           ))}
+          {user?.role === "admin" && (
+            <Link
+              to="/admin"
+              className="mobile-menu-link"
+              onClick={closeMenu}
+            >
+              Admin
+            </Link>
+          )}
         </div>
       </div>
-
-      {/* Overlay */}
-      <div
-        className={`sidebar-overlay ${menuOpen ? "open" : ""}`}
-        onClick={closeAll}
-        aria-hidden={!menuOpen}
-      />
 
       {/* Mobile Navbar */}
       <div className="navbar-mobile">
@@ -96,7 +84,7 @@ function Navbar() {
             <HiBars3 />
           </button>
           <div className="logo">
-            <Link to="/" className="logo-link" onClick={closeAll}>
+            <Link to="/" className="logo-link" onClick={closeMenu}>
               StyleNest
             </Link>
           </div>
@@ -105,11 +93,15 @@ function Navbar() {
               to="/profile"
               className="profile-icon-mobile"
               aria-label="Profile"
+              onClick={closeMenu}
             >
               <HiOutlineUserCircle />
             </Link>
             <button
-              onClick={toggleCartDrawer}
+              onClick={() => {
+                closeMenu();
+                navigate("/cart");
+              }}
               className="cart-button"
               aria-label="Cart"
             >
@@ -129,37 +121,46 @@ function Navbar() {
       <div className="navbar-desktop">
         <div className="navbar-container">
           <div className="logo">
-            <Link to="/" className="logo-link" onClick={closeAll}>
+            <Link to="/" className="logo-link" onClick={closeMenu}>
               StyleNest
             </Link>
           </div>
 
           <div className="desktop-nav">
             <div className="nav-links">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.to}
-                  className="nav-link"
-                  onClick={closeAll}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks
+                .filter((link) => link.label !== "Profile")
+                .map((link) => (
+                  <Link
+                    key={link.label}
+                    to={link.to}
+                    className="nav-link"
+                    onClick={closeMenu}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
             </div>
           </div>
 
           <div className="desktop-actions">
+            {user?.role === "admin" && (
+              <Link to="/admin" className="admin-link" onClick={closeMenu}>
+                Admin
+              </Link>
+            )}
+
             <SearchBar />
             <div className="action-icons">
               <Link to="/profile" className="profile-icon" aria-label="Profile">
                 <HiOutlineUserCircle />
               </Link>
-              <Link to="/admin" className="admin-link" onClick={closeAll}>
-                Admin
-              </Link>
+
               <button
-                onClick={toggleCartDrawer}
+                onClick={() => {
+                  closeMenu();
+                  navigate("/cart");
+                }}
                 className="cart-button"
                 aria-label="Cart"
               >
@@ -172,8 +173,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-
-      <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
     </nav>
   );
 }

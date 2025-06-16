@@ -1,37 +1,24 @@
-// src/pages/Checkout.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 import "./Checkout.css";
 import PaytmButton from "../PaytmButton/PaytmButton";
-
-const cart = {
-  products: [
-    {
-      name: "T-Shirt",
-      size: "M",
-      color: "Red",
-      price: 699,
-      image:
-        "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop",
-    },
-    {
-      name: "Jeans",
-      size: "32",
-      color: "Blue",
-      price: 499,
-      image:
-        "https://images.unsplash.com/photo-1649879681508-e21645a743bc?q=80&w=2080&auto=format&fit=crop",
-    },
-  ],
-  totalPrice: 1198,
-};
+import { createCheckoutSession } from "../../../../redux/slices/checkoutSlice";
+import { clearCart } from "../../../../redux/slices/cartSlice"; // ✅ added
 
 function Checkout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+
+  const [checkoutId, setCheckoutId] = useState(null);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [formError, setFormError] = useState("");
   const [shippingAddress, setShippingAddress] = useState({
-    email: "user123@gmail.com",
+    email: user?.email || "",
     firstName: "",
     lastName: "",
     address: "",
@@ -41,16 +28,21 @@ function Checkout() {
     phone: "",
   });
 
-  const [formError, setFormError] = useState("");
+  useEffect(() => {
+    if (!cart || !cart.products || cart.products.length === 0) {
+      navigate("/");
+    }
+  }, [cart, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setShippingAddress({ ...shippingAddress, [name]: value });
+    setShippingAddress((prev) => ({ ...prev, [name]: value }));
     setFormError("");
   };
 
-  const handleContinueToPayment = (e) => {
+  const handleContinueToPayment = async (e) => {
     e.preventDefault();
+
     const requiredFields = [
       "firstName",
       "lastName",
@@ -62,36 +54,102 @@ function Checkout() {
     ];
     const isValid = requiredFields.every((field) => shippingAddress[field]);
 
-    if (isValid) {
-      setShowPaymentOptions(true);
-    } else {
+    if (!isValid) {
       setFormError("Please fill in all required shipping details.");
+      return;
+    }
+
+    try {
+      const res = await dispatch(
+        createCheckoutSession({
+          checkOutItems: cart.products,
+          ShippingAddress: shippingAddress,
+          paymentMethod: "Paytm",
+          totalPrice: cart.totalPrice,
+        })
+      );
+
+      if (res.payload && res.payload._id) {
+        setCheckoutId(res.payload._id);
+        setShowPaymentOptions(true);
+      }
+    } catch (err) {
+      console.error("Checkout creation failed:", err);
+      setFormError("Failed to proceed with checkout. Try again.");
     }
   };
 
-  const handlePaymentSuccess = () => {
-    const transactionDetails = {
-      transactionId: "Paytm123456789",
-      status: "success",
-      paidTo: "8780341577@pytes",
-      method: "Paytm",
-    };
+const handlePaymentSuccess = async () => {
+  try {
+    const token = localStorage.getItem("userToken");
 
-    navigate("/order-confirmation", {
-      state: {
-        cart,
-        shippingAddress,
-        method: "paytm",
-        transactionDetails,
+    // 1. Mark checkout as paid
+    await axios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
+      {
+        paymentStatus: "paid",
+        paymentDetails: { method: "UPI", gateway: "Paytm QR" },
       },
-    });
-  };
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // 2. Finalize checkout session
+    await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/finalize`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // 3. Create order
+    await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/orders`,
+      {
+        orderItems: cart.products,
+        shippingAddress,
+        paymentMethod: "Paytm",
+        totalPrice: cart.totalPrice,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // 4. Clear the cart - both backend and frontend
+    await axios.delete(
+      `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+      {
+        data: { userId: user._id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // 5. Update Redux state and localStorage
+    dispatch(clearCart()); // This will clear the cart in Redux and localStorage
+
+    // 6. Redirect to order history
+    navigate("/my-orders");
+  } catch (error) {
+    console.error("Payment finalization failed:", error);
+    setFormError("Payment processing failed. Please try again.");
+  }
+};
 
   return (
     <div className="checkout">
       <div className="checkout-container">
-        {/* Left Section: Form */}
-        <div className="form-section">
+        <div className="form-section-checkout">
           <h2 className="section-heading">Checkout</h2>
           <form onSubmit={handleContinueToPayment} className="checkout-form">
             <h3>Contact Details</h3>
@@ -180,13 +238,13 @@ function Checkout() {
             ) : (
               <PaytmButton
                 amount={cart.totalPrice}
+                checkoutId={checkoutId}
                 onPaymentSuccess={handlePaymentSuccess}
               />
             )}
           </form>
         </div>
 
-        {/* Right Section: Order Summary */}
         <div className="summary-section">
           <h2 className="section-heading">Order Summary</h2>
           <div className="ordered-products">
@@ -194,13 +252,14 @@ function Checkout() {
               <div className="product-item" key={index}>
                 <img
                   src={product.image}
-                  alt={`${product.name} in ${product.color}`}
+                  alt={product.name}
                   className="checkout-product-image"
                 />
                 <div className="order-summary-product-details">
                   <h3>{product.name}</h3>
                   <p>Size: {product.size}</p>
                   <p>Color: {product.color}</p>
+                  <p>Quantity: {product.quantity}</p>
                 </div>
                 <p className="product-price">
                   ₹{product.price.toLocaleString()}

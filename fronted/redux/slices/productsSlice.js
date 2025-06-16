@@ -9,8 +9,8 @@ const normalizeFilters = (filters) => {
   Object.entries(filters).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        normalized[key] = value.map(v => v.toLowerCase());
-      } else if (typeof value === 'string') {
+        normalized[key] = value.map((v) => v.toLowerCase());
+      } else if (typeof value === "string") {
         normalized[key] = value.toLowerCase();
       } else {
         normalized[key] = value;
@@ -20,13 +20,26 @@ const normalizeFilters = (filters) => {
   return normalized;
 };
 
+// Upload images to the server
+const uploadImages = async (imageFiles) => {
+  if (!imageFiles || imageFiles.length === 0) return [];
+  const formData = new FormData();
+  imageFiles.forEach((file) => formData.append("images", file));
+  const response = await axios.post(`${BASE_URL}/api/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data.images;
+};
+
 export const fetchProductsByFilters = createAsyncThunk(
   "products/fetchByFilters",
   async (filters) => {
     const normalizedFilters = normalizeFilters(filters);
     const params = new URLSearchParams();
     Object.entries(normalizedFilters).forEach(([key, value]) => {
-      if (value) params.append(key, Array.isArray(value) ? value.join(',') : value);
+      if (value) params.append(key, Array.isArray(value) ? value.join(",") : value);
     });
 
     const response = await axios.get(`${BASE_URL}/api/products?${params}`);
@@ -44,32 +57,50 @@ export const fetchProductById = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
   "products/create",
-  async (productData, { rejectWithValue }) => {
+  async ({ productData, imageFiles }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/products`, productData, {
+      // Upload images first
+      const uploadedImages = await uploadImages(imageFiles);
+
+      // Include uploaded image URLs in product data
+      const finalProductData = {
+        ...productData,
+        images: uploadedImages,
+      };
+
+      const response = await axios.post(`${BASE_URL}/api/products`, finalProductData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || "Failed to create product");
+      return rejectWithValue(error.response?.data?.message || "Failed to create product");
     }
   }
 );
 
 export const updateProduct = createAsyncThunk(
   "products/update",
-  async ({ id, productData }, { rejectWithValue }) => {
+  async ({ id, productData, imageFiles }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${BASE_URL}/api/products/${id}`, productData, {
+      // Upload new images if provided
+      const uploadedImages = await uploadImages(imageFiles);
+
+      // Include uploaded image URLs in product data
+      const finalProductData = {
+        ...productData,
+        images: uploadedImages.length > 0 ? uploadedImages : productData.images,
+      };
+
+      const response = await axios.put(`${BASE_URL}/api/products/${id}`, finalProductData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || "Failed to update product");
+      return rejectWithValue(error.response?.data?.message || "Failed to update product");
     }
   }
 );
@@ -85,7 +116,7 @@ export const deleteProduct = createAsyncThunk(
       });
       return id;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || "Failed to delete product");
+      return rejectWithValue(error.response?.data?.message || "Failed to delete product");
     }
   }
 );

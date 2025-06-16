@@ -12,7 +12,7 @@ const router = express.Router();
 // @ access Private
  
 router.post("/", protect, async (req, res) => {
-  const { checkOutItems, ShippingAddress, paymentMethod, totalPrice, quantity } = req.body;
+  const { checkOutItems, ShippingAddress, paymentMethod, totalPrice, quantity, size, color } = req.body;
 
   // Basic validation
   if (!Array.isArray(checkOutItems) || checkOutItems.length === 0) {
@@ -31,7 +31,9 @@ router.post("/", protect, async (req, res) => {
         name: item.name,
         image: item.image,
         price: item.price,
-        quantity: item.quantity
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color,
       })),
       ShippingAddress,
       paymentMethod,
@@ -141,7 +143,9 @@ router.post("/:id/finalize", protect, async (req, res) => {
           name: item.name,
           image: item.image,
           price: item.price,
-          quantity: 1,
+          quantity: item.quantity,
+          size: item.size,
+          color: item.color,
         })),
         shippingAddress: ShippingAddress,
         paymentMethod: checkout.paymentMethod,

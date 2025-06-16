@@ -1,105 +1,163 @@
-/* Profile.css */
+/* ===== User Profile Section (Luxury Dark Theme) ===== */
+.user-profile-wrap {
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  font-family: 'Lora', serif;
+  color: #f4f1e9;
+}
 
-/* Base Styles */
 .user-profile-container {
-  display: flex;
-  min-height: 80vh;
   max-width: 1600px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
   gap: 2rem;
 }
 
-/* Left Panel - User Info */
 .user-profile-left {
-  flex: 1;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #f4f1e9;
+  border-radius: 1rem;
   padding: 2rem;
-  height: fit-content;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  min-width: 400px;
+   max-height: fit-content;
+}
+
+.user-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .user-profile-info h2 {
-  color: #2d3748;
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.user-profile-info p {
-  color: #4a5568;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #d4a017;
+  font-family: 'Playfair Display', serif;
   margin-bottom: 1rem;
+  position: relative;
+}
+
+.user-profile-info h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #d4a017;
+}
+
+.p-wrap-myorderpage p {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #2a2a2a;
   line-height: 1.6;
+ 
+  
 }
 
-.user-profile-info strong {
-  color: #2d3748;
+.p-wrap-myorderpage p strong {
   font-weight: 600;
-  display: inline-block;
-  min-width: 80px;
+  color: #2a2a2a;
+  margin-right: 10px;
 }
 
-/* Right Panel - Orders */
-.user-profile-right {
-  flex: 2;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-
-/* Logout Button */
 .btn-logout {
-  background-color: #e53e3e;
-  color: white;
+  padding: 1rem 2rem;
+  background: #d4a017;
+  color: #1c2526;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  font-family: 'Lora', serif;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 1.5rem;
-  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-logout:hover {
-  background-color: #c53030;
-  transform: translateY(-1px);
+  background: #e8ba2e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.3);
 }
 
-.btn-logout:active {
-  transform: translateY(0);
+.btn-logout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
 }
 
-/* Responsive Design */
+.btn-logout:hover::before {
+  left: 100%;
+}
+
+.user-profile-right {
+  background: #f4f1e9;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
+  .user-profile-wrap {
+    padding: 3rem 1.5rem;
+  }
+
   .user-profile-container {
-    flex-direction: column;
-    padding: 0 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .user-profile-left, 
+  .user-profile-left,
   .user-profile-right {
-    width: 100%;
     padding: 1.5rem;
-  box-sizing: border-box;
+  }
+
+  .user-profile-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .p-wrap-myorderpage p {
+    font-size: 1rem;
+  }
+
+  .btn-logout {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
   }
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@media (max-width: 480px) {
+  .user-profile-wrap {
+    padding: 2rem 1rem;
+  }
 
-.user-profile-left, 
-.user-profile-right {
-  animation: fadeIn 0.5s ease-out forwards;
-}
+  .user-profile-left,
+  .user-profile-right {
+    padding: 1rem;
+  }
 
-.user-profile-right {
-  animation-delay: 0.1s;
+  .user-profile-info h2 {
+    font-size: 1.6rem;
+  }
+
+  .p-wrap-myorderpage p {
+    font-size: 0.95rem;
+  }
+
+  .btn-logout {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
 }

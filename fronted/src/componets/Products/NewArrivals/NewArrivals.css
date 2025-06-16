@@ -1,248 +1,189 @@
-/* ===== Base Styles ===== */
+/* ===== New Arrivals Section (Luxury) ===== */
 .new-arrivals {
-  padding: 3rem 0;
-  background-color: #f8f9fa;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+  padding: 5rem 2rem;
 }
 
 .new-arrivals__section {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  position: relative;
 }
 
-/* ===== Header Styles ===== */
 .new-arrivals__header {
   text-align: center;
-  margin-bottom: 2rem;
-  position: relative;
+  margin-bottom: 3rem;
 }
 
 .new-arrivals__title {
-  font-size: 2.2rem;
+  font-size: 3rem;
   font-weight: 700;
-  color: #2c3e50;
-  margin: 0 0 0.5rem 0;
-  position: relative;
-  display: inline-block;
-}
-
-.new-arrivals__title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(to right, #3498db, #9b59b6);
+  color: #d4a017;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
 }
 
 .new-arrivals__subtitle {
-  font-size: 1.1rem;
-  color: #7f8c8d;
-  margin: 0;
-  line-height: 1.5;
+  font-size: 1.2rem;
+  color: #f4f1e9;
+  font-family: 'Lora', serif;
+  line-height: 1.6;
 }
 
-/* ===== Scroll Container ===== */
 .new-arrivals__scroll-wrapper {
   position: relative;
-  padding: 0 2.5rem;
 }
 
 .new-arrivals__content {
   display: flex;
-  gap: 1.5rem;
   overflow-x: auto;
+  gap: 2rem;
   scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 1rem 0;
-  margin: 0 -0.5rem;
-  will-change: transform;
+  padding-bottom: 1rem;
 }
 
-.new-arrivals__content::-webkit-scrollbar {
-  display: none;
-}
-
-/* ===== Product Cards ===== */
 .new-arrivals__card {
-  min-width: 240px;
-  max-width: 240px;
-  background: white;
-  border-radius: 12px;
+  min-width: 260px;
+  max-width: 260px;
+  background: #f4f1e9;
+  border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   flex-shrink: 0;
-  backface-visibility: hidden;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .new-arrivals__card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
 }
 
 .new-arrivals__image {
   width: 100%;
-  height: 280px;
+  height: 340px;
   object-fit: cover;
-  border-bottom: 1px solid #eee;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background-color: #f5f5f5;
+  transition: transform 0.5s ease;
 }
 
 .new-arrivals__card:hover .new-arrivals__image {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .new-arrivals__info {
-  padding: 1.2rem;
-  padding-bottom: 5px;
+  padding: 1.5rem;
 }
 
 .new-arrivals__link {
   text-decoration: none;
-  color: inherit;
-  display: block;
 }
 
 .new-arrivals__product-name {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #2c3e50;
-  margin: 0 0 0.5rem 0;
-  transition: color 0.3s ease;
-  line-height: 1.4;
-  min-height: 50px;
-  font-family: 'Georgia', serif;
-}
-
-.new-arrivals__card:hover .new-arrivals__product-name {
-  color: #3498db;
+  color: #2a2a2a;
+  font-family: 'Lora', serif;
+  margin-bottom: 0.5rem;
+  height: 60px;
 }
 
 .new-arrivals__product-price {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #d4af37;
-  margin: 0;
+  font-size: 1.1rem;
+  color: #d4a017;
+  font-family: 'Lora', serif;
 }
 
-/* ===== Scroll Buttons ===== */
+/* Scroll Buttons */
 .new-arrivals__scroll-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: white;
+  background: #2a2a2a;
+  color: #f4f1e9;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  color: #2c3e50;
-  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .new-arrivals__scroll-btn:hover {
-  background: #2c3e50;
-  color: white;
+  background: #d4a017;
   transform: translateY(-50%) scale(1.1);
 }
 
+.new-arrivals__scroll-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: translateY(-50%);
+}
+
 .new-arrivals__scroll-btn--left {
-  left: 0;
+  left: -1.5rem;
 }
 
 .new-arrivals__scroll-btn--right {
-  right: 0;
+  right: -1.5rem;
 }
 
-.new-arrivals__scroll-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  transform: translateY(-50%);
-  background: white;
-  color: #2c3e50;
-}
-
-/* ===== Loading & Error States ===== */
-.new-arrivals__content p {
+/* Status Messages */
+.new-arrivals__loading,
+.new-arrivals__error,
+.new-arrivals__empty {
   text-align: center;
-  width: 100%;
-  color: #7f8c8d;
-  font-size: 1.1rem;
-  padding: 1rem 0;
+  font-size: 1.2rem;
+  color: #f4f1e9;
+  font-family: 'Lora', serif;
+  padding: 2rem 0;
 }
 
-.new-arrivals__error {
-  color: #e74c3c !important;
+/* ===== Scrollbar Customization ===== */
+.new-arrivals__content::-webkit-scrollbar {
+  height: 8px;
 }
 
-/* ===== Animations ===== */
-@keyframes fadeInSlide {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
+.new-arrivals__content::-webkit-scrollbar-track {
+  background: #2e3b3e;
+  border-radius: 4px;
+}
+
+.new-arrivals__content::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.new-arrivals__content::-webkit-scrollbar-thumb:hover {
+  background: #b8962c;
+}
+
+/* Firefox scrollbar customization */
+@supports (scrollbar-color: auto) {
+  .new-arrivals__content {
+    scrollbar-color: #d4a017 #2e3b3e;
+    scrollbar-width: thin;
   }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.new-arrivals__card {
-  animation: fadeInSlide 0.6s ease forwards;
-  opacity: 0;
-}
-
-.new-arrivals__card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.new-arrivals__card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.new-arrivals__card:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.new-arrivals__card:nth-child(4) {
-  animation-delay: 0.4s;
-}
-
-.new-arrivals__card:nth-child(5) {
-  animation-delay: 0.5s;
-}
-
-.new-arrivals__card:nth-child(6) {
-  animation-delay: 0.6s;
-}
-
-.new-arrivals__card:nth-child(7) {
-  animation-delay: 0.7s;
-}
-
-.new-arrivals__card:nth-child(8) {
-  animation-delay: 0.8s;
 }
 
 /* ===== Responsive Design ===== */
-@media (max-width: 1024px) {
-  .new-arrivals__scroll-wrapper {
-    padding: 0 1.5rem;
+@media (max-width: 768px) {
+  .new-arrivals {
+    padding: 3rem 1.5rem;
+  }
+
+  .new-arrivals__title {
+    font-size: 2.5rem;
+  }
+
+  .new-arrivals__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .new-arrivals__scroll-btn--left,
+  .new-arrivals__scroll-btn--right {
+    display: none;
   }
 
   .new-arrivals__card {
@@ -251,58 +192,21 @@
   }
 
   .new-arrivals__image {
-    height: 250px;
-  }
-}
-
-@media (max-width: 768px) {
-  .new-arrivals {
-    padding: 2rem 0;
-  }
-
-  .new-arrivals__title {
-    font-size: 1.8rem;
-  }
-
-  .new-arrivals__subtitle {
-    font-size: 1rem;
-  }
-
-  .new-arrivals__card {
-    min-width: 200px;
-    max-width: 200px;
-  }
-
-  .new-arrivals__image {
     height: 220px;
-  }
-
-  .new-arrivals__scroll-btn {
-    width: 36px;
-    height: 36px;
   }
 }
 
 @media (max-width: 480px) {
-  .new-arrivals__section {
-    margin-top: 30px;
-    padding: 0 1rem;
-  }
-
-  .new-arrivals__scroll-wrapper {
-    padding: 0 1rem;
+  .new-arrivals {
+    padding: 2rem 1rem;
   }
 
   .new-arrivals__title {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .new-arrivals__subtitle {
-    font-size: 0.95rem;
-  }
-
-  .new-arrivals__content {
-    gap: 1rem;
+    font-size: 1rem;
   }
 
   .new-arrivals__card {
@@ -311,24 +215,14 @@
   }
 
   .new-arrivals__image {
-    height: 200px;
-  }
-
-  .new-arrivals__info {
-    padding: 1rem;
-
+    height: 180px;
   }
 
   .new-arrivals__product-name {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .new-arrivals__product-price {
-    font-size: 0.95rem;
-  }
-
-  .new-arrivals__scroll-btn {
-    width: 32px;
-    height: 32px;
+    font-size: 1rem;
   }
 }

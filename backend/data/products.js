@@ -1,8 +1,9 @@
 const products = [
   {
     name: "Men's Graphic Print T-Shirt",
-    description: "A trendy graphic print t-shirt with a comfortable fit. Perfect for casual outings and everyday wear.",
-    price: 899,
+    description:
+      "A trendy graphic print t-shirt with a comfortable fit. Perfect for casual outings and everyday wear.",
+    price: 699,
     discountPrice: 599,
     countInStock: 25,
     sku: "TW-M-001",
@@ -24,8 +25,9 @@ const products = [
   },
   {
     name: "Men's Slim Fit Jeans",
-    description: "Classic slim fit jeans with stretch for comfort. Perfect for any casual occasion.",
-    price: 1599,
+    description:
+      "Classic slim fit jeans with stretch for comfort. Perfect for any casual occasion.",
+    price: 1399,
     discountPrice: 1199,
     countInStock: 40,
     sku: "BW-M-002",
@@ -47,8 +49,9 @@ const products = [
   },
   {
     name: "Women's Floral Summer Dress",
-    description: "A beautiful floral summer dress with a flowy silhouette. Perfect for warm weather occasions.",
-    price: 1799,
+    description:
+      "A beautiful floral summer dress with a flowy silhouette. Perfect for warm weather occasions.",
+    price: 1499,
     discountPrice: 1299,
     countInStock: 20,
     sku: "DW-W-003",
@@ -70,8 +73,9 @@ const products = [
   },
   {
     name: "Men's Casual Button-Down Shirt",
-    description: "A versatile button-down shirt that can be dressed up or down. Made from soft fabric with a tailored fit.",
-    price: 1299,
+    description:
+      "A versatile button-down shirt that can be dressed up or down. Made from soft fabric with a tailored fit.",
+    price: 1199,
     discountPrice: 899,
     countInStock: 25,
     sku: "TW-M-004",
@@ -93,8 +97,9 @@ const products = [
   },
   {
     name: "Women's High-Waisted Skinny Jeans",
-    description: "Flattering high-waisted skinny jeans with stretch for comfort. Perfect for any casual occasion.",
-    price: 1599,
+    description:
+      "Flattering high-waisted skinny jeans with stretch for comfort. Perfect for any casual occasion.",
+    price: 1499,
     discountPrice: 1199,
     countInStock: 40,
     sku: "BW-W-005",
@@ -116,9 +121,10 @@ const products = [
   },
   {
     name: "Men's Leather Jacket",
-    description: "A stylish leather jacket with a rugged look. Perfect for adding an edge to any outfit.",
-    price: 4999,
-    discountPrice: 3999,
+    description:
+      "A stylish leather jacket with a rugged look. Perfect for adding an edge to any outfit.",
+    price: 2500,
+    discountPrice: 1999,
     countInStock: 15,
     sku: "OW-M-006",
     category: "Outer Wear",
@@ -139,8 +145,9 @@ const products = [
   },
   {
     name: "Women's Cropped Hoodie",
-    description: "A trendy cropped hoodie with a comfortable fit. Perfect for casual outings and lounging.",
-    price: 1299,
+    description:
+      "A trendy cropped hoodie with a comfortable fit. Perfect for casual outings and lounging.",
+    price: 1499,
     discountPrice: 899,
     countInStock: 25,
     sku: "TW-W-007",
@@ -162,8 +169,9 @@ const products = [
   },
   {
     name: "Men's Athletic Shorts",
-    description: "Lightweight athletic shorts with moisture-wicking fabric. Perfect for workouts or casual wear.",
-    price: 999,
+    description:
+      "Lightweight athletic shorts with moisture-wicking fabric. Perfect for workouts or casual wear.",
+    price: 799,
     discountPrice: 699,
     countInStock: 35,
     sku: "BW-M-008",
@@ -185,9 +193,10 @@ const products = [
   },
   {
     name: "Women's Silk Blouse",
-    description: "An elegant silk blouse with a flattering fit. Perfect for both office and evening wear.",
-    price: 1999,
-    discountPrice: 1499,
+    description:
+      "An elegant silk blouse with a flattering fit. Perfect for both office and evening wear.",
+    price: 1499,
+    discountPrice: 1299,
     countInStock: 18,
     sku: "TW-W-009",
     category: "Top Wear",
@@ -208,9 +217,10 @@ const products = [
   },
   {
     name: "Men's Wool Coat",
-    description: "A warm wool coat with a tailored fit. Perfect for winter weather.",
-    price: 3999,
-    discountPrice: 3499,
+    description:
+      "A warm wool coat with a tailored fit. Perfect for winter weather.",
+    price: 2999,
+    discountPrice: 1399,
     countInStock: 12,
     sku: "OW-M-010",
     category: "Outer Wear",
@@ -231,8 +241,9 @@ const products = [
   },
   {
     name: "Women's Denim Shorts",
-    description: "Classic denim shorts with a comfortable fit. Perfect for summer days.",
-    price: 999,
+    description:
+      "Classic denim shorts with a comfortable fit. Perfect for summer days.",
+    price: 1499,
     discountPrice: 699,
     countInStock: 40,
     sku: "BW-W-011",
@@ -255,7 +266,7 @@ const products = [
   {
     name: "Men's Sneakers",
     description: "Comfortable and stylish sneakers perfect for everyday wear.",
-    price: 2499,
+    price: 2999,
     discountPrice: 1999,
     countInStock: 25,
     sku: "SH-M-012",
@@ -277,8 +288,9 @@ const products = [
   },
   {
     name: "Women's Turtleneck Sweater",
-    description: "A warm turtleneck sweater perfect for cold weather. Features a slim fit and soft fabric.",
-    price: 1499,
+    description:
+      "A warm turtleneck sweater perfect for cold weather. Features a slim fit and soft fabric.",
+    price: 1299,
     discountPrice: 1099,
     countInStock: 22,
     sku: "TW-W-013",
@@ -300,8 +312,9 @@ const products = [
   },
   {
     name: "Men's Chino Pants",
-    description: "Classic chino pants with a modern slim fit. Perfect for business casual or smart casual occasions.",
-    price: 1799,
+    description:
+      "Classic chino pants with a modern slim fit. Perfect for business casual or smart casual occasions.",
+    price: 1699,
     discountPrice: 1399,
     countInStock: 30,
     sku: "BW-M-014",
@@ -323,8 +336,9 @@ const products = [
   },
   {
     name: "Women's Maxi Dress",
-    description: "An elegant maxi dress with a flattering silhouette. Perfect for special occasions.",
-    price: 2199,
+    description:
+      "An elegant maxi dress with a flattering silhouette. Perfect for special occasions.",
+    price: 1900,
     discountPrice: 1799,
     countInStock: 18,
     sku: "DW-W-015",
@@ -346,8 +360,9 @@ const products = [
   },
   {
     name: "Men's Polo Shirt",
-    description: "A classic polo shirt with a comfortable fit. Perfect for smart casual occasions.",
-    price: 1099,
+    description:
+      "A classic polo shirt with a comfortable fit. Perfect for smart casual occasions.",
+    price: 1499,
     discountPrice: 799,
     countInStock: 35,
     sku: "TW-M-016",
@@ -369,9 +384,10 @@ const products = [
   },
   {
     name: "Women's Ankle Boots",
-    description: "Stylish ankle boots with a comfortable heel. Perfect for both casual and dressy occasions.",
-    price: 2299,
-    discountPrice: 1899,
+    description:
+      "Stylish ankle boots with a comfortable heel. Perfect for both casual and dressy occasions.",
+    price: 1899,
+    discountPrice: 1699,
     countInStock: 15,
     sku: "SH-W-017",
     category: "Footwear",
@@ -392,9 +408,10 @@ const products = [
   },
   {
     name: "Men's Hooded Sweatshirt",
-    description: "A comfortable hooded sweatshirt perfect for casual wear. Features a relaxed fit and soft fabric.",
-    price: 1499,
-    discountPrice: 1099,
+    description:
+      "A comfortable hooded sweatshirt perfect for casual wear. Features a relaxed fit and soft fabric.",
+    price: 1099,
+    discountPrice: 899,
     countInStock: 25,
     sku: "TW-M-018",
     category: "Top Wear",
@@ -415,9 +432,10 @@ const products = [
   },
   {
     name: "Women's Leather Crossbody Bag",
-    description: "A stylish leather crossbody bag with multiple compartments. Perfect for everyday use.",
-    price: 2499,
-    discountPrice: 1999,
+    description:
+      "A stylish leather crossbody bag with multiple compartments. Perfect for everyday use.",
+    price: 1999,
+    discountPrice: 1799,
     countInStock: 15,
     sku: "AC-W-019",
     category: "Accessories",
@@ -438,9 +456,10 @@ const products = [
   },
   {
     name: "Men's Dress Shoes",
-    description: "Classic dress shoes with a polished finish. Perfect for formal occasions.",
-    price: 2999,
-    discountPrice: 2499,
+    description:
+      "Classic dress shoes with a polished finish. Perfect for formal occasions.",
+    price: 2499,
+    discountPrice: 1999,
     countInStock: 20,
     sku: "SH-M-020",
     category: "Footwear",
@@ -458,7 +477,7 @@ const products = [
     ],
     rating: 4.8,
     numReviews: 50,
-  }
+  },
 ];
 
 module.exports = products;

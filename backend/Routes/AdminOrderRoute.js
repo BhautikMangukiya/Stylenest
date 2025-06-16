@@ -32,15 +32,15 @@ router.put("/:id", protect, admin, async (req, res) => {
     const order = await Order.findById(req.params.id);
 
     if (order) {
-      order.status = req.body.status || order.status;
-      order.isDelivered =
-        req.body.status === "shipped" ? true : order.isDelivered;
-      order.deliveredAt =
-        req.body.status === "shipped" ? Date.now() : order.deliveredAt;
+  const incomingStatus = req.body.status?.toLowerCase();
 
-      const updatedOrder = await order.save();
-      res.json(updatedOrder);
-    } else {
+  order.status = incomingStatus || order.status;
+  order.isDelivered = incomingStatus === "delivered" ? true : order.isDelivered;
+  order.deliveredAt = incomingStatus === "delivered" ? Date.now() : order.deliveredAt;
+
+  const updatedOrder = await order.save();
+  res.json(updatedOrder);
+} else {
       res.status(404).json({ message: "Order not found" });
     }
   } catch (error) {

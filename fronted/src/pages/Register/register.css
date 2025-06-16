@@ -1,321 +1,234 @@
-/* Register.css */
-
+/* ===== Register Page (Luxury) ===== */
 .register-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #fff5f0; /* Warm off-white background */
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    
-  }
-  
-  /* Decorative Background Shapes */
-  .register-page::before {
-    content: '';
-    position: absolute;
-    top: -30px;
-    right: -30px;
-    width: 150px;
-    height: 150px;
-    background-color: #f9c1c1; /* Soft coral accent */
-    border-radius: 50%;
-    opacity: 0.3;
-    z-index: 1;
-  }
-  
-  .register-page::after {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    left: -60px;
-    width: 250px;
-    height: 250px;
-    background: linear-gradient(45deg, #ff6b6b, #f9c1c1);
-    clip-path: polygon(0% 0%, 75% 0%, 100% 100%, 25% 100%); /* Trapezoid shape */
-    opacity: 0.2;
-    z-index: 1;
-  }
-  
-  .register-content {
-    max-width: 1100px;
-    width: 100%;
-    display: flex;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-  }
-  
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.register-content {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.register-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.left-side {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: #f4f1e9;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #d4a017;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+
+.greeting {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  font-family: 'Playfair Display', serif;
+}
+
+.left-side p {
+  font-size: 1.1rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+  font-family: 'Lora', serif;
+}
+
+.error-message {
+  color: #a94442;
+  font-size: 1rem;
+  background: #f8d7da;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  font-family: 'Lora', serif;
+}
+
+.form-group input {
+  padding: 0.9rem;
+  border: 1px solid #d4a017;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #2a2a2a;
+  background: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #b8962c;
+  box-shadow: 0 0 8px rgba(212, 160, 23, 0.3);
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #d4a017;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #b8962c;
+}
+
+.sign-up-button {
+  background: #2a2a2a;
+  color: #f4f1e9;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Lora', serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sign-up-button:hover:enabled {
+  background: #d4a017;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
+}
+
+.sign-up-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.already-have-account {
+  font-size: 1rem;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.login-link {
+  font-size: 1rem;
+  color: #d4a017;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #b8962c;
+  text-decoration: underline;
+}
+
+.right-side {
+  overflow: hidden;
+}
+
+.right-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.right-side img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
   .register-form {
-    display: flex;
-    width: 100%;
-    position: relative;
+    grid-template-columns: 1fr;
   }
-  
-  /* Diagonal Divider */
-  .register-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #fff 50%, transparent 50%);
-    z-index: 1;
-  }
-  
-  /* Left Side - Form */
-  .left-side {
-    flex: 1;
-    padding: 50px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-    z-index: 2;
-    animation: slideInLeft 0.5s ease-out;
-  }
-  
-  @keyframes slideInLeft {
-    from {
-      transform: translateX(-20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  .headding {
-    font-family: 'Georgia', serif;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .hey {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #ff6b6b;
-    margin-bottom: 10px;
-  }
-  
-  .left-side p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
-    font-family: 'Georgia', serif;
-  }
-  
-  .name-input,
-  .email-input,
-  .password-input {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-  
-  label {
-    font-family: 'Georgia', serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  input {
-    padding: 12px;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    border: 2px solid #f0f0f0;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  input:focus {
-    border-color: #ff6b6b;
-    transform: scale(1.02);
-  }
-  
-  .Sign-up-button[type="submit"] {
-    padding: 14px;
-    background-color: #ff6b6b;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 15px;
-  }
-  
-  .Sign-up-button[type="submit"]:hover,
-  .Sign-up-button[type="submit"]:focus {
-    background-color: #f9c1c1;
-    transform: scale(1.05);
-  }
-  
-  .left-side a {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
-    color: #ff6b6b;
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    transition: color 0.3s ease;
-  }
-  
-  .left-side a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -2px;
-    left: 0;
-    background-color: #ff6b6b;
-    transition: width 0.3s ease;
-  }
-  
-  .left-side a:hover::after,
-  .left-side a:focus::after {
-    width: 100%;
-  }
-  
-  .left-side a:hover,
-  .left-side a:focus {
-    color: #f9c1c1;
-  }
-  .login-link{
-    width: fit-content;
-  }
-  
-  /* Right Side - Image */
+
   .right-side {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ff6b6b, #f9c1c1);
-    position: relative;
-    z-index: 2;
+    display: none;
   }
-  
-  .right-side img {
-    width: 80%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transform: rotate(-5deg); /* Opposite tilt from Login for variety */
-    transition: transform 0.3s ease;
+
+  .left-side {
+    padding: 2rem;
   }
-  
-  .right-side img:hover {
-    transform: rotate(0deg);
+
+  .heading {
+    font-size: 2rem;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .register-content {
-      flex-direction: column;
-      border-radius: 15px;
-    }
-  
-    .register-form {
-      flex-direction: column;
-    }
-  
-    .register-form::before {
-      display: none; /* Remove diagonal divider on mobile */
-    }
-  
-    .left-side {
-      padding: 30px;
-    }
-  
-    .headding {
-      font-size: 2rem;
-    }
-  
-    .hey {
-      font-size: 1.5rem;
-    }
-  
-    .left-side p {
-      font-size: 0.9rem;
-    }
-  
-    input {
-      padding: 10px;
-      font-size: 0.9rem;
-    }
-  
-    button[type="submit"] {
-      padding: 12px;
-      font-size: 1rem;
-    }
-  
-    .right-side {
-      padding: 20px;
-      background: none;
-    }
-  
-    .right-side img {
-      width: 100%;
-      transform: none;
-      border-radius: 10px;
-    }
+
+  .greeting {
+    font-size: 1.6rem;
   }
-  
-  @media (max-width: 480px) {
-    .register-page {
-      padding: 10px;
-    }
-  
-    .left-side {
-      padding: 20px;
-    }
-  
-    .headding {
-      font-size: 1.8rem;
-    }
-  
-    .hey {
-      font-size: 1.3rem;
-    }
-  
-    .left-side p {
-      font-size: 0.85rem;
-    }
-  
-    input {
-      padding: 8px;
-      font-size: 0.85rem;
-    }
-  
-    button[type="submit"] {
-      padding: 10px;
-      font-size: 0.9rem;
-    }
-  
-    .right-side {
-      padding: 10px;
-    }
-  
-    .right-side img {
-      width: 90%;
-    }
+
+  .left-side p {
+    font-size: 1rem;
   }
+
+  .sign-up-button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 1rem;
+  }
+
+  .left-side {
+    padding: 1.5rem;
+  }
+
+  .heading {
+    font-size: 1.8rem;
+  }
+
+  .greeting {
+    font-size: 1.4rem;
+  }
+
+  .form-group input {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .sign-up-button {
+    width: 100%;
+    text-align: center;
+  }
+}

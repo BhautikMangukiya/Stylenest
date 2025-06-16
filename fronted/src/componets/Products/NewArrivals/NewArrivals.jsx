@@ -88,6 +88,7 @@ function NewArrivals() {
 
   // Only uses product image from your DB
   const renderProductCard = (product) => (
+    <Link to={`/product/${product._id}`} className="new-arrivals__link">
     <div className="new-arrivals__card" key={product._id}>
       <img
         src={product.images?.[0]?.url}
@@ -95,12 +96,13 @@ function NewArrivals() {
         className="new-arrivals__image"
       />
       <div className="new-arrivals__info">
-        <Link to={`/product/${product._id}`} className="new-arrivals__link">
+        
           <h4 className="new-arrivals__product-name">{product.name}</h4>
           <p className="new-arrivals__product-price">₹ {product.price}</p>
-        </Link>
+        
       </div>
     </div>
+    </Link>
   );
 
   const renderScrollButtons = () => (

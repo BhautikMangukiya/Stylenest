@@ -9,6 +9,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,14 +39,16 @@ function Register() {
       <div className="register-content">
         <form onSubmit={handleSubmit} className="register-form">
           <div className="left-side">
-            <h2 className="headding">Style Nest</h2>
-            <h2 className="hey">Welcome!</h2>
+            <h2 className="heading">Style Nest</h2>
+            <h2 className="greeting">Welcome!</h2>
             <p>Join Style Nest and unlock exclusive benefits.</p>
 
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message" role="alert">{error}</p>}
 
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name" className="input-label">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -57,7 +60,9 @@ function Register() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="input-label">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -69,26 +74,33 @@ function Register() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <label htmlFor="password" className="input-label">
+                Password
+              </label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
 
-            <button
-              type="submit"
-              className="sign-up-button"
-              disabled={loading}
-            >
+            <button type="submit" className="sign-up-button" disabled={loading}>
               {loading ? "Creating Account..." : "Sign Up"}
             </button>
 
-            <p>Already have an account?</p>
+            <p className="already-have-account">Already have an account?</p>
             <Link
               to={`/login?redirect=${encodeURIComponent(redirect)}`}
               className="login-link"
@@ -98,7 +110,7 @@ function Register() {
           </div>
 
           <div className="right-side">
-            <img src={registerImage} alt="Register" />
+            <img src={registerImage} alt="Registration visual" />
           </div>
         </form>
       </div>

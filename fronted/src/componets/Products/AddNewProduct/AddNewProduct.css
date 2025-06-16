@@ -1,0 +1,363 @@
+/* ===== Add New Product Page ===== */
+.productadd-page {
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+  padding: 3rem 1rem;
+  font-family: 'Lora', serif;
+  color: #f4f1e9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productadd-title {
+  font-size: 2.75rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #d4a017;
+  letter-spacing: 0.02em;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+/* ===== Form Section ===== */
+.productadd-form {
+  background: #f4f1e9;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  width: 1100px;
+  max-width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  margin-bottom: 4rem;
+}
+
+.productadd-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== Form Inputs ===== */
+.productadd-form-grid input,
+.productadd-form-grid select {
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  color: #1c1c1c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Lora', serif;
+  transition: box-shadow 0.3s ease, outline 0.2s ease;
+}
+
+.productadd-form-grid input:focus,
+.productadd-form-grid select:focus {
+  outline: 2px solid #d4a017;
+  outline-offset: 2px;
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.2);
+}
+
+.productadd-form textarea {
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  color: #1c1c1c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Lora', serif;
+  min-height: 140px;
+  resize: vertical;
+  margin-bottom: 2rem;
+  width: 100%;
+  transition: box-shadow 0.3s ease, outline 0.2s ease;
+}
+
+.productadd-form textarea:focus {
+  outline: 2px solid #d4a017;
+  outline-offset: 2px;
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.2);
+}
+
+/* ===== Dynamic Input Sections (Sizes, Colors) ===== */
+.productadd-dynamic-input {
+  margin-bottom: 2rem;
+}
+
+.productadd-dynamic-input label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.productadd-input-plus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.productadd-input-plus input {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  color: #1c1c1c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, outline 0.2s ease;
+}
+
+.productadd-input-plus input:focus {
+  outline: 2px solid #d4a017;
+  outline-offset: 2px;
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.2);
+}
+
+.add-btn {
+  background: #2a2a2a;
+  color: #f4f1e9;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  background: #d4a017;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
+}
+
+/* ===== Checkbox Row ===== */
+.productadd-checkbox-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.productadd-checkbox-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+
+.productadd-checkbox {
+  width: 1.3rem;
+  height: 1.3rem;
+  accent-color: #d4a017;
+  cursor: pointer;
+}
+
+/* ===== Image Upload Section ===== */
+.productadd-upload-wrapper {
+  margin-bottom: 2rem;
+}
+
+.productadd-upload-box {
+  background: #ffffff;
+  border: 2px dashed #d4a017;
+  border-radius: 0.6rem;
+  padding: 2.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.productadd-upload-box:hover {
+  background: #f0eee8;
+  border-color: #b38b12;
+}
+
+.productadd-upload-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+
+.productadd-upload-plus {
+  font-size: 2.5rem;
+  color: #d4a017;
+}
+
+/* ===== Image Preview Section ===== */
+.productadd-image-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.productadd-image-thumb {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.productadd-image-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.productadd-image-thumb img:hover {
+  transform: scale(1.05);
+}
+
+.productadd-image-thumb button {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #a4161a;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.productadd-image-thumb button:hover {
+  background: #800f12;
+  transform: scale(1.1);
+}
+
+/* ===== Submit Button ===== */
+.productadd-submit-btn {
+  background: #2a2a2a;
+  color: #f4f1e9;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Lora', serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: block;
+  margin: 0 auto;
+}
+
+.productadd-submit-btn:hover {
+  background: #d4a017;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
+}
+
+/* ===== Responsive Design ===== */
+@media (min-width: 1200px) {
+  .productadd-form {
+    padding: 3rem;
+  }
+
+  .productadd-form-grid {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .productadd-form {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .productadd-image-preview {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .productadd-image-thumb {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .productadd-title {
+    font-size: 2.25rem;
+  }
+
+  .productadd-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .productadd-checkbox-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productadd-title {
+    font-size: 2rem;
+  }
+
+  .productadd-form-grid input,
+  .productadd-form-grid select,
+  .productadd-form textarea {
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .productadd-dynamic-input label {
+    font-size: 1rem;
+  }
+
+  .productadd-input-plus input {
+    min-width: 150px;
+  }
+
+  .productadd-image-thumb {
+    width: 80px;
+    height: 80px;
+  }
+
+  .productadd-image-thumb button {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
+
+  .productadd-upload-box {
+    padding: 1.5rem;
+  }
+
+  .productadd-upload-plus {
+    font-size: 2rem;
+  }
+
+  .productadd-upload-text {
+    font-size: 1rem;
+  }
+
+  .productadd-submit-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

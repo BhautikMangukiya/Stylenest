@@ -1,180 +1,93 @@
-/* ===== Base Styles ===== */
-.highlights-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
+/* ===== Highlights Section (Luxury) ===== */
+.highlight-wrap {
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 4rem 2rem;
+}
+
+.highlights-section {
   max-width: 1400px;
   margin: 0 auto;
-  background-color: #f8f9fa;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
-/* ===== Highlight Card ===== */
 .highlight-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
+  background: #f4f1e9;
+  border-radius: 1rem;
+  padding: 2rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  position: relative;
-  overflow: hidden;
-}
-
-.highlight-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #3498db, #9b59b6);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .highlight-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.highlight-card:hover::before {
-  transform: scaleX(1);
-}
-
-/* ===== Icon Styles ===== */
 .highlight-icon {
-  font-size: 2.8rem;
-  color: #d4af37;
-  margin-bottom: 1.5rem;
-  transition: all 0.4s ease;
-  display: inline-flex;
-  padding: 1rem;
-  background: rgba(212, 175, 55, 0.1);
-  border-radius: 50%;
+  font-size: 2.5rem;
+  color: #d4a017;
+  margin-bottom: 1rem;
 }
 
-.highlight-card:hover .highlight-icon {
-  color: white;
-  background: linear-gradient(135deg, #3498db, #9b59b6);
-  transform: rotateY(180deg) scale(1.1);
-}
-
-/* ===== Text Styles ===== */
 .highlight-title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #2c3e50;
-  margin: 0 0 1rem 0;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.highlight-card:hover .highlight-title {
-  color: #3498db;
+  color: #2a2a2a;
+  font-family: 'Lora', serif;
+  margin-bottom: 0.75rem;
 }
 
 .highlight-description {
   font-size: 1rem;
-  color: #7f8c8d;
+  color: #4a4a4a;
+  font-family: 'Lora', serif;
   line-height: 1.6;
-  margin: 0;
-  transition: color 0.3s ease;
 }
-
-.highlight-card:hover .highlight-description {
-  color: #34495e;
-}
-
-/* ===== Animation Effects ===== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.highlight-card {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.highlight-card:nth-child(1) { animation-delay: 0.1s; }
-.highlight-card:nth-child(2) { animation-delay: 0.2s; }
-.highlight-card:nth-child(3) { animation-delay: 0.3s; }
-.highlight-card:nth-child(4) { animation-delay: 0.4s; }
 
 /* ===== Responsive Design ===== */
-@media (max-width: 1024px) {
-  .highlights-section {
+@media (max-width: 768px) {
+  .highlight-wrap {
     padding: 3rem 1.5rem;
+  }
+
+  .highlights-section {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
   }
-  
-  .highlight-card {
-    padding: 2rem 1.5rem;
-  }
-  
-  .highlight-icon {
-    font-size: 2.5rem;
-  }
-  
+
   .highlight-title {
     font-size: 1.3rem;
   }
-}
 
-@media (max-width: 768px) {
-  .highlights-section {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 2.5rem 1rem;
-  }
-  
-  .highlight-card {
-    padding: 1.8rem 1.2rem;
-  }
-  
-  .highlight-icon {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .highlight-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-  }
-  
   .highlight-description {
     font-size: 0.95rem;
+  }
+
+  .highlight-icon {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
+  .highlight-wrap {
+    padding: 2rem 1rem;
+  }
+
   .highlights-section {
     grid-template-columns: 1fr;
-    padding: 2rem 1rem;
-    gap: 1rem;
   }
-  
+
   .highlight-card {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem;
   }
-  
-  .highlight-icon {
-    font-size: 2rem;
-    padding: 0.8rem;
-  }
-  
+
   .highlight-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
-  
+
   .highlight-description {
     font-size: 0.9rem;
   }

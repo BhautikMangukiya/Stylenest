@@ -26,17 +26,19 @@ function Profile() {
   }
 
   return (
-    <div>
+    <div className="user-profile-wrap">
       <div className="user-profile-container">
         <div className="user-profile-left">
           <div className="user-profile-info">
             <h2>User Details</h2>
+            <div className="p-wrap-myorderpage">
             <p>
               <strong>Name:</strong> {user?.name}
             </p>
             <p>
               <strong>Email:</strong> {user?.email}
             </p>
+            </div>
             <button onClick={handalLogout} className="btn-logout" >Logout</button>
           </div>
         </div>

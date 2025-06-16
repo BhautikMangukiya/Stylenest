@@ -9,13 +9,14 @@ import "./login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const { user, guestId, loading, error } = useSelector((state) => state.auth);
-  const { cart } = useSelector((state) => state.cart);
+  const { cart = [] } = useSelector((state) => state.cart);
 
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
@@ -24,8 +25,7 @@ function Login() {
     if (user) {
       const destination = isCheckoutRedirect ? "/checkout" : redirect;
 
-      // Only merge if guest cart exists
-      if (cart?.length > 0 && guestId) {
+      if (cart.length > 0 && guestId) {
         dispatch(mergeCart({ guestId, user })).then(() => {
           navigate(destination);
         });
@@ -50,13 +50,13 @@ function Login() {
       <div className="login-content">
         <form onSubmit={handleSubmit} className="login-form">
           <div className="left-side">
-            <h2 className="headding">Style Nest</h2>
-            <h2 className="hey">Hey there!</h2>
-            <p>Enter your Email and password to login.</p>
+            <h2 className="heading">Style Nest</h2>
+            <h2 className="greeting">Hey there!</h2>
+            <p>Enter your email and password to login.</p>
 
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message" role="alert">{error}</p>}
 
-            <div className="username-input">
+            <div className="input-group-login">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
@@ -68,23 +68,32 @@ function Login() {
               />
             </div>
 
-            <div className="password-input">
+            <div className="input-group-login">
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
 
             <button type="submit" className="sign-in" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"}
             </button>
 
-            <p>Don't have an account?</p>
+            <p className="dont-have-account">Don't have an account?</p>
             <Link
               to={`/register?redirect=${encodeURIComponent(redirect)}`}
               className="register"
@@ -94,7 +103,7 @@ function Login() {
           </div>
 
           <div className="right-side">
-            <img src={loginImage} alt="login illustration" />
+            <img src={loginImage} alt="Login visual" />
           </div>
         </form>
       </div>

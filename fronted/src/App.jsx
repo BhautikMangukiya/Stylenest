@@ -7,25 +7,31 @@ import store from "../redux/store";
 import UserLayout from "./componets/Layout/UserLayout/UserLayout";
 import AdminLayout from "./componets/Admin/AdminLayout/AdminLayout";
 
-// Pages
+// Pages (User)
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
 import CollectionsPage from "./pages/Collections/CollectionsPage";
+import CartPage from "./componets/Layout/CartPage/CartPage";
 import Checkout from "./componets/Cart/Checkout/Checkout";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage/OrderConfirmationPage";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
+import SelectedProduct from "./pages/SelectedProduct/SelectedProduct";
 
-// Admin Pages
+// Pages (Admin)
 import AdminHomePage from "./componets/Admin/AdminHomePage/AdminHomePage";
 import UserManagement from "./componets/Admin/UserManagement/UserManagement";
 import OrderManagement from "./componets/Admin/OrderManagement/OrderManagement";
 import ProductManagement from "./componets/Admin/ProductManagement/ProductManagement";
 import EditProductPage from "./componets/Admin/EditProductPage/EditProductPage";
+import AddNewProduct from "./componets/Products/AddNewProduct/AddNewProduct";
 
 // Toast Notifications
 import { Toaster } from "sonner";
+
+// Protected Route
+import ProtectedAdminRoute from "./componets/ProtectedAdmin/ProtectedAdminRoute";
 
 // Global Styles
 import "./app.css";
@@ -43,18 +49,23 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
             <Route path="collections/:collection" element={<CollectionsPage />} />
+            <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<Checkout />} />
-            <Route path="order-confirmation" element={<OrderConfirmationPage />} />
+            <Route path="order-confirmation/:orderId" element={<OrderConfirmationPage />} />
             <Route path="orderdetails/:id" element={<OrderDetails />} />
+            <Route path="product/:id" element={<SelectedProduct />} />
           </Route>
 
-          {/* Admin Routes */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminHomePage />} />
-            <Route path="users" element={<UserManagement />} />
-            <Route path="products" element={<ProductManagement />} />
-            <Route path="products/:id/edit" element={<EditProductPage />} />
-            <Route path="orders" element={<OrderManagement />} />
+          {/* Protected Admin Routes */}
+          <Route path="/admin" element={<ProtectedAdminRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminHomePage />} />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="products" element={<ProductManagement />} />
+              <Route path="products/:id/edit" element={<EditProductPage />} />
+              <Route path="orders" element={<OrderManagement />} />
+              <Route path="products/add" element={<AddNewProduct />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

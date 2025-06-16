@@ -1,140 +1,206 @@
-/* MyOrderPage.css */
+/* ===== My Order Page (Luxury Dark Theme) ===== */
+.myOrderpage-Wrap {
+  font-family: 'Lora', serif;
+  color: #f4f1e9;
+}
 
 .my-order-page {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .page-title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-  }
-  
-  .loading-spinner {
-    font-size: 1.2rem;
-    color: #666;
-  }
-  
-  .no-products {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666;
-    margin-top: 3rem;
-  }
-  
-  .orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .orders-table thead {
-    background-color: #f8f9fa;
-  }
-  
-  .orders-table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    color: #495057;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-  }
-  
-  .orders-table td {
-    padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
-    color: #495057;
-    vertical-align: middle;
-  }
-  
-  .orders-table tr:last-child td {
-    border-bottom: none;
-  }
-  
-  .orders-table tr:hover {
-    background-color: #f8f9fa;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #f4f1e9;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #d4a017;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+  position: relative;
+  text-align: center;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: #d4a017;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #2a2a2a;
+  font-family: 'Lora', serif;
+}
+
+.no-products {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #2a2a2a;
+  font-family: 'Lora', serif;
+  padding: 2rem;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 1rem;
+  font-family: 'Lora', serif;
+  color: #2a2a2a;
+}
+
+.orders-table th {
+  background: #2a2a2a;
+  color: #f4f1e9;
+  font-weight: 600;
+}
+
+.orders-table tr {
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+  transition: background 0.3s ease;
+}
+
+.orders-table tr:hover {
+  background: rgba(212, 160, 23, 0.05);
+}
+
+.orders-table tr[data-paid="true"] td:last-child {
+  color: #d4a017;
+  font-weight: 600;
+}
+
+.orders-table tr[data-paid="false"] td:last-child {
+  color: #a94442;
+  font-weight: 600;
+}
+
+.product-image-MyOrder {
+  width: 100px;
+  height: 100px;
+  object-fit: fill;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .myOrderpage-Wrap {
+    padding: 3rem 1.5rem;
   }
 
-  
+  .my-order-page {
+    padding: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .orders-table {
+    display: none; /* Hide table on mobile */
+  }
+
+  /* Mobile-friendly card layout */
+  .my-order-page::after {
+    content: '';
+    display: block;
+  }
+
+  .my-order-page:not(.loading-container):not(.no-products) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .order-row {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-row td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(212, 160, 23, 0.1);
+  }
+
+  .order-row td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #2a2a2a;
+  }
+
+  .order-row td:first-child {
+    justify-content: center;
+  }
+
   .product-image-MyOrder {
-    height:  100px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #e9ecef;
-    padding: 5px;
+    width: 80px;
+    height: 80px;
   }
-  
-  /* Status badges */
-  .orders-table td:nth-child(6) {
-    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .myOrderpage-Wrap {
+    padding: 2rem 1rem;
   }
-  
-  .orders-table td:nth-child(6):before {
-    content: "";
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 8px;
+
+  .my-order-page {
+    padding: 1rem;
   }
-  
-  .orders-table tr td:nth-child(6):contains("Paid"):before {
-    background-color: #28a745;
+
+  .page-title {
+    font-size: 1.8rem;
   }
-  
-  .orders-table tr td:nth-child(6):contains("Pending"):before {
-    background-color: #ffc107;
+
+  .loading-text,
+  .no-products {
+    font-size: 1rem;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .my-order-page {
-      padding: 1rem;
-    }
-    
-    .orders-table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    
-    .page-title {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
+
+  .order-row td {
+    font-size: 0.95rem;
   }
-  
-  /* Animation for loading state */
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+
+  .product-image-MyOrder {
+    width: 60px;
+    height: 60px;
   }
-  
-  .loading-spinner::after {
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: #007bff;
-    animation: spin 1s ease-in-out infinite;
-    margin-left: 10px;
-    vertical-align: middle;
-  }
+}
+
+/* Data labels for mobile view */
+@media (max-width: 768px) {
+  .order-row td:nth-child(1)::before { content: "Image"; }
+  .order-row td:nth-child(2)::before { content: "ID"; }
+  .order-row td:nth-child(3)::before { content: "Date"; }
+  .order-row td:nth-child(4)::before { content: "Name"; }
+  .order-row td:nth-child(5)::before { content: "City"; }
+  .order-row td:nth-child(6)::before { content: "Items"; }
+  .order-row td:nth-child(7)::before { content: "Price"; }
+  .order-row td:nth-child(8)::before { content: "Status"; }
+}

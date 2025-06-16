@@ -23,28 +23,12 @@ function FilterSidebar() {
   const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const materials = [
-    "Cotton",
-    "Denim",
-    "Leather",
-    "Wool",
-    "Polyester",
-    "Linen",
-    "Silk",
-    "Nylon",
-    "Fleece",
-    "Viscose",
+    "Cotton", "Denim", "Leather", "Wool", "Polyester", "Linen",
+    "Silk", "Nylon", "Fleece", "Viscose"
   ];
   const brands = [
-    "Nike",
-    "Adidas",
-    "Zara",
-    "H&M",
-    "Levi's",
-    "Gucci",
-    "Puma",
-    "Under Armour",
-    "Uniqlo",
-    "The North Face",
+    "Nike", "Adidas", "Zara", "H&M", "Levi's", "Gucci",
+    "Puma", "Under Armour", "Uniqlo", "The North Face"
   ];
 
   useEffect(() => {
@@ -147,7 +131,7 @@ function FilterSidebar() {
               checked={filters.category === cat}
               onChange={() => handleRadioChange("category", cat)}
             />
-            {cat}
+            <span>{cat}</span>
           </label>
         ))}
       </div>
@@ -162,7 +146,7 @@ function FilterSidebar() {
               checked={filters.gender === gender}
               onChange={() => handleRadioChange("gender", gender)}
             />
-            {gender}
+            <span>{gender}</span>
           </label>
         ))}
       </div>
@@ -177,7 +161,7 @@ function FilterSidebar() {
               checked={filters.color === color}
               onChange={() => handleRadioChange("color", color)}
             />
-            {color}
+            <span>{color}</span>
           </label>
         ))}
       </div>
@@ -191,7 +175,7 @@ function FilterSidebar() {
               checked={filters.sizes.includes(size)}
               onChange={() => handleCheckboxChange("sizes", size)}
             />
-            {size}
+            <span>{size}</span>
           </label>
         ))}
       </div>
@@ -205,7 +189,7 @@ function FilterSidebar() {
               checked={filters.material.includes(mat)}
               onChange={() => handleCheckboxChange("material", mat)}
             />
-            {mat}
+            <span>{mat}</span>
           </label>
         ))}
       </div>
@@ -219,7 +203,7 @@ function FilterSidebar() {
               checked={filters.brand.includes(brand)}
               onChange={() => handleCheckboxChange("brand", brand)}
             />
-            {brand}
+            <span>{brand}</span>
           </label>
         ))}
       </div>
@@ -228,7 +212,7 @@ function FilterSidebar() {
         <h4 className="filter-group-title">Price Range</h4>
         <div className="price-range-container">
           <div className="price-range-header">
-            <span className="price-range-title">PRICE RANGE</span>
+            <span className="price-range-title">PRICE RANGE </span>
             <span className="price-range-values">
               ₹{priceRange[0]} - ₹{priceRange[1]}
             </span>
