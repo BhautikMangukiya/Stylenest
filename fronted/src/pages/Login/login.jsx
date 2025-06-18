@@ -49,7 +49,7 @@ function Login() {
     <div className="login-page">
       <div className="login-content">
         <form onSubmit={handleSubmit} className="login-form">
-          <div className="left-side">
+          <div className="left-side-login">
             <h2 className="heading">Style Nest</h2>
             <h2 className="greeting">Hey there!</h2>
             <p>Enter your email and password to login.</p>
@@ -102,7 +102,7 @@ function Login() {
             </Link>
           </div>
 
-          <div className="right-side">
+          <div className="right-side-login">
             <img src={loginImage} alt="Login visual" />
           </div>
         </form>

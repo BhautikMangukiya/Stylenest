@@ -3,7 +3,8 @@ import { Outlet } from "react-router-dom";
 
 
 import "./AdminLayout.css";
-import AdminSidebar from "../AdminSideBar/AdminSideBar";
+import AdminSidebarmobile from "../AdminSideBar/AdminSidebarmobile";
+
 
 function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,7 +20,7 @@ function AdminLayout() {
         <main className="admin-main">
           <Outlet />
         </main>
-        <AdminSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+        <AdminSidebarmobile isOpen={isSidebarOpen} onClose={toggleSidebar} />
       </div>
       <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
         {isSidebarOpen ? "Close" : "Menu"}
