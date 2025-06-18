@@ -10,7 +10,7 @@ import AdminLayout from "./componets/Admin/AdminLayout/AdminLayout";
 // Pages (User)
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/login";
-import Register from "./pages/Register/Register";
+import Register from "./pages//Register/register";
 import Profile from "./pages/Profile/Profile";
 import CollectionsPage from "./pages/Collections/CollectionsPage";
 import CartPage from "./componets/Layout/CartPage/CartPage";
