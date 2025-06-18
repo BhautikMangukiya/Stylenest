@@ -1,4 +1,3 @@
-/* ===== Edit Product Page ===== */
 .edit-product {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 3rem 1rem;
@@ -23,7 +22,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ===== Form Section ===== */
+
 .edit-product__form {
   background: #f4f1e9;
   border-radius: 1.5rem;
@@ -45,14 +44,12 @@
 }
 
 
-/* ===== Form Grid ===== */
 .edit-product__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.75rem;
 }
 
-/* ===== Form Inputs ===== */
 .edit-product__form-group {
   display: flex;
   flex-direction: column;
@@ -107,7 +104,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.2);
 }
 
-/* ===== Variant Inputs ===== */
 .edit-product__variant-group {
   margin-bottom: 2rem;
 }
@@ -143,7 +139,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
 }
 
-/* ===== Status & Checkbox ===== */
 .edit-product__status-group {
   display: flex;
   gap: 2.5rem;
@@ -167,7 +162,6 @@
   cursor: pointer;
 }
 
-/* ===== Image Upload Section ===== */
 .edit-product__image-upload {
   margin-top: 1.75rem;
 }
@@ -206,7 +200,6 @@
   display: none;
 }
 
-/* ===== Image Previews ===== */
 .edit-product__image-previews {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -257,7 +250,6 @@
   transform: scale(1.1);
 }
 
-/* ===== Form Actions ===== */
 .edit-product__actions {
   display: flex;
   justify-content: flex-end;
@@ -301,7 +293,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
 }
 
-/* ===== Loading & Error States ===== */
 .edit-product__loading,
 .edit-product__error {
   font-size: 1.2rem;
@@ -316,7 +307,7 @@
   max-width: 100%;
 }
 
-/* ===== Responsive Design ===== */
+
 @media (min-width: 1200px) {
   .edit-product__form {
     padding: 3rem;

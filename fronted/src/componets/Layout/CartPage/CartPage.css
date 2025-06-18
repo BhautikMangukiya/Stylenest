@@ -1,4 +1,4 @@
-/* ===== Cart Page (Luxury Dark Theme) ===== */
+
 .cartpage-container {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   color: #f4f1e9;
@@ -76,7 +76,6 @@
   color: aliceblue;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .cartpage-container {
     padding: 2rem 1.5rem;

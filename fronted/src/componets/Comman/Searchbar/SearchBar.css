@@ -1,4 +1,4 @@
-/* ===== Search Bar Styles ===== */
+
 .search-form {
   display: flex;
   align-items: center;
@@ -43,7 +43,6 @@
   transform: translateY(-1px);
 }
 
-/* Responsive */
 @media (max-width: 576px) {
   .search-form {
     max-width: 100%;

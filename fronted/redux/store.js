@@ -6,6 +6,7 @@ import productsReducer from "./slices/productsSlice";
 import cartReducer from "./slices/cartSlice";
 import checkoutReducer from "./slices/checkoutSlice";
 import orderReducer from "./slices/orderSlice";
+import orderDetailsReducer from "./slices/orderdetailsSlice"
 
 // Admin Flow
 import adminReducer from "./slices/adminSlice";
@@ -20,6 +21,7 @@ const store = configureStore({
     cart: cartReducer,
     checkout: checkoutReducer,
     order: orderReducer,
+    orderDetails: orderDetailsReducer,
 
     // Admin Reducers
     admin: adminReducer,

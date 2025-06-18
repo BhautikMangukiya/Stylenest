@@ -1,163 +1,241 @@
-/* ===== User Profile Section (Luxury Dark Theme) ===== */
-.user-profile-wrap {
-  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
+.profile-container {
+  display: flex;
   min-height: 100vh;
-  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   font-family: 'Lora', serif;
-  color: #f4f1e9;
 }
 
-.user-profile-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 2rem;
+.profile-sidebar {
+  width: fit-content;
+  padding: 2rem;
+  background: #ffffff;
+  border-right: 1px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.user-profile-left {
+.user-info-card {
   background: #f4f1e9;
   border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-  min-width: 400px;
-   max-height: fit-content;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.user-profile-info {
+.user-info-card h2 {
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
+  font-weight: 600;
+  color: #2a2a2a;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.user-details {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.user-profile-info h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #d4a017;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 1rem;
-  position: relative;
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.user-profile-info h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background: #d4a017;
-}
-
-.p-wrap-myorderpage p {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  color: #2a2a2a;
-  line-height: 1.6;
- 
-  
-}
-
-.p-wrap-myorderpage p strong {
+.detail-label {
+  font-size: 1rem;
   font-weight: 600;
   color: #2a2a2a;
-  margin-right: 10px;
 }
 
-.btn-logout {
-  padding: 1rem 2rem;
+.detail-value {
+  font-size: 1rem;
+  color: #4a4a4a;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem;
   background: #d4a017;
-  color: #1c2526;
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: 'Lora', serif;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.btn-logout:hover {
-  background: #e8ba2e;
+.logout-btn:hover {
+  background: #b88b14;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.3);
 }
 
-.btn-logout::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
+.profile-content {
+  flex: 1;
+  padding: 3rem;
+  background: #f8f9fa;
 }
 
-.btn-logout:hover::before {
-  left: 100%;
-}
-
-.user-profile-right {
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
   background: #f4f1e9;
   border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem;
 }
 
-/* ===== Responsive Design ===== */
+.loading-state p,
+.error-state p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: #4a4a4a;
+  margin-bottom: 1.5rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d4a017;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state button {
+  padding: 0.75rem 1.5rem;
+  background: #d4a017;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Lora', serif;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.error-state button:hover {
+  background: #b88b14;
+  transform: translateY(-2px);
+}
+
+..orders-table-container{
+  box-shadow: none;
+}
+
+@media (max-width: 1024px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .profile-content {
+    padding: 2rem;
+  }
+
+  .loading-state,
+  .error-state {
+    margin: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .user-profile-wrap {
-    padding: 3rem 1.5rem;
-  }
-
-  .user-profile-container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .user-profile-left,
-  .user-profile-right {
+  .profile-sidebar {
     padding: 1.5rem;
   }
 
-  .user-profile-info h2 {
-    font-size: 1.8rem;
+  .user-info-card {
+    padding: 1rem;
   }
 
-  .p-wrap-myorderpage p {
-    font-size: 1rem;
+  .user-info-card h2 {
+    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
   }
 
-  .btn-logout {
-    padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+  .detail-label,
+  .detail-value {
+    font-size: 0.95rem;
+  }
+
+  .logout-btn {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .profile-content {
+    padding: 1.5rem;
+  }
+
+  .loading-state p,
+  .error-state p {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .user-profile-wrap {
-    padding: 2rem 1rem;
-  }
-
-  .user-profile-left,
-  .user-profile-right {
+  .profile-sidebar {
     padding: 1rem;
   }
 
-  .user-profile-info h2 {
-    font-size: 1.6rem;
+  .user-info-card {
+    padding: 0.75rem;
   }
 
-  .p-wrap-myorderpage p {
-    font-size: 0.95rem;
+  .user-info-card h2 {
+    font-size: 1.5rem;
+    align-items: center;
   }
 
-  .btn-logout {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 0.95rem;
+  .detail-label,
+  .detail-value {
+    font-size: 1rem;
+  }
+
+  .logout-btn {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .profile-content {
+    padding: 1rem;
+  }
+
+  .loading-state,
+  .error-state {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .loading-state p,
+  .error-state p {
+    font-size: 1rem;
+  }
+
+  .error-state button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-item{
+    font-size: large;
   }
 }

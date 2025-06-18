@@ -5,7 +5,6 @@ const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// 🆕 Create new order and clear cart
 router.post("/", protect, async (req, res) => {
   const { orderItems, shippingAddress, paymentMethod, totalPrice } = req.body;
 
@@ -14,7 +13,6 @@ router.post("/", protect, async (req, res) => {
   }
 
   try {
-    // Create the order
     const newOrder = new Order({
       user: req.user._id,
       orderItems,
@@ -25,7 +23,6 @@ router.post("/", protect, async (req, res) => {
 
     const savedOrder = await newOrder.save();
 
-    // Clear the cart after successful order
     await Cart.findOneAndDelete({ user: req.user._id });
 
     return res.status(201).json(savedOrder);
@@ -35,7 +32,6 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
-// Fetch all orders of logged-in user
 router.get("/my-orders", protect, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id }).sort({
@@ -48,7 +44,6 @@ router.get("/my-orders", protect, async (req, res) => {
   }
 });
 
-// Get single order by ID
 router.get("/:id", protect, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate(
@@ -68,9 +63,3 @@ router.get("/:id", protect, async (req, res) => {
 });
 
 module.exports = router;
-
-//  What this does:
-
-// Saves the order
-// Clears the cart for that user (await Cart.findOneAndDelete(...))
-// Returns the order to frontend

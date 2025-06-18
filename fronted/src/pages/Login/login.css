@@ -1,4 +1,4 @@
-/* ===== Login Page (Luxury) ===== */
+
 .login-page {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   min-height: 100vh;
@@ -173,7 +173,7 @@
   transform: scale(1.05);
 }
 
-/* ===== Responsive Design ===== */
+
 @media (max-width: 768px) {
   .login-form {
     grid-template-columns: 1fr;

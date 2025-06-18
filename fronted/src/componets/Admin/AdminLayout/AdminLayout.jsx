@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 
 import "./AdminLayout.css";
 import AdminSidebar from "../AdminSideBar/AdminSideBar";
-// import AdminNavbar from "../AdminNavbar/AdminNavbar";
 
 function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

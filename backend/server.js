@@ -4,52 +4,53 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const createDefaultAdmin = require("./utils/createDefaultAdmin");
 
-// Load environment variables
 dotenv.config();
 
-// Initialize Express
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Connect to MongoDB
 connectDB();
-
 createDefaultAdmin();
 
-// Port
-const PORT = process.env.PORT || 9000;
+const userRoutes = require("./Routes/UserRoutes");
+const productRoutes = require("./Routes/ProductRoutes");
+const cartRoutes = require("./Routes/CartRoutes");
+const checkoutRoutes = require("./Routes/checkoutRoute");
+const orderRoutes = require("./Routes/orderRoutes");
+const uploadRoutes = require("./Routes/uploadRoute");
+const subscribeRoutes = require("./Routes/subscribeRoute");
+const orderDetailsRoutes = require("./Routes/OrderDetailsRoute");
 
-// Default route
+const adminUserRoutes = require("./Routes/AdminRoutes");
+const adminProductRoutes = require("./Routes/AdminProduct");
+const adminOrderRoutes = require("./Routes/AdminOrderRoute");
+const adminDashboardRoutes = require("./Routes/AdminHomePageRoute");
+
 app.get("/", (req, res) => {
   res.send("🚀 Welcome to the StyleNest API");
 });
 
-// ================== ROUTES ================== //
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/checkout", checkoutRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/subscribe", subscribeRoutes);
+app.use("/api/orderdetails", orderDetailsRoutes);
 
-// User-Facing APIs
-app.use("/api/users", require("./Routes/UserRoutes"));
-app.use("/api/products", require("./Routes/ProductRoutes"));
-app.use("/api/cart", require("./Routes/CartRoutes"));
-app.use("/api/checkout", require("./Routes/checkoutRoute"));
-app.use("/api/orders", require("./Routes/orderRoutes"));
-app.use("/api/upload", require("./Routes/uploadRoute"));
-app.use("/api", require("./Routes/subscribeRoute")); // Consider using /api/subscribe
+app.use("/api/admin/users", adminUserRoutes);
+app.use("/api/admin/products", adminProductRoutes);
+app.use("/api/admin/orders", adminOrderRoutes);
+app.use("/api/admin/dashboard", adminDashboardRoutes);
 
-// Admin APIs
-app.use("/api/admin/users", require("./Routes/AdminRoutes"));
-app.use("/api/admin/products", require("./Routes/AdminProduct"));
-app.use("/api/admin/orders", require("./Routes/AdminOrderRoute"));
-app.use("/api/admin/dashboard", require("./Routes/AdminHomePageRoute")); // Admin Dashboard
-
-// Catch-all for undefined routes
 app.use((req, res) => {
   res.status(404).json({ message: "API route not found" });
 });
 
-// Start Server
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
   console.log(`\n✅ StyleNest API is running at: http://localhost:${PORT}`);
 });

@@ -14,7 +14,6 @@ function CartPage() {
   const { user } = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart.cart);
 
-  // 🔄 Always fetch cart on mount
   useEffect(() => {
     dispatch(fetchCart({ userId: user?._id || null }));
   }, [dispatch, user]);

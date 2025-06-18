@@ -7,7 +7,6 @@ function Header() {
     <header className="site-header">
       <Topbar />
       <Navbar />
-      {/* Cart Drawer will be added here later if needed */}
     </header>
   );
 }

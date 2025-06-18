@@ -7,7 +7,7 @@ const router = express.Router();
 
 // @route   GET /api/admin/overview
 // @desc    Get admin dashboard statistics
-// @access  Private/Admin 
+// @access  Private/Admin
 router.get("/overview", protect, admin, async (req, res) => {
   try {
     const totalOrders = await Order.countDocuments();

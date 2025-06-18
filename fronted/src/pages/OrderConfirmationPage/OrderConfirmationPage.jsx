@@ -30,7 +30,7 @@ function OrderConfirmationPage() {
           }
         );
 
-        console.log("Order API response:", response.data); 
+        console.log("Order API response:", response.data);
         setOrder(response.data);
       } catch (err) {
         console.error("Order fetch error:", err);
@@ -61,7 +61,11 @@ function OrderConfirmationPage() {
   };
 
   if (loading) {
-    return <p className="order-confirmation__loading">Loading order confirmation...</p>;
+    return (
+      <p className="order-confirmation__loading">
+        Loading order confirmation...
+      </p>
+    );
   }
 
   if (error) {
@@ -69,7 +73,9 @@ function OrderConfirmationPage() {
   }
 
   if (!order) {
-    return <p className="order-confirmation__error">No order details available.</p>;
+    return (
+      <p className="order-confirmation__error">No order details available.</p>
+    );
   }
 
   return (
@@ -114,7 +120,9 @@ function OrderConfirmationPage() {
                     className="order-item__image"
                   />
                   <div className="order-item__details">
-                    <h4 className="order-item__name">{item.name || "Unknown Product"}</h4>
+                    <h4 className="order-item__name">
+                      {item.name || "Unknown Product"}
+                    </h4>
                     <p className="order-item__attributes">
                       {item.color || "N/A"} | Size: {item.size || "N/A"}
                     </p>
@@ -125,8 +133,6 @@ function OrderConfirmationPage() {
                   <div className="order-item__quantity">
                     Qty: {item.quantity || 1}
                   </div>
-
-                   
                 </div>
               ))
             ) : (
@@ -142,10 +148,14 @@ function OrderConfirmationPage() {
               {order.shippingAddress?.address || "N/A"}
               <br />
               {order.shippingAddress?.city
-                ? `${order.shippingAddress.city}, ${order.shippingAddress.country || "N/A"}`
+                ? `${order.shippingAddress.city}, ${
+                    order.shippingAddress.country || "N/A"
+                  }`
                 : "N/A"}
             </p>
-            <p className="order-info__method">Shipping method: Standard Delivery</p>
+            <p className="order-info__method">
+              Shipping method: Standard Delivery
+            </p>
           </div>
 
           <div className="order-info__payment">

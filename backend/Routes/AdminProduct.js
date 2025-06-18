@@ -8,7 +8,6 @@ const router = express.Router();
 // @ route GET /api/admin/products
 // @ desc Get all products [admin only]
 // @ access Private/Admin
-
 router.get("/", protect, admin, async (req, res) => {
   try {
     const products = await Product.find({});

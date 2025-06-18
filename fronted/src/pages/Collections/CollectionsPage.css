@@ -1,4 +1,4 @@
-/* ===== Page Wrapper ===== */
+
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   position: relative;
 }
 
-/* ===== Header ===== */
+
 .nav-header {
   padding: 1.25rem 1.5rem;
   background: #fff;
@@ -36,7 +36,7 @@
   flex: 0 0 auto;
 }
 
-/* ===== Main Layout ===== */
+
 .main-section {
   display: flex;
   flex-direction: column-reverse;
@@ -44,7 +44,7 @@
   position: relative;
 }
 
-/* ===== Sidebar ===== */
+
 .sidebar {
   width: 65%;
   background: #f4f1e9;
@@ -62,7 +62,6 @@
   transform: translateX(0);
 }
 
-/* ===== Mobile Filter Button ===== */
 .mobile-filter-button {
   position: fixed;
   bottom: 1.5rem;
@@ -91,7 +90,6 @@
   box-shadow: 0 6px 24px rgba(212, 160, 23, 0.3);
 }
 
-/* ===== Main Content ===== */
 .main-content {
   flex: 1;
   padding: 1.5rem 1rem;
@@ -100,7 +98,6 @@
   margin: 0 auto;
 }
 
-/* ===== Product Grid ===== */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -164,7 +161,6 @@
   margin-top: 0.25rem;
 }
 
-/* ===== Loading / Error / Empty States ===== */
 .loading-state,
 .error-state,
 .empty-state {
@@ -173,21 +169,6 @@
   padding: 2rem 1rem;
 }
 
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(212, 160, 23, 0.2);
-  border-top: 4px solid #d4a017;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .error-icon {
   font-size: 2rem;

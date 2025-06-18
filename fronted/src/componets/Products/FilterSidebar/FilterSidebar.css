@@ -1,4 +1,4 @@
-/* ===== Filter Sidebar (Luxury Theme) ===== */
+
 .filter-sidebar-container {
   width: 300px;
   background: #fff;
@@ -61,7 +61,6 @@
   background: rgba(212, 160, 23, 0.1);
 }
 
-/* === Filter Group === */
 .filter-group {
   margin-bottom: 2rem;
   background: #fff;
@@ -115,7 +114,6 @@
   font-size: medium;
 }
 
-/* Custom radio/checkbox box */
 .filter-option input[type="radio"] + span::before,
 .filter-option input[type="checkbox"] + span::before {
   content: '';
@@ -154,7 +152,6 @@
   font-weight: bold;
 }
 
-/* === Price Range === */
 .price-range-container {
   margin-top: 1.5rem;
 }
@@ -236,7 +233,7 @@
   pointer-events: auto;
 }
 
-/* === Mobile Overlay === */
+
 .filter-sidebar-overlay {
   content: '';
   position: fixed;
@@ -256,7 +253,6 @@
   pointer-events: auto;
 }
 
-/* === Close Button (Mobile) === */
 .filter-close-btn {
   display: none;
   position: absolute;
@@ -270,7 +266,7 @@
   z-index: 11;
 }
 
-/* === Responsive Improvements === */
+
 @media (max-width: 1024px) {
   .filter-sidebar-container {
     box-shadow: 5px 0 50px rgba(0, 0, 0, 0.2);

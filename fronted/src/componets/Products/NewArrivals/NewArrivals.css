@@ -1,4 +1,4 @@
-/* ===== New Arrivals Section (Luxury) ===== */
+
 .new-arrivals {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 5rem 2rem;
@@ -93,7 +93,6 @@
   font-family: 'Lora', serif;
 }
 
-/* Scroll Buttons */
 .new-arrivals__scroll-btn {
   position: absolute;
   top: 50%;
@@ -128,7 +127,6 @@
   right: -1.5rem;
 }
 
-/* Status Messages */
 .new-arrivals__loading,
 .new-arrivals__error,
 .new-arrivals__empty {
@@ -139,7 +137,6 @@
   padding: 2rem 0;
 }
 
-/* ===== Scrollbar Customization ===== */
 .new-arrivals__content::-webkit-scrollbar {
   height: 8px;
 }
@@ -159,7 +156,6 @@
   background: #b8962c;
 }
 
-/* Firefox scrollbar customization */
 @supports (scrollbar-color: auto) {
   .new-arrivals__content {
     scrollbar-color: #d4a017 #2e3b3e;
@@ -167,7 +163,7 @@
   }
 }
 
-/* ===== Responsive Design ===== */
+
 @media (max-width: 768px) {
   .new-arrivals {
     padding: 3rem 1.5rem;

@@ -5,8 +5,6 @@ import Footer from "../../Comman/Footer/Footer";
 
 const UserLayout = () => {
   const location = useLocation();
-
-  // Hide Header/Footer on login and register pages
   const hideOnPaths = ["/login", "/register"];
   const shouldHideLayout = hideOnPaths.includes(location.pathname);
 

@@ -13,11 +13,6 @@ function AdminSidebar({ isOpen, onClose }) {
     { to: "/", icon: <FaStore />, label: "Shop" },
   ];
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    sessionStorage.clear();
-    navigate("/admin/login");
-  };
 
   return (
     <>
@@ -43,11 +38,6 @@ function AdminSidebar({ isOpen, onClose }) {
               <span>{link.label}</span>
             </NavLink>
           ))}
-
-          <button className="admin-link logout-btn" onClick={handleLogout}>
-            <FaSignOutAlt />
-            <span>Logout</span>
-          </button>
         </nav>
       </aside>
 

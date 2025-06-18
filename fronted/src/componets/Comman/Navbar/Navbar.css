@@ -1,4 +1,4 @@
-/* ===== Navbar (Luxury Dark Theme) ===== */
+
 .navbar {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 1.5rem 5rem;
@@ -10,7 +10,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== Mobile Menu Overlay ===== */
 .mobile-menu-overlay {
   position: fixed;
   top: 0;
@@ -21,7 +20,6 @@
   z-index: 999;
 }
 
-/* ===== Mobile Menu ===== */
 .mobile-menu {
   position: fixed;
   top: 0;
@@ -86,7 +84,6 @@
   color: #d4a017;
 }
 
-/* ===== Mobile Navbar ===== */
 .navbar-mobile {
   display: flex;
   flex-direction: column;
@@ -184,7 +181,6 @@
   width: 100%;
 }
 
-/* ===== Desktop Navbar ===== */
 .navbar-desktop {
   display: none;
 }
@@ -267,7 +263,6 @@
   transform: scale(1.1);
 }
 
-/* ===== Responsive Design ===== */
 @media (min-width: 769px) {
   .navbar-mobile {
     display: none;

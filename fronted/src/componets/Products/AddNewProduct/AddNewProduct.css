@@ -1,4 +1,4 @@
-/* ===== Add New Product Page ===== */
+
 .productadd-page {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 3rem 1rem;
@@ -20,7 +20,6 @@
   text-align: center;
 }
 
-/* ===== Form Section ===== */
 .productadd-form {
   background: #f4f1e9;
   border-radius: 1.5rem;
@@ -38,7 +37,6 @@
   margin-bottom: 2rem;
 }
 
-/* ===== Form Inputs ===== */
 .productadd-form-grid input,
 .productadd-form-grid select {
   padding: 0.9rem 1.2rem;
@@ -81,7 +79,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.2);
 }
 
-/* ===== Dynamic Input Sections (Sizes, Colors) ===== */
 .productadd-dynamic-input {
   margin-bottom: 2rem;
 }
@@ -138,7 +135,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
 }
 
-/* ===== Checkbox Row ===== */
 .productadd-checkbox-row {
   display: flex;
   gap: 2.5rem;
@@ -162,7 +158,6 @@
   cursor: pointer;
 }
 
-/* ===== Image Upload Section ===== */
 .productadd-upload-wrapper {
   margin-bottom: 2rem;
 }
@@ -197,7 +192,6 @@
   color: #d4a017;
 }
 
-/* ===== Image Preview Section ===== */
 .productadd-image-preview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -248,7 +242,6 @@
   transform: scale(1.1);
 }
 
-/* ===== Submit Button ===== */
 .productadd-submit-btn {
   background: #2a2a2a;
   color: #f4f1e9;
@@ -271,7 +264,6 @@
   box-shadow: 0 6px 16px rgba(212, 160, 23, 0.3);
 }
 
-/* ===== Responsive Design ===== */
 @media (min-width: 1200px) {
   .productadd-form {
     padding: 3rem;

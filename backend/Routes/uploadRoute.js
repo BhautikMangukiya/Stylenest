@@ -6,20 +6,18 @@ require("dotenv").config();
 
 const router = express.Router();
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Multer setup for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({
   storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB max file size
-    files: 10, // Max 10 files
+    fileSize: 5 * 1024 * 1024,
+    files: 10,
   },
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {
@@ -30,7 +28,6 @@ const upload = multer({
   },
 });
 
-// Function to stream upload to Cloudinary
 const streamUpload = (fileBuffer) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -47,7 +44,6 @@ const streamUpload = (fileBuffer) => {
   });
 };
 
-// Upload route
 router.post("/", upload.array("images", 10), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {

@@ -1,4 +1,4 @@
-/* ===== Core Reset ===== */
+
 body {
   margin: 0;
   font-family: 'Lora', serif;
@@ -7,7 +7,7 @@ body {
   box-sizing: border-box;
 }
 
-/* ===== Layout Container ===== */
+
 .admin-layout {
   display: flex;
   flex-direction: column;
@@ -15,7 +15,6 @@ body {
   background-color: #ffffff;
 }
 
-/* ===== Main Content ===== */
 .admin-content {
   display: flex;
   flex-direction: column;
@@ -33,7 +32,6 @@ body {
   font-family: 'Lora', serif;
 }
 
-/* ===== Sidebar Toggle Button (Mobile) ===== */
 .sidebar-toggle-btn {
   display: block;
   position: fixed;
@@ -62,7 +60,6 @@ body {
   transform: translateY(0);
 }
 
-/* ===== Tablet & Desktop Styles ===== */
 @media (min-width: 640px) {
   .admin-main {
     padding: 1.5rem;

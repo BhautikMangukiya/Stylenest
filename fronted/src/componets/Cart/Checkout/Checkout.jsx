@@ -6,7 +6,7 @@ import axios from "axios";
 import "./Checkout.css";
 import PaytmButton from "../PaytmButton/PaytmButton";
 import { createCheckoutSession } from "../../../../redux/slices/checkoutSlice";
-import { clearCart } from "../../../../redux/slices/cartSlice"; // ✅ added
+import { clearCart } from "../../../../redux/slices/cartSlice";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -83,7 +83,6 @@ const handlePaymentSuccess = async () => {
   try {
     const token = localStorage.getItem("userToken");
 
-    // 1. Mark checkout as paid
     await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
       {
@@ -97,7 +96,7 @@ const handlePaymentSuccess = async () => {
       }
     );
 
-    // 2. Finalize checkout session
+
     await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/finalize`,
       {},
@@ -108,7 +107,6 @@ const handlePaymentSuccess = async () => {
       }
     );
 
-    // 3. Create order
     await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/orders`,
       {
@@ -124,7 +122,6 @@ const handlePaymentSuccess = async () => {
       }
     );
 
-    // 4. Clear the cart - both backend and frontend
     await axios.delete(
       `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
       {
@@ -135,10 +132,9 @@ const handlePaymentSuccess = async () => {
       }
     );
 
-    // 5. Update Redux state and localStorage
-    dispatch(clearCart()); // This will clear the cart in Redux and localStorage
+    dispatch(clearCart()); 
 
-    // 6. Redirect to order history
+
     navigate("/my-orders");
   } catch (error) {
     console.error("Payment finalization failed:", error);

@@ -30,7 +30,7 @@ function ProductManagement() {
         <Link to="/admin/products/add" className="add-product-btn">+ Add Product</Link>
       </div>
 
-      {loading && <div className="loading-spinner">Loading products...</div>}
+      {loading && <div className="loading-text">Loading products...</div>}
       {error && <div className="error-message">Error: {error}</div>}
 
       {!loading && !error && (

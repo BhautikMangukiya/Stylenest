@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import "./EditProductPage.css";
 
-// Load backend URL from environment
+
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 function EditProductPage() {
@@ -15,10 +15,8 @@ function EditProductPage() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  // Redux state
   const { selectedProduct, loading, error } = useSelector((state) => state.products);
 
-  // Local component state
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -45,14 +43,13 @@ function EditProductPage() {
     images: [],
   });
 
-  // Fetch product details
   useEffect(() => {
     if (id) {
       dispatch(fetchProductById(id));
     }
   }, [id, dispatch]);
 
-  // Populate form with fetched data
+
   useEffect(() => {
     if (selectedProduct && selectedProduct._id === id) {
       setFormData({
@@ -66,7 +63,7 @@ function EditProductPage() {
     }
   }, [selectedProduct, id]);
 
-  // Handle input changes
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -84,12 +81,12 @@ function EditProductPage() {
     }
   };
 
-  // Trigger hidden file input
+
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
 
-  // Handle new image file selection
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     const newImages = files.map((file) => ({
@@ -103,7 +100,6 @@ function EditProductPage() {
     }));
   };
 
-  // Remove image from local state
   const handleRemoveImage = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -111,14 +107,14 @@ function EditProductPage() {
     }));
   };
 
-  // Handle form submit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const toastId = toast.loading("Updating product...");
 
     try {
-      // Separate new files and existing image URLs
+  
       const newFiles = formData.images.filter((img) => img.file instanceof File);
       const existingImages = formData.images
         .filter((img) => typeof img === "string" || (img.url && img.url.startsWith("http")))
@@ -143,7 +139,7 @@ function EditProductPage() {
         uploadedImages = res.data.images || [];
       }
 
-      // Final data object to submit
+
       const updatedData = {
         ...formData,
         price: parseFloat(formData.price),
@@ -161,7 +157,6 @@ function EditProductPage() {
         images: [...existingImages, ...uploadedImages],
       };
 
-      // Dispatch update to Redux
       await dispatch(updateProduct({ id, productData: updatedData })).unwrap();
 
       toast.success("Product updated successfully!", { id: toastId });
@@ -174,11 +169,9 @@ function EditProductPage() {
     }
   };
 
-  // Render loading or error state
   if (loading) return <div className="edit-product__loading">Loading...</div>;
   if (error) return <div className="edit-product__error">Error: {error}</div>;
 
-  // Main render
   return (
     <div className="edit-product">
       <header className="edit-product__header">

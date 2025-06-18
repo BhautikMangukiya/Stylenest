@@ -111,7 +111,9 @@ router.get("/", async (req, res) => {
     }
 
     if (material) {
-      query.material = { $in: material.split(",").map((m) => createRegex(m.trim())) };
+      query.material = {
+        $in: material.split(",").map((m) => createRegex(m.trim())),
+      };
     }
 
     if (brand) {

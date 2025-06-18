@@ -7,45 +7,48 @@ import { logout } from "../../../redux/slices/authSlice";
 import { clearCart } from "../../../redux/slices/cartSlice";
 
 function Profile() {
-
-  const {user} = useSelector((state) => state.auth)
-
-   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user){
-      navigate("/login")
+    if (!user) {
+      navigate("/login");
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
-  const handalLogout = () => {
-    dispatch(logout())
-    dispatch(clearCart)
-    navigate("/login")
-  }
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(clearCart());
+    navigate("/login");
+  };
 
   return (
-    <div className="user-profile-wrap">
-      <div className="user-profile-container">
-        <div className="user-profile-left">
-          <div className="user-profile-info">
-            <h2>User Details</h2>
-            <div className="p-wrap-myorderpage">
-            <p>
-              <strong>Name:</strong> {user?.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {user?.email}
-            </p>
+    <div className="profile-container">
+      <div className="profile-sidebar">
+        <div className="user-info-card">
+          <h2>User Profile</h2>
+          <div className="user-details">
+            <div className="detail-item">
+              <span className="detail-label">Name:</span>
+              <span className="detail-value">{user?.name}</span>
             </div>
-            <button onClick={handalLogout} className="btn-logout" >Logout</button>
+            <div className="detail-item">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">{user?.email}</span>
+            </div>
           </div>
+          <button 
+            onClick={handleLogout} 
+            className="logout-btn"
+          >
+            Logout
+          </button>
         </div>
-
-        <div className="user-profile-right">
-          <MyOrderPage />
-        </div>
+      </div>
+      
+      <div className="profile-content">
+        <MyOrderPage />
       </div>
     </div>
   );

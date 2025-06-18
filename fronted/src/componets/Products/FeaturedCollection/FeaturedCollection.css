@@ -1,4 +1,3 @@
-/* ===== Featured Collection Section (Luxury) ===== */
 .featured-section {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   padding: 5rem 2rem;
@@ -86,7 +85,6 @@
   transform: scale(1.05);
 }
 
-/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .featured-section {
     padding: 3rem 1.5rem;

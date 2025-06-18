@@ -1,4 +1,4 @@
-/* ===== Checkout Page (Luxury) ===== */
+
 .checkout {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   min-height: 100vh;
@@ -196,7 +196,6 @@
   color: #d4a017;
 }
 
-/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .checkout-container {
     grid-template-columns: 1fr;

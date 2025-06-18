@@ -53,13 +53,11 @@ router.put("/:id", protect, admin, async (req, res) => {
   try {
     const { name, email, role } = req.body;
 
-    // Find user by ID
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // If email is being changed, check if it's already in use
     if (email && email !== user.email) {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -68,11 +66,9 @@ router.put("/:id", protect, admin, async (req, res) => {
       user.email = email;
     }
 
-    // Update other fields
     user.name = name || user.name;
     user.role = role || user.role;
 
-    // Save the updated user
     const updatedUser = await user.save();
 
     res.json({

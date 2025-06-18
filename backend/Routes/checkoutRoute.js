@@ -6,13 +6,20 @@ const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-
 // @ route POST /api/checkout
 // @ desc Create a new checkout session
 // @ access Private
- 
+
 router.post("/", protect, async (req, res) => {
-  const { checkOutItems, ShippingAddress, paymentMethod, totalPrice, quantity, size, color } = req.body;
+  const {
+    checkOutItems,
+    ShippingAddress,
+    paymentMethod,
+    totalPrice,
+    quantity,
+    size,
+    color,
+  } = req.body;
 
   // Basic validation
   if (!Array.isArray(checkOutItems) || checkOutItems.length === 0) {
@@ -26,7 +33,7 @@ router.post("/", protect, async (req, res) => {
   try {
     const newCheckout = await Checkout.create({
       user: req.user._id,
-      checkOutItems: checkOutItems.map(item => ({
+      checkOutItems: checkOutItems.map((item) => ({
         productId: item.productId,
         name: item.name,
         image: item.image,
@@ -58,7 +65,9 @@ router.put("/:id/pay", protect, async (req, res) => {
   const { paymentStatus, paymentDetails } = req.body;
 
   if (paymentStatus !== "paid") {
-    return res.status(400).json({ message: "Invalid or missing payment status" });
+    return res
+      .status(400)
+      .json({ message: "Invalid or missing payment status" });
   }
 
   try {
@@ -89,7 +98,7 @@ router.put("/:id/pay", protect, async (req, res) => {
 //  @route   POST /api/checkout/:id/finalize
 //  @desc    Finalize checkout and convert to order
 //  @access  Private
- 
+
 router.post("/:id/finalize", protect, async (req, res) => {
   const { id } = req.params;
 
@@ -111,34 +120,39 @@ router.post("/:id/finalize", protect, async (req, res) => {
     if (!checkout.isPaid) {
       return res.status(400).json({ message: "Checkout is not paid" });
     }
-
-    // Validate shipping address
     const { ShippingAddress } = checkout;
     const requiredFields = ["address", "city", "postalCode", "country"];
-    const missingFields = requiredFields.filter(field => !ShippingAddress?.[field]);
+    const missingFields = requiredFields.filter(
+      (field) => !ShippingAddress?.[field]
+    );
 
     if (missingFields.length > 0) {
       return res.status(400).json({
-        message: `Missing required shipping address fields: ${missingFields.join(", ")}`,
+        message: `Missing required shipping address fields: ${missingFields.join(
+          ", "
+        )}`,
       });
     }
 
-    // Validate order items
-    if (!Array.isArray(checkout.checkOutItems) || checkout.checkOutItems.length === 0) {
+    if (
+      !Array.isArray(checkout.checkOutItems) ||
+      checkout.checkOutItems.length === 0
+    ) {
       return res.status(400).json({ message: "Checkout has no items" });
     }
 
-    const invalidItems = checkout.checkOutItems.some(item => !item.productId);
+    const invalidItems = checkout.checkOutItems.some((item) => !item.productId);
     if (invalidItems) {
-      return res.status(400).json({ message: "Each item must have a productId" });
+      return res
+        .status(400)
+        .json({ message: "Each item must have a productId" });
     }
 
-    // Create order
     let finalOrder;
     try {
       finalOrder = await Order.create({
         user: checkout.user,
-        orderItems: checkout.checkOutItems.map(item => ({
+        orderItems: checkout.checkOutItems.map((item) => ({
           productId: item.productId,
           name: item.name,
           image: item.image,
@@ -161,12 +175,10 @@ router.post("/:id/finalize", protect, async (req, res) => {
       return res.status(500).json({ message: "Failed to create order" });
     }
 
-    // Finalize checkout
     checkout.isFinalized = true;
     checkout.finalizedAt = new Date();
     await checkout.save();
 
-    // Clear cart
     await Cart.findOneAndDelete({ user: checkout.user });
 
     return res.status(201).json({

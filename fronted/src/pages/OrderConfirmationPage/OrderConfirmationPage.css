@@ -43,6 +43,12 @@
 .order-summary {
   padding: 2rem;
 }
+/* 
+.order-summary__items{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
 
 .order-summary__meta {
   margin-bottom: 2rem;

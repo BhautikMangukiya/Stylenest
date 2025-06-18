@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function CartDrawer({ drawerOpen, toggleCartDrawer }) {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth); // ✅ Check auth state
+  const { user } = useSelector((state) => state.auth); 
 
   const handleBackdropClick = (e) => {
     if (e.target.classList.contains("cart-drawer-backdrop")) {
@@ -16,11 +16,11 @@ function CartDrawer({ drawerOpen, toggleCartDrawer }) {
   };
 
   const handleCheckoutClick = () => {
-    toggleCartDrawer(); // Close drawer first
+    toggleCartDrawer(); 
     if (user) {
-      navigate("/checkout"); // ✅ If logged in
+      navigate("/checkout"); 
     } else {
-      navigate("/login?redirect=/checkout"); // ✅ If guest, force login first
+      navigate("/login?redirect=/checkout");
     }
   };
 

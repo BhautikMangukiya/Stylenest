@@ -14,7 +14,9 @@ export const fetchDashboardStats = createAsyncThunk(
       });
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Failed to fetch stats");
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to fetch stats"
+      );
     }
   }
 );
@@ -23,14 +25,19 @@ export const fetchRecentOrders = createAsyncThunk(
   "adminDashboard/fetchRecentOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/admin/dashboard/recent-orders`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      });
+      const res = await axios.get(
+        `${BASE_URL}/api/admin/dashboard/recent-orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Failed to fetch orders");
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to fetch orders"
+      );
     }
   }
 );

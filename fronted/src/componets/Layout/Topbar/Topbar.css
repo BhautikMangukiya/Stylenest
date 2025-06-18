@@ -1,4 +1,4 @@
-/* ===== Topbar (Luxury Dark Theme) ===== */
+
 .topbar {
   background: linear-gradient(135deg, #1c2526 0%, #2e3b3e 100%);
   color: #f4f1e9;
@@ -7,7 +7,6 @@
   border-bottom: 1px solid rgba(212, 160, 23, 0.2);
 }
 
-/* ===== Mobile Topbar ===== */
 .topbar-mobile {
   display: flex;
   flex-direction: column;
@@ -90,7 +89,7 @@
   text-align: center;
 }
 
-/* ===== Desktop Topbar ===== */
+
 .topbar-desktop {
   display: none;
 }
@@ -143,7 +142,6 @@
   color: #f4f1e9;
 }
 
-/* ===== Responsive Design ===== */
 @media (min-width: 769px) {
   .topbar-mobile {
     display: none;

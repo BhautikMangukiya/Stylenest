@@ -13,15 +13,6 @@ const cartItemSchema = new mongoose.Schema(
     size: String,
     color: String,
     quantity: { type: Number, default: 1 },
-    // addedBy: {
-    //   type: String,
-    //   required: true,
-    // },
-    // addedByType: {
-    //   type: String,
-    //   enum: ["user", "guest"],
-    //   required: true,
-    // },
   },
   { _id: false }
 );

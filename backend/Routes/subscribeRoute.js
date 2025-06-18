@@ -15,14 +15,12 @@ router.post("/subscribe", async (req, res) => {
   }
 
   try {
-    // Check if email is already Subscribed
     let subscriber = await Subscriber.findOne({ email });
 
     if (subscriber) {
       return res.status(400).json({ message: "Email is already subscribed" });
     }
 
-    // Create a new subscriber
     subscriber = new Subscriber({ email });
     await subscriber.save();
 
@@ -32,6 +30,5 @@ router.post("/subscribe", async (req, res) => {
     res.status(500).json({ message: "Server Error. Please try again later." });
   }
 });
-
 
 module.exports = router;
