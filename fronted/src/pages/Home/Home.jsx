@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import MenWomen from "../../componets/Products/MenWomen/MenWomen";
 import NewArrivals from "../../componets/Products/NewArrivals/NewArrivals";
-import Hero from "../../componets/Layout/hero/Hero";
+import Hero from "../../componets/Layout/Hero/Hero";
 import BestSeller from "../../componets/Products/BestSeller/BestSeller";
 import FeaturedCollection from "../../componets/Products/FeaturedCollection/FeaturedCollection";
 import CartDrawer from "../../componets/Layout/CartDrawer/CartDrawer";
