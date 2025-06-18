@@ -3,9 +3,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaUser, FaBoxOpen, FaClipboardList, FaStore, FaTimes, FaSignOutAlt } from "react-icons/fa";
 import "AdminSidebar.css";
 
-
-
-
 function AdminSidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
 
