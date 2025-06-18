@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaUser, FaBoxOpen, FaClipboardList, FaStore, FaTimes, FaSignOutAlt } from "react-icons/fa";
-import "./temp.css";
+import "./AdminSidebarmobile.css";
 
 function AdminSidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
